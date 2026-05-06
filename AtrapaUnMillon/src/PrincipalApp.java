@@ -8,7 +8,7 @@ import com.mongodb.client.MongoDatabase;
 public class PrincipalApp {
 	public static void main (String [] args) {
 		String url = "mongodb+srv://joaest22_db_user:"
-				+ " UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
+				+ "UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
 		 try  {       	
 	        	MongoClient mongoClient = MongoClients.create(url);
 	            
