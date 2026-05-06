@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="src/lib/bson-4.10.2.jar"/>
 	<classpathentry kind="lib" path="src/lib/mongodb-driver-core-4.10.2.jar"/>
 	<classpathentry kind="lib" path="src/lib/mongodb-driver-sync-4.10.2.jar"/>
+	<classpathentry kind="lib" path="com.miglayout.swing_11.4.2.jar"/>
+	<classpathentry kind="lib" path="com.miglayout.core_11.4.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
