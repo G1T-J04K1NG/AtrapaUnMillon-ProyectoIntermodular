@@ -1,20 +1,20 @@
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
-import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import com.mongodb.client.model.Filters;
 
 public class JFrameLogIn extends JFrame {
 
@@ -76,11 +76,24 @@ public class JFrameLogIn extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!txtUsuario.getText().equals("") && !txtContrasenia.getText().equals("")) {
+				if (!txtUsuario.getText().trim().isEmpty() && !txtContrasenia.getText().trim().isEmpty()) {
+					String usuario = txtUsuario.getText();
+					Document usuarioEncontrado = collectionUsuarios.find(Filters.eq("usuario", usuario)).first();					
+					if (usuarioEncontrado!=null) {
+						if(txtContrasenia.getText().trim().equals(usuarioEncontrado.getString("contraseña"))) {
+							
+						}
+						else {
+							lblfallo.setText("La contraseña no es correcta.");
+						}
+					}
+					else {
+						lblfallo.setText("Este usuario no existe.");
+					}
 					
 				}
 				else {
-					lblfallo.setText("No puede haber campos vacíos.");
+					lblfallo.setText("Debes rellenar todos los campos.");
 					
 				}
 				

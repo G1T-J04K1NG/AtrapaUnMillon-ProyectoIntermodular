@@ -1,7 +1,15 @@
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.bson.Document;
@@ -10,15 +18,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
-import net.miginfocom.swing.MigLayout;
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class JframeInterfaz extends JFrame {
 	
@@ -52,6 +51,7 @@ public class JframeInterfaz extends JFrame {
 	    				try {
 	    					JframeInterfaz frame = new JframeInterfaz(collectionUsuarios,collectionPreguntas);
 	    					frame.setVisible(true);
+	    					frame.setResizable(false); //Para que no se pueda redimensionar.
 	    				} catch (Exception e) {
 	    					e.printStackTrace();
 	    				}
@@ -62,6 +62,10 @@ public class JframeInterfaz extends JFrame {
 	            e.printStackTrace();
 	        }
 	}
+	private static ArrayList<Usuario> iniciarUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -70,7 +74,7 @@ public class JframeInterfaz extends JFrame {
 		setTitle("Atrapa Un Millón");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 15, 1200, 800);
-		contentPanel = new JPanelPregunta();
+		contentPanel = new JPanel();
 		contentPanel.setBackground(Color.BLACK);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
@@ -92,6 +96,7 @@ public class JframeInterfaz extends JFrame {
 						try {
 							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios);
 							frameLogIn.setVisible(true);
+							frameLogIn.setResizable(false); //Para que no se pueda redimensionar.
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -114,11 +119,13 @@ public class JframeInterfaz extends JFrame {
 
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
 							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios);
 							frameRegistro.setVisible(true);
+							frameRegistro.setResizable(false); //Para que no se pueda redimensionar.
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
