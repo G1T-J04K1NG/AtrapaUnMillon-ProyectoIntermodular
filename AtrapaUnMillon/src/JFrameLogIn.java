@@ -26,7 +26,6 @@ public class JFrameLogIn extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
 
 	/**
 	 * Create the frame.
