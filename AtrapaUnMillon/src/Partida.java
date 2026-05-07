@@ -5,13 +5,13 @@ public class Partida {
 	// Creación clase Partida Rafa: 07/05/25
 	private Usuario jugador;
 	private int dinero;
-	private int numPregunta;
+	private int ronda;
 	private ArrayList<Comodin> comodinDisponible;
 
-	public Partida(Usuario jugador, int dinero, int numPregunta, ArrayList<Comodin> comodinDisponible) {
+	public Partida(Usuario jugador, int dinero, int ronda, ArrayList<Comodin> comodinDisponible) {
 		this.jugador = jugador;
-		this.dinero = 500;
-		this.numPregunta = numPregunta;
+		this.dinero = 0;
+		this.ronda = 0;
 		this.comodinDisponible = comodinDisponible; // ArrayList dondese añaden los comodines, luego con los eventos
 													// manejamos la utilización y eliminación
 	}
@@ -46,12 +46,12 @@ public class Partida {
 		this.dinero = dinero;
 	}
 
-	public int getNumPregunta() {
-		return numPregunta;
+	public int getRonda() {
+		return ronda;
 	}
 
-	public void setNumPregunta(int numPregunta) {
-		this.numPregunta = numPregunta;
+	public void setRonda(int ronda) {
+		this.ronda = ronda;
 	}
 
 	public ArrayList<Comodin> getComodinDisponible() {

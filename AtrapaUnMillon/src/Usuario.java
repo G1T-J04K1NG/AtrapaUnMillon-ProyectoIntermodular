@@ -5,7 +5,7 @@ public class Usuario {
 
 	private String nombre;
 	private String contraseña;
-	int puntacionMax;
+	private int puntacionMax;
 
 	public Usuario(String nombre, String contraseña, int puntacionMax) {
 
@@ -38,19 +38,12 @@ public class Usuario {
 		this.puntacionMax = puntacionMax;
 	}
 
-	// Método posible Actualizar Puntos en caso de que guardemos ranking
-	/*
-	 * 
-	 * public static void actualizarPuntos(int puntuacion){ if(puntuacion >
-	 * puntuacionMax){ puntuacionMax= puntuacion;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
-
+	public static void actualizarPuntos(int puntuacion, int puntuacionMax){ 
+		
+		if	(puntuacion > puntuacionMax){ 
+			puntuacionMax= puntuacion;
+		}
+	  
+	  }
+	
 }
