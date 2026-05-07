@@ -13,13 +13,15 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JFrameLogIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtUsuario;
+	private JTextField txtContrasenia;
 
 	/**
 	 * Launch the application.
@@ -48,15 +50,15 @@ public class JFrameLogIn extends JFrame {
 		lblContrasenia.setBounds(101, 209, 100, 21);
 		contentPane.add(lblContrasenia);
 		
-		textField = new JTextField();
-		textField.setBounds(193, 118, 220, 24);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(193, 118, 220, 24);
+		contentPane.add(txtUsuario);
+		txtUsuario.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(193, 209, 220, 24);
-		contentPane.add(textField_1);
+		txtContrasenia = new JTextField();
+		txtContrasenia.setColumns(10);
+		txtContrasenia.setBounds(193, 209, 220, 24);
+		contentPane.add(txtContrasenia);
 		
 		JLabel lblSesion = new JLabel("Inicio de Sesión");
 		lblSesion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -64,10 +66,32 @@ public class JFrameLogIn extends JFrame {
 		lblSesion.setBounds(155, 28, 290, 45);
 		contentPane.add(lblSesion);
 		
+		JLabel lblfallo = new JLabel("");
+		lblfallo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblfallo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblfallo.setForeground(Color.RED);
+		lblfallo.setBounds(128, 265, 329, 21);
+		contentPane.add(lblfallo);
+		
+		//Funcionalidad BtnEntrar
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!txtUsuario.getText().equals("") && !txtContrasenia.getText().equals("")) {
+					
+				}
+				else {
+					lblfallo.setText("No puede haber campos vacíos.");
+					
+				}
+				
+			}
+		});
 		btnEntrar.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnEntrar.setBounds(250, 306, 100, 23);
 		contentPane.add(btnEntrar);
+		
+		
 
 	}
 }
