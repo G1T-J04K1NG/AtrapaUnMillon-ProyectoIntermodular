@@ -1,5 +1,5 @@
 
-public class Jugador {
+public class Usuario {
 
 	// Creación clase Jugador Rafa: 07/05/25
 
@@ -7,7 +7,7 @@ public class Jugador {
 	private String contraseña;
 	int puntacionMax;
 
-	public Jugador(String nombre, String contraseña, int puntacionMax) {
+	public Usuario(String nombre, String contraseña, int puntacionMax) {
 
 		this.nombre = nombre;
 		this.contraseña = contraseña;

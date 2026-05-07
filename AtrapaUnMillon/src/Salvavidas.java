@@ -1,10 +1,10 @@
 
-public class TiempoExtra extends Comodin {
+public class Salvavidas extends Comodin {
 
 	// Creación clase TiempoExtra Rafa: 07/05/25
-	public TiempoExtra() {
-		this.nombre = "TiempoExtra";
-		this.descripcion = "Permite añadir +20 segundos para responder la pregunta";
+	public Salvavidas() {
+		this.nombre = "Salvavidas";
+		this.descripcion = "Permite volver a responder la pregunta aunque hayas seleccionado una opcion incorrecta";
 	}
 
 	// Siguiendo con lo de comodin séria algo así
