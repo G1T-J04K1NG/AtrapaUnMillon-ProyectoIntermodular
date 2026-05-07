@@ -6,7 +6,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.bson.Document;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 import net.miginfocom.swing.MigLayout;
 import java.awt.Font;
@@ -29,13 +32,42 @@ public class JframeInterfaz extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-
+	public static void main (String [] args) {
+		
+		 try  { 
+			 	//Conexión a la BDD
+			 	String url = "mongodb+srv://joaest22_db_user:"
+			 				+ "UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
+	        	MongoClient mongoClient = MongoClients.create(url);
+	            
+	        	MongoDatabase database = mongoClient.getDatabase("atrapa1millon");
+	            MongoCollection<Document> collectionUsuarios = database.getCollection("usuarios");
+	            MongoCollection<Document> collectionPreguntas = database.getCollection("preguntas");
+	            
+	            
+	            //InciarJframeInterfaz
+	            
+	            EventQueue.invokeLater(new Runnable() {
+	    			public void run() {
+	    				try {
+	    					JframeInterfaz frame = new JframeInterfaz(collectionUsuarios,collectionPreguntas);
+	    					frame.setVisible(true);
+	    				} catch (Exception e) {
+	    					e.printStackTrace();
+	    				}
+	    			}
+	    		});
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	}
 	/**
 	 * Create the frame.
 	 */
 	public JframeInterfaz(MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas) {
 		setFont(new Font("Guttman Frank", Font.BOLD, 13));
-		setTitle("Atrapa Un MiIlón");
+		setTitle("Atrapa Un Millón");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 15, 1200, 800);
 		contentPanel = new JPanel();
