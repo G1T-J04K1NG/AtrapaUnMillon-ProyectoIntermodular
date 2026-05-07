@@ -28,9 +28,7 @@ public class JframeInterfaz extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
 
-	/**
-	 * Launch the application.
-	 */
+	//MAIN
 	public static void main (String [] args) {
 		
 		 try  { 
@@ -94,7 +92,7 @@ public class JframeInterfaz extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios);
+							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios,JframeInterfaz.this);
 							frameLogIn.setVisible(true);
 							frameLogIn.setResizable(false); //Para que no se pueda redimensionar.
 						} catch (Exception e) {
@@ -117,13 +115,15 @@ public class JframeInterfaz extends JFrame {
 		btnRegistrarse.setBounds(800, 470, 250, 150);
 		contentPanel.add(btnRegistrarse);
 
+		
+		//Funcionalidad Registrar
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios);
+							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios,JframeInterfaz.this);
 							frameRegistro.setVisible(true);
 							frameRegistro.setResizable(false); //Para que no se pueda redimensionar.
 						} catch (Exception e) {

@@ -30,7 +30,7 @@ public class JFrameLogIn extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameLogIn(MongoCollection<Document> collectionUsuarios) {
+	public JFrameLogIn(MongoCollection<Document> collectionUsuarios, JframeInterfaz frame) {
 		setTitle("Atrapa Un Millón: Inicio De Sesión");
 		setBounds(350, 200, 650, 400);
 		contentPane = new JPanel();
@@ -77,11 +77,13 @@ public class JFrameLogIn extends JFrame {
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!txtUsuario.getText().trim().isEmpty() && !txtContrasenia.getText().trim().isEmpty()) {
-					String usuario = txtUsuario.getText();
-					Document usuarioEncontrado = collectionUsuarios.find(Filters.eq("usuario", usuario)).first();					
+					String usuarionombre = txtUsuario.getText();
+					Document usuarioEncontrado = collectionUsuarios.find(Filters.eq("usuario", usuarionombre)).first();					
 					if (usuarioEncontrado!=null) {
 						if(txtContrasenia.getText().trim().equals(usuarioEncontrado.getString("contraseña"))) {
-							
+							dispose();
+							Usuario usuario = new Usuario (usuarionombre, usuarioEncontrado.getString("contraseña"), usuarioEncontrado.getInteger("dinero"));
+							frame.setContentPane(new JPanelMenuPrincipal(usuario));
 						}
 						else {
 							lblfallo.setText("La contraseña no es correcta.");

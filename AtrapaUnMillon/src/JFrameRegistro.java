@@ -30,7 +30,7 @@ public class JFrameRegistro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameRegistro(MongoCollection<Document> collectionUsuarios) {
+	public JFrameRegistro(MongoCollection<Document> collectionUsuarios,JframeInterfaz frame) {
 		setTitle("Atrapa Un Millón: Registro de Usuario");
 		setBounds(350, 200, 650, 400);
 		contentPane = new JPanel();
