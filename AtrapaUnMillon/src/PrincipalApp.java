@@ -26,7 +26,7 @@ public class PrincipalApp {
 	            EventQueue.invokeLater(new Runnable() {
 	    			public void run() {
 	    				try {
-	    					JframeInterfaz frame = new JframeInterfaz();
+	    					JframeInterfaz frame = new JframeInterfaz(collectionUsuarios,collectionPreguntas);
 	    					frame.setVisible(true);
 	    				} catch (Exception e) {
 	    					e.printStackTrace();
