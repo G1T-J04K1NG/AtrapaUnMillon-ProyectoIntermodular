@@ -68,6 +68,8 @@ public class JframeInterfaz extends JFrame {
 			}
 		});
 		
+		
+		
 		//Formato de btnIniciarSesion
 		btnIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnIniciarSesion.setBounds(150, 470, 250, 150);
@@ -78,5 +80,19 @@ public class JframeInterfaz extends JFrame {
 		btnRegistrarse.setBounds(800, 470, 250, 150);
 		contentPanel.add(btnRegistrarse);
 
+		btnRegistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios);
+							frameRegistro.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 	}
 }
