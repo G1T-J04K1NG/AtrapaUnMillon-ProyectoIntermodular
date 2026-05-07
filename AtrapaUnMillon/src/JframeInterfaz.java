@@ -38,7 +38,7 @@ public class JframeInterfaz extends JFrame {
 		setTitle("Atrapa Un MiIlón");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 15, 1200, 800);
-		contentPanel = new JPanel();
+		contentPanel = new JPanelPregunta();
 		contentPanel.setBackground(Color.BLACK);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
