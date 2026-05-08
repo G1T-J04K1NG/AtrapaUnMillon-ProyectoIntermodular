@@ -5,13 +5,13 @@ public class Usuario {
 
 	private String nombre;
 	private String contraseña;
-	int puntacionMax;
+	private int ganadorMax;
 
-	public Usuario(String nombre, String contraseña, int puntacionMax) {
+	public Usuario(String nombre, String contraseña) {
 
 		this.nombre = nombre;
 		this.contraseña = contraseña;
-		this.puntacionMax = puntacionMax;
+		this.ganadorMax = 0;
 	}
 
 	public String getNombre() {
@@ -30,27 +30,20 @@ public class Usuario {
 		this.contraseña = contraseña;
 	}
 
-	public int getPuntacionMax() {
-		return puntacionMax;
+	public int getGanadorMax() {
+		return ganadorMax;
 	}
 
-	public void setPuntacionMax(int puntacionMax) {
-		this.puntacionMax = puntacionMax;
+	public void setGanadorMax(int puntacionMax) {
+		this.ganadorMax = puntacionMax;
 	}
 
-	// Método posible Actualizar Puntos en caso de que guardemos ranking
-	/*
-	 * 
-	 * public static void actualizarPuntos(int puntuacion){ if(puntuacion >
-	 * puntuacionMax){ puntuacionMax= puntuacion;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
+	public static void actualizarPuntos(int dinero, int ganadorMax) {
+
+		if (dinero > ganadorMax) {
+			ganadorMax = dinero;
+		}
+
+	}
 
 }

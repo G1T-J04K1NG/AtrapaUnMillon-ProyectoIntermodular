@@ -8,6 +8,8 @@ public abstract class Comodin {
 	//Habria que plantear si los comodines van a funcionar desde el Jpanel o hacerle métodos propios algo tipo lo siguiente
 	/*
 	 * public abstrac void usar(Partida partida){
+	 * 
+	 * 
 	 * }
 	 * 
 	 * 
