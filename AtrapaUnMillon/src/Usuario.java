@@ -7,11 +7,11 @@ public class Usuario {
 	private String contraseña;
 	private int puntacionMax;
 
-	public Usuario(String nombre, String contraseña, int puntacionMax) {
+	public Usuario(String nombre, String contraseña) {
 
 		this.nombre = nombre;
 		this.contraseña = contraseña;
-		this.puntacionMax = puntacionMax;
+		this.puntacionMax = 0;
 	}
 
 	public String getNombre() {
@@ -38,12 +38,12 @@ public class Usuario {
 		this.puntacionMax = puntacionMax;
 	}
 
-	public static void actualizarPuntos(int puntuacion, int puntuacionMax){ 
-		
-		if	(puntuacion > puntuacionMax){ 
-			puntuacionMax= puntuacion;
+	public static void actualizarPuntos(int puntuacion, int puntuacionMax) {
+
+		if (puntuacion > puntuacionMax) {
+			puntuacionMax = puntuacion;
 		}
-	  
-	  }
-	
+
+	}
+
 }
