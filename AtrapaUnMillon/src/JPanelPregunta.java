@@ -61,7 +61,7 @@ public class JPanelPregunta extends JPanel {
         
         JLabel lblNewLabel_1 = new JLabel("");
         lblNewLabel_1.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/Captura de pantalla 2026-05-07 125829.png")));
-        lblNewLabel_1.setBounds(-19, -39, 1331, 886);
+        lblNewLabel_1.setBounds(-59, -84, 1331, 886);
         add(lblNewLabel_1);
     }
 
