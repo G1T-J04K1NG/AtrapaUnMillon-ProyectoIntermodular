@@ -29,6 +29,7 @@ public class JframeInterfaz extends JFrame {
 	private JPanel contentPanel;
 
 	//MAIN
+
 	public static void main (String [] args) {
 		
 		 try  { 
@@ -60,6 +61,7 @@ public class JframeInterfaz extends JFrame {
 	            e.printStackTrace();
 	        }
 	}
+
 	
 	private static ArrayList<Usuario> iniciarUsuarios() {
 		// TODO Auto-generated method stub

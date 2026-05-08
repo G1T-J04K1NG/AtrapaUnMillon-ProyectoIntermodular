@@ -1,4 +1,7 @@
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,74 +17,126 @@ import javax.swing.border.LineBorder;
 public class JPanelPregunta extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    // Cargamos la imagen directamente para el método paintComponent
-    private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/Captura de pantalla 2026-05-07 125829.png")).getImage();
+    private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/Fondo JFrame Pregunta.png")).getImage();
+
+    private JButton btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD;
+    private JLabel lblPregunta, lblResultado; // Añadimos lblResultado
+    private Pregunta preguntaActual; // Para guardar la pregunta que está en pantalla
 
     public JPanelPregunta() {
-        // Configuramos el panel
         setLayout(null);
         setSize(1202, 802);
 
-        // --- BOTÓN A ---
-        JButton btnNewButton = new JButton("Opcion A: + respuesta");
-        estiloBoton(btnNewButton); // Aplicamos estilo guapo
-        btnNewButton.setBounds(275, 421, 160, 30);
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Acción aquí
-            }
-        });
-        add(btnNewButton);
+        // --- LABEL RESULTADO (¡CORRECTO!) ---
+        lblResultado = new JLabel("");
+        lblResultado.setHorizontalAlignment(SwingConstants.CENTER);
+        lblResultado.setFont(new Font("Tahoma", Font.BOLD, 40));
+        lblResultado.setBounds(300, 250, 600, 100);
+        lblResultado.setVisible(false); // Empieza oculto
+        add(lblResultado);
 
-        // --- BOTÓN B ---
-        JButton btnNewButton_1 = new JButton("Opcion B: + respuesta");
-        estiloBoton(btnNewButton_1);
-        btnNewButton_1.setBounds(763, 421, 160, 30);
-        add(btnNewButton_1);
+        // --- BOTONES CON LÓGICA ---
+        btnOpcionA = new JButton("");
+        estiloBoton(btnOpcionA);
+        btnOpcionA.setBounds(275, 421, 250, 40);
+        btnOpcionA.addActionListener(e -> comprobarRespuesta(btnOpcionA.getText()));
+        add(btnOpcionA);
 
-        // --- BOTÓN C ---
-        JButton btnNewButton_2 = new JButton("Opcion C: + respuesta");
-        estiloBoton(btnNewButton_2);
-        btnNewButton_2.setBounds(275, 679, 160, 30);
-        add(btnNewButton_2);
+        btnOpcionB = new JButton("");
+        estiloBoton(btnOpcionB);
+        btnOpcionB.setBounds(763, 421, 250, 40);
+        btnOpcionB.addActionListener(e -> comprobarRespuesta(btnOpcionB.getText()));
+        add(btnOpcionB);
 
-        // --- BOTÓN D ---
-        JButton btnNewButton_3 = new JButton("Opcion D: + respuesta");
-        estiloBoton(btnNewButton_3);
-        btnNewButton_3.setBounds(763, 679, 160, 30);
-        add(btnNewButton_3);
+        btnOpcionC = new JButton("");
+        estiloBoton(btnOpcionC);
+        btnOpcionC.setBounds(275, 679, 250, 40);
+        btnOpcionC.addActionListener(e -> comprobarRespuesta(btnOpcionC.getText()));
+        add(btnOpcionC);
+
+        btnOpcionD = new JButton("");
+        estiloBoton(btnOpcionD);
+        btnOpcionD.setBounds(763, 679, 250, 40);
+        btnOpcionD.addActionListener(e -> comprobarRespuesta(btnOpcionD.getText()));
+        add(btnOpcionD);
 
         // --- LABEL PREGUNTA ---
-        JLabel lblNewLabel = new JLabel("PREGUNTA");
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setForeground(Color.WHITE); // Texto en blanco para que se vea
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16)); // Más grande y en negrita
-        lblNewLabel.setBounds(431, 519, 350, 40);
-        add(lblNewLabel);
+        lblPregunta = new JLabel("CARGANDO PREGUNTA...");
+        lblPregunta.setBackground(Color.BLACK);
+        lblPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+        lblPregunta.setForeground(Color.WHITE);
+        lblPregunta.setFont(new Font("Tahoma", Font.BOLD, 22));
+        lblPregunta.setBounds(200, 519, 800, 60);
+        add(lblPregunta);
         
-        JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/Captura de pantalla 2026-05-07 125829.png")));
-        lblNewLabel_1.setBounds(-19, -39, 1331, 886);
-        add(lblNewLabel_1);
+        rellenarPreguntas();
     }
 
-    // Método para dejar los botones "de locos"
+    // Método para ver si el usuario ha acertado
+    private void comprobarRespuesta(String textoBoton) {
+        if (textoBoton.equals(preguntaActual.getRespuestaCorrecta())) {
+            lblResultado.setText("¡CORRECTO!");
+            lblResultado.setForeground(Color.GREEN);
+        } else {
+            lblResultado.setText("¡FALLASTE!");
+            lblResultado.setForeground(Color.RED);
+        }
+        lblResultado.setVisible(true);
+        
+        // Opcional: Desactivar botones para que no sigan pulsando
+        btnOpcionA.setEnabled(false);
+        btnOpcionB.setEnabled(false);
+        btnOpcionC.setEnabled(false);
+        btnOpcionD.setEnabled(false);
+    }
+
     private void estiloBoton(JButton btn) {
         btn.setOpaque(false);
-        btn.setContentAreaFilled(false); // Hace el botón transparente
-        btn.setForeground(Color.CYAN);   // Color de texto estilo neón
+        btn.setContentAreaFilled(false);
+        btn.setForeground(Color.CYAN);
         btn.setFocusPainted(false);
-        btn.setBorder(new LineBorder(Color.CYAN, 1, true)); // Borde fino redondeado
-        btn.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btn.setBorder(new LineBorder(Color.CYAN, 2, true));
+        btn.setFont(new Font("Tahoma", Font.BOLD, 14));
     }
 
-    // Este método dibuja el fondo y hace que se vea PERFECTO (Escalado)
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagenFondo != null) {
-            // Dibuja la imagen estirándola al tamaño exacto del panel actual
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
+    }
+
+    public void rellenarPreguntas() {
+        ArrayList<Pregunta> bancoPreguntas = new ArrayList<>();
+        // Aquí meterías tus 40 preguntas...
+        bancoPreguntas.add(new Pregunta("¿Qué órgano del cuerpo humano bombea sangre?", "Corazón", new ArrayList<>(Arrays.asList("Pulmón", "Hígado", "Corazón", "Riñón")), 1));
+        bancoPreguntas.add(new Pregunta("¿Cuál es la moneda oficial de España?", "Euro", new ArrayList<>(Arrays.asList("Peseta", "Dólar", "Euro", "Libra")), 1));
+
+        Collections.shuffle(bancoPreguntas);
+        preguntaActual = bancoPreguntas.get(0); // Guardamos la elegida
+
+        lblPregunta.setText(preguntaActual.getPregunta());
+        lblResultado.setVisible(false); // Ocultamos el mensaje de acierto anterior
+        
+        ArrayList<String> opciones = new ArrayList<>(preguntaActual.getRespuestas());
+        Collections.shuffle(opciones);
+
+        btnOpcionA.setText(opciones.get(0)); btnOpcionA.setEnabled(true);
+        btnOpcionB.setText(opciones.get(1)); btnOpcionB.setEnabled(true);
+        btnOpcionC.setText(opciones.get(2)); btnOpcionC.setEnabled(true);
+        btnOpcionD.setText(opciones.get(3)); btnOpcionD.setEnabled(true);
+    }
+    private void colorBoton(JButton btn) {
+        btn.setOpaque(true); // ¡IMPORTANTE! Activamos que sea opaco para que se vea el fondo negro
+        btn.setContentAreaFilled(true); // Permitimos que Java pinte el fondo del botón
+        
+        btn.setBackground(Color.BLACK);  // Fondo negro
+        btn.setForeground(Color.WHITE);  // Texto blanco (para que contraste)
+        
+        btn.setFocusPainted(false); // Quita el recuadro feo al hacer clic
+        btn.setBorder(new LineBorder(Color.CYAN, 2, true)); // Borde cian redondeado para que "brille"
+        
+        btn.setFont(new Font("Tahoma", Font.BOLD, 14)); // Fuente un poco más grande y en negrita
     }
 }

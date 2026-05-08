@@ -1,4 +1,5 @@
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 public class JPanelMenuPrincipal extends JPanel {
 
@@ -12,6 +13,7 @@ public class JPanelMenuPrincipal extends JPanel {
 		// Configuramos el panel
         setLayout(null);
         setSize(1200, 800);
+        
+        
 	}
-
 }

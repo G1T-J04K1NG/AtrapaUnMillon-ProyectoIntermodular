@@ -40,8 +40,8 @@ public class Pregunta {
 	public void setDificultad(int dificultad) {
 		this.dificultad = dificultad;
 	}
-	
-	
-	
-
+	public String getEnunciado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
