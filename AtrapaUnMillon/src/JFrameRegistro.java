@@ -1,8 +1,8 @@
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.bson.Document;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 public class JFrameRegistro extends JFrame {
 
@@ -61,10 +62,10 @@ public class JFrameRegistro extends JFrame {
 		txtContrasenia.setBounds(215, 138, 220, 24);
 		contentPane.add(txtContrasenia);
 		
-		JLabel lblVacio = new JLabel("");
-		lblVacio.setForeground(new Color(255, 0, 0));
-		lblVacio.setBounds(215, 252, 220, 12);
-		contentPane.add(lblVacio);
+		JLabel lblIncorrecto = new JLabel("");
+		lblIncorrecto.setForeground(new Color(255, 0, 0));
+		lblIncorrecto.setBounds(215, 252, 220, 12);
+		contentPane.add(lblIncorrecto);
 		
 		JLabel lblRegistro = new JLabel("Registro");
 		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -74,9 +75,35 @@ public class JFrameRegistro extends JFrame {
 		
 		JButton btnRegistrar = new JButton("Registrarse");
 		btnRegistrar.addActionListener(new ActionListener() {
+			
+			//Comprobación para registrar
 			public void actionPerformed(ActionEvent e) {
 				if(txtUsuario.getText().isEmpty() || txtContrasenia.getText().isEmpty() || txtRepetir.getText().isEmpty()) {
-					lblVacio.setText("Debes rellenar todos los campos");
+					lblIncorrecto.setText("Debes rellenar todos los campos.");
+				}
+				else {
+					 if(txtContrasenia.getText().equals(txtRepetir.getText())) {
+						 FindIterable<Document> usuarios = collectionUsuarios.find();
+						 ArrayList<String> nombresUsuario = new ArrayList<String>();
+						 for (Document u : usuarios) {
+							 nombresUsuario.add(u.getString("usuario"));
+						 }
+						 if (nombresUsuario.contains(txtUsuario.getText())) {
+							 lblIncorrecto.setText("El nombre " + txtUsuario.getText() + " ya está escogido.");
+						 }
+						 else {
+							 dispose();
+							 Document user = new Document("usuario",txtUsuario.getText())
+									 .append("contraseña", txtContrasenia.getText())
+									 .append("dinero",0);
+							 collectionUsuarios.insertOne(user);
+							 Usuario usuario = new Usuario(txtUsuario.getText(),txtContrasenia.getText());
+							 frame.setContentPane(new JPanelMenuPrincipal(usuario));
+						 }
+					 }
+					 else {
+						 lblIncorrecto.setText("Las contraseñas no coinciden.");
+					 }
 				}
 			}
 			
