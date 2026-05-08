@@ -82,7 +82,7 @@ public class JFrameLogIn extends JFrame {
 					if (usuarioEncontrado!=null) {
 						if(txtContrasenia.getText().trim().equals(usuarioEncontrado.getString("contraseña"))) {
 							dispose();
-							Usuario usuario = new Usuario (usuarionombre, usuarioEncontrado.getString("contraseña"), usuarioEncontrado.getInteger("dinero"));
+							Usuario usuario = new Usuario (usuarionombre, usuarioEncontrado.getString("contraseña"));
 							frame.setContentPane(new JPanelMenuPrincipal(usuario));
 						}
 						else {
