@@ -68,7 +68,6 @@ public class JPanelPregunta extends JPanel {
         lblPregunta.setFont(new Font("Tahoma", Font.BOLD, 22));
         lblPregunta.setBounds(200, 519, 800, 60);
         add(lblPregunta);
-        
         rellenarPreguntas();
     }
 
@@ -88,6 +87,10 @@ public class JPanelPregunta extends JPanel {
         btnOpcionB.setEnabled(false);
         btnOpcionC.setEnabled(false);
         btnOpcionD.setEnabled(false);
+        JLabel lblNewLabel_1 = new JLabel("");
+        lblNewLabel_1.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/Captura de pantalla 2026-05-07 125829.png")));
+        lblNewLabel_1.setBounds(-59, -84, 1331, 886);
+        add(lblNewLabel_1);
     }
 
     private void estiloBoton(JButton btn) {
