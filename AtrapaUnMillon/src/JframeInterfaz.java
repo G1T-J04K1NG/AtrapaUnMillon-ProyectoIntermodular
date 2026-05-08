@@ -60,6 +60,7 @@ public class JframeInterfaz extends JFrame {
 	            e.printStackTrace();
 	        }
 	}
+	
 	private static ArrayList<Usuario> iniciarUsuarios() {
 		// TODO Auto-generated method stub
 		return null;

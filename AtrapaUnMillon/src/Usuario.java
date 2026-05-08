@@ -5,13 +5,12 @@ public class Usuario {
 
 	private String nombre;
 	private String contraseña;
-	private int ganadorMax;
+	private int dineroUsuario;
 
 	public Usuario(String nombre, String contraseña) {
-
 		this.nombre = nombre;
 		this.contraseña = contraseña;
-		this.ganadorMax = 0;
+		this.dineroUsuario = 0;
 	}
 
 	public String getNombre() {
@@ -30,20 +29,12 @@ public class Usuario {
 		this.contraseña = contraseña;
 	}
 
-	public int getGanadorMax() {
-		return ganadorMax;
+	public int getdineroUsuario() {
+		return dineroUsuario;
 	}
 
-	public void setGanadorMax(int puntacionMax) {
-		this.ganadorMax = puntacionMax;
-	}
-
-	public static void actualizarPuntos(int dinero, int ganadorMax) {
-
-		if (dinero > ganadorMax) {
-			ganadorMax = dinero;
-		}
-
+	public void setdineroUsuario(int dinero) {
+		this.dineroUsuario = dinero;
 	}
 
 }

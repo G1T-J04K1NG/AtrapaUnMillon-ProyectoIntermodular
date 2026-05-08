@@ -8,6 +8,7 @@ public class JPanelMenuPrincipal extends JPanel {
 	 * Create the panel.
 	 */
 	public JPanelMenuPrincipal(Usuario usuario) {
+		
 		// Configuramos el panel
         setLayout(null);
         setSize(1200, 800);
