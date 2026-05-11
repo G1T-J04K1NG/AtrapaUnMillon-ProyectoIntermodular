@@ -1,8 +1,11 @@
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Panel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,6 +29,7 @@ public class JPanelMenuPrincipal extends JPanel {
 		// Configuramos el panel
         setLayout(null);
         setSize(1200, 770);
+        
         //boton Empezar Partida
         JButton btnEmpezarPartida = new JButton("Empezar Partida");
         btnEmpezarPartida.setContentAreaFilled(false);
@@ -33,6 +37,10 @@ public class JPanelMenuPrincipal extends JPanel {
         btnEmpezarPartida.setForeground(new Color(255, 255, 0));
         btnEmpezarPartida.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		setVisible(false);
+        		JPanelPregunta pantallaMenuPrincipal = new JPanelPregunta();
+        		pantallaMenuPrincipal.setVisible(true);
+        		getParent().add(pantallaMenuPrincipal);
         	}
         });
         btnEmpezarPartida.setFont(new Font("Tahoma", Font.PLAIN, 30));
