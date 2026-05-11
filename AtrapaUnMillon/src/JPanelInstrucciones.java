@@ -4,10 +4,14 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JPanelInstrucciones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JButton btnBotonSalirInformacion;
 
 	/**
 	 * Create the panel.
@@ -34,5 +38,19 @@ public class JPanelInstrucciones extends JPanel {
 		txtrbienvenidoAlJuego.setForeground(Color.white);
 		add(txtrbienvenidoAlJuego);
 
+		btnBotonSalirInformacion = new JButton("SALIR");
+		btnBotonSalirInformacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanelFondo p = (JPanelFondo) getParent();
+				p.getpInstrucciones().setVisible(false);
+				p.getpMenu().setVisible(true);
+				p.revalidate();
+				p.repaint();
+			}
+		});
+		btnBotonSalirInformacion.setBounds(173, 253, 89, 23);
+		add(btnBotonSalirInformacion);
+
 	}
+
 }
