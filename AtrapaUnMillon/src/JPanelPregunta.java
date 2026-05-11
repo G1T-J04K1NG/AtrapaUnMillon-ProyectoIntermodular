@@ -22,6 +22,7 @@ public class JPanelPregunta extends JPanel {
     private JButton btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD;
     private JLabel lblPregunta, lblResultado; // Añadimos lblResultado
     private Pregunta preguntaActual; // Para guardar la pregunta que está en pantalla
+    private JButton btnVolverMenu;
 
     public JPanelPregunta() {
         setLayout(null);
@@ -68,6 +69,16 @@ public class JPanelPregunta extends JPanel {
         lblPregunta.setFont(new Font("Tahoma", Font.BOLD, 22));
         lblPregunta.setBounds(200, 519, 800, 60);
         add(lblPregunta);
+        
+        btnVolverMenu = new JButton("Volver al Menú");
+        btnVolverMenu.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
+        btnVolverMenu.setEnabled(true);
+        btnVolverMenu.setBounds(882, 33, 250, 40);
+        add(btnVolverMenu);
         rellenarPreguntas();
     }
 

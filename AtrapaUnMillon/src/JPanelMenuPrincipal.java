@@ -20,6 +20,8 @@ import java.awt.Color;
 public class JPanelMenuPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	 public JButton btnRanking ;
+	 public JButton btnEmpezarPartida;
 
 	/**
 	 * Create the panel.
@@ -31,16 +33,16 @@ public class JPanelMenuPrincipal extends JPanel {
         setBounds(0,30,1200, 770);
         
         //boton Empezar Partida
-        JButton btnEmpezarPartida = new JButton("Empezar Partida");
+        btnEmpezarPartida = new JButton("Empezar Partida");
         btnEmpezarPartida.setContentAreaFilled(false);
         btnEmpezarPartida.setFocusPainted(true);
         btnEmpezarPartida.setForeground(new Color(255, 255, 0));
         btnEmpezarPartida.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		setVisible(false);
-        		JPanelPregunta pantallaMenuPrincipal = new JPanelPregunta();
-        		pantallaMenuPrincipal.setVisible(true);
-        		getParent().add(pantallaMenuPrincipal);
+        		
+        		JPanelFondo p =(JPanelFondo)getParent();
+        		p.getpPregunta().setVisible(true);
         	}
         });
         btnEmpezarPartida.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -48,12 +50,14 @@ public class JPanelMenuPrincipal extends JPanel {
         add(btnEmpezarPartida);
         
         //boton Ranking
-        JButton btnRanking = new JButton("Ranking");
+        btnRanking = new JButton("Ranking");
         btnRanking.setContentAreaFilled(false);
         btnRanking.setFocusPainted(true);
         btnRanking.setForeground(new Color(255, 255, 0));
         btnRanking.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		setVisible(false);
+        		
         	}
         });
         btnRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));
