@@ -98,7 +98,8 @@ public class JFrameRegistro extends JFrame {
 									 .append("dinero",0);
 							 collectionUsuarios.insertOne(user);
 							 Usuario usuario = new Usuario(txtUsuario.getText(),txtContrasenia.getText());
-							 frame.setContentPane(new JPanelMenuPrincipal(usuario));
+							 contentPane=(new JPanelInformacionUsuario(usuario));
+								contentPane.add(new JPanelMenuPrincipal());
 						 }
 					 }
 					 else {

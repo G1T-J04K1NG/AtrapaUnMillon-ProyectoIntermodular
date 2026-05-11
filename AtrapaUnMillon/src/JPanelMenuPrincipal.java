@@ -24,11 +24,11 @@ public class JPanelMenuPrincipal extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public JPanelMenuPrincipal(Usuario usuario) {
+	public JPanelMenuPrincipal() {
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		// Configuramos el panel
         setLayout(null);
-        setSize(1200, 770);
+        setBounds(0,30,1200, 770);
         
         //boton Empezar Partida
         JButton btnEmpezarPartida = new JButton("Empezar Partida");
@@ -61,8 +61,8 @@ public class JPanelMenuPrincipal extends JPanel {
         add(btnRanking);
         
         JLabel labelimagen = new JLabel("");
-        labelimagen.setIcon(new ImageIcon(JPanelMenuPrincipal.class.getResource("/resources/ChatGPT Image 8 may 2026, 13_10_39.png")));
-        labelimagen.setBounds(-138, 11, 1338, 770);
+        labelimagen.setIcon(new ImageIcon(JPanelMenuPrincipal.class.getResource("/resources/FondoMenuPrincipal.png")));
+        labelimagen.setBounds(-138, 0, 1338, 770);
         add(labelimagen);
 
 	}

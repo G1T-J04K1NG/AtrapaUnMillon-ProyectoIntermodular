@@ -15,7 +15,7 @@ public class JPanelInformacionUsuario extends JPanel {
 	 */
 	public JPanelInformacionUsuario(Usuario usuario) {
 		setLayout(null);
-		setSize(1200, 30);
+		setBounds(0,0,1200, 30);
 
 		JLabel lblUsuarioNombre = new JLabel("Usuario : " + usuario.getNombre());
 		lblUsuarioNombre.setBounds(10, 0, 113, 30);

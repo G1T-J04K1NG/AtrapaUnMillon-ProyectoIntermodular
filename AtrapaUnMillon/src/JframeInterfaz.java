@@ -26,7 +26,7 @@ public class JframeInterfaz extends JFrame {
 	
 	
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPanel;
+	public JPanel contentPanel;
 
 	//MAIN
 

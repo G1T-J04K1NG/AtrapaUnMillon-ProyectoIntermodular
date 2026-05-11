@@ -82,8 +82,13 @@ public class JFrameLogIn extends JFrame {
 					if (usuarioEncontrado!=null) {
 						if(txtContrasenia.getText().trim().equals(usuarioEncontrado.getString("contraseña"))) {
 							dispose();
-							Usuario usuario = new Usuario (usuarionombre, usuarioEncontrado.getString("contraseña"));
-							frame.setContentPane(new JPanelMenuPrincipal(usuario));
+							Usuario usuario = new Usuario (usuarionombre, usuarioEncontrado.getString("contraseña"),
+									usuarioEncontrado.getInteger("dinero"));
+							contentPane= new JPanelFondo(usuario);
+							frame.setContentPane(contentPane);
+							
+							
+							
 						}
 						else {
 							lblfallo.setText("La contraseña no es correcta.");
