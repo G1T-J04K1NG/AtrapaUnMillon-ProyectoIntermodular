@@ -24,52 +24,10 @@ public class JframeInterfaz extends JFrame {
 	private MongoCollection<Document> collectionUsuarios;
 	private MongoCollection<Document> collectionPreguntas;
 	
-	
 	private static final long serialVersionUID = 1L;
 	public JPanel contentPanel;
 
-	//MAIN
-
-	public static void main (String [] args) {
-		
-		 try  { 
-			 	//Conexión a la BDD
-			 	String url = "mongodb+srv://joaest22_db_user:"
-			 				+ "UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
-	        	MongoClient mongoClient = MongoClients.create(url);
-	            
-	        	MongoDatabase database = mongoClient.getDatabase("atrapa1millon");
-	            MongoCollection<Document> collectionUsuarios = database.getCollection("usuarios");
-	            MongoCollection<Document> collectionPreguntas = database.getCollection("preguntas");
-	            
-	            
-	            //InciarJframeInterfaz
-	            
-	            EventQueue.invokeLater(new Runnable() {
-	    			public void run() {
-	    				try {
-	    					JframeInterfaz frame = new JframeInterfaz(collectionUsuarios,collectionPreguntas);
-	    					frame.setVisible(true);
-	    					frame.setResizable(false); //Para que no se pueda redimensionar.
-	    				} catch (Exception e) {
-	    					e.printStackTrace();
-	    				}
-	    			}
-	    		});
-	            
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	}
-
-	
-	private static ArrayList<Usuario> iniciarUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/**
-	 * Create the frame.
-	 */
+	//CrearJFRAME
 	public JframeInterfaz(MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas) {
 		setFont(new Font("Guttman Frank", Font.BOLD, 13));
 		setTitle("Atrapa Un Millón");
@@ -80,6 +38,9 @@ public class JframeInterfaz extends JFrame {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
+		
+	
+		
 		
 		JLabel lblBienvenida = new JLabel("Esto es Atrapa Un Millón");
 		lblBienvenida.setForeground(Color.WHITE);
@@ -136,5 +97,15 @@ public class JframeInterfaz extends JFrame {
 				});
 			}
 		});
+	}
+
+
+	public JPanel getContentPanel() {
+		return contentPanel;
+	}
+
+
+	public void setContentPanel(JPanel contentPanel) {
+		this.contentPanel = contentPanel;
 	}
 }

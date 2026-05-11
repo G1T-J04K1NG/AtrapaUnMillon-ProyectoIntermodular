@@ -22,6 +22,8 @@ public class JFrameLogIn extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField txtContrasenia;
+	public JButton btnEntrar;
+	public JLabel lblUsuario ;
 
 	/**
 	 * Launch the application.
@@ -39,7 +41,7 @@ public class JFrameLogIn extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblUsuario.setBounds(128, 117, 73, 21);
 		contentPane.add(lblUsuario);
@@ -73,7 +75,7 @@ public class JFrameLogIn extends JFrame {
 		contentPane.add(lblfallo);
 		
 		//Funcionalidad BtnEntrar
-		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!txtUsuario.getText().trim().isEmpty() && !txtContrasenia.getText().trim().isEmpty()) {
@@ -86,7 +88,6 @@ public class JFrameLogIn extends JFrame {
 									usuarioEncontrado.getInteger("dinero"));
 							contentPane= new JPanelFondo(usuario);
 							frame.setContentPane(contentPane);
-							
 							
 							
 						}
@@ -111,6 +112,11 @@ public class JFrameLogIn extends JFrame {
 		contentPane.add(btnEntrar);
 		
 		
+	
+		
 
 	}
+	
+	 
+	
 }
