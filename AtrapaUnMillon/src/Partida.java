@@ -6,14 +6,13 @@ public class Partida {
 	private Usuario jugador;
 	private int dinero;
 	private int ronda;
-	private ArrayList<Comodin> comodinDisponible;
 
-	public Partida(Usuario jugador, int dinero, int ronda, ArrayList<Comodin> comodinDisponible) {
+
+	public Partida(Usuario jugador) {
 		this.jugador = jugador;
 		this.dinero = 0;
 		this.ronda = 0;
-		this.comodinDisponible = comodinDisponible; // ArrayList dondese añaden los comodines, luego con los eventos
-													// manejamos la utilización y eliminación
+		
 	}
 	/*
 	 * Sobre el constructor de Partida: Lo suyo es que empieze con dinero 500 e ir
@@ -54,12 +53,5 @@ public class Partida {
 		this.ronda = ronda;
 	}
 
-	public ArrayList<Comodin> getComodinDisponible() {
-		return comodinDisponible;
-	}
-
-	public void setComodinDisponible(ArrayList<Comodin> comodinDisponible) {
-		this.comodinDisponible = comodinDisponible;
-	}
 
 }

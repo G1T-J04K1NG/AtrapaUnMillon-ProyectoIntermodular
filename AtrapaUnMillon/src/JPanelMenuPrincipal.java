@@ -42,14 +42,14 @@ public class JPanelMenuPrincipal extends JPanel {
 		btnEmpezarPartida.setForeground(new Color(255, 255, 0));
 		btnEmpezarPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-
 				JPanelFondo p = (JPanelFondo) getParent();
-				p.getpPregunta().setVisible(true);
+				p.getpModo().setVisible(true);
+				p.setComponentZOrder(p.getpModo(), 0);
+				p.repaint();
 			}
 		});
 		btnEmpezarPartida.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnEmpezarPartida.setBounds(432, 652, 336, 83);
+		btnEmpezarPartida.setBounds(431, 642, 336, 83);
 		add(btnEmpezarPartida);
 
 		// boton Ranking
