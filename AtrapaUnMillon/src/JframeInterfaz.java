@@ -20,14 +20,14 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 public class JframeInterfaz extends JFrame {
-	
+
 	private MongoCollection<Document> collectionUsuarios;
 	private MongoCollection<Document> collectionPreguntas;
-	
+
 	private static final long serialVersionUID = 1L;
 	public JPanel contentPanel;
 
-	//CrearJFRAME
+	// CrearJFRAME
 	public JframeInterfaz(MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas) {
 		setFont(new Font("Guttman Frank", Font.BOLD, 13));
 		setTitle("Atrapa Un Millón");
@@ -38,27 +38,24 @@ public class JframeInterfaz extends JFrame {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
-		
-	
-		
-		
+
 		JLabel lblBienvenida = new JLabel("Esto es Atrapa Un Millón");
 		lblBienvenida.setForeground(Color.WHITE);
 		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenida.setFont(new Font("Verdana", Font.BOLD, 30));
 		lblBienvenida.setBounds(335, 118, 530, 165);
 		contentPanel.add(lblBienvenida);
-		
-		//Funcionalidad de btnIniciarSesion
+
+		// Funcionalidad de btnIniciarSesion
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios,JframeInterfaz.this);
+							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios, JframeInterfaz.this);
 							frameLogIn.setVisible(true);
-							frameLogIn.setResizable(false); //Para que no se pueda redimensionar.
+							frameLogIn.setResizable(false); // Para que no se pueda redimensionar.
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -66,30 +63,27 @@ public class JframeInterfaz extends JFrame {
 				});
 			}
 		});
-		
-		
-		
-		//Formato de btnIniciarSesion
+
+		// Formato de btnIniciarSesion
 		btnIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnIniciarSesion.setBounds(150, 470, 250, 150);
 		contentPanel.add(btnIniciarSesion);
-		
+
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnRegistrarse.setBounds(800, 470, 250, 150);
 		contentPanel.add(btnRegistrarse);
 
-		
-		//Funcionalidad Registrar
+		// Funcionalidad Registrar
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios,JframeInterfaz.this);
+							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios, JframeInterfaz.this);
 							frameRegistro.setVisible(true);
-							frameRegistro.setResizable(false); //Para que no se pueda redimensionar.
+							frameRegistro.setResizable(false); // Para que no se pueda redimensionar.
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -99,11 +93,9 @@ public class JframeInterfaz extends JFrame {
 		});
 	}
 
-
 	public JPanel getContentPanel() {
 		return contentPanel;
 	}
-
 
 	public void setContentPanel(JPanel contentPanel) {
 		this.contentPanel = contentPanel;

@@ -4,6 +4,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+
+import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -23,27 +25,17 @@ public class JPanelInformacionUsuario extends JPanel {
 		JLabel lblUsuarioNombre = new JLabel("Usuario : " + usuario.getNombre());
 		lblUsuarioNombre.setBounds(10, 0, 113, 30);
 		add(lblUsuarioNombre);
-			
 
 		JButton btnInformacion = new JButton("");
 		btnInformacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Creacion ventana información
-				JDialog ventanaPopUp = new JDialog();
-				
-		        ventanaPopUp.setTitle("Instrucciones del Juego");
-		        
-		    
-		        ventanaPopUp.getContentPane().add(new JPanelInstrucciones());
-		        
-		        
-		        ventanaPopUp.setSize(450, 350);
-		        ventanaPopUp.setLocationRelativeTo(null); 
-		        ventanaPopUp.setModal(true); 
-		        ventanaPopUp.setVisible(true);
-				JPanel instrucciones = new JPanelInstrucciones();
-				
-		
+
+				JPanelFondo p = (JPanelFondo) getParent();
+				p.getpMenu().setVisible(false);
+				p.getpInstrucciones().setBounds(0, 0, p.getWidth(), p.getHeight());
+				p.getpInstrucciones().setVisible(true);
+				p.setBounds(0, 0, 1200, 700);
+
 			}
 		});
 		btnInformacion
