@@ -8,56 +8,86 @@ public class JPanelFondo extends JPanel {
 	private JPanelInformacionUsuario pInformacion;
 	private JPanelMenuPrincipal pMenu;
 	private JPanelPregunta pPregunta;
-	
-	
+	private JPanelInstrucciones pInstrucciones;
+	private JPanelRanking pRanking;
+	private JPanelModoJuego pModo;
+
 	public JPanelFondo(Usuario usuario) {
 		setLayout(null);
-		setBounds(0,0,1200,800);
-		//JPanelInformación Arriba
-		 pInformacion= new JPanelInformacionUsuario(usuario);
+		setBounds(0, 0, 1200, 800);
+		// JPanelInformación Arriba
+		pInformacion = new JPanelInformacionUsuario(usuario);
 		add(pInformacion);
-		
-		//JPanel Menu
+
+		// JPanel Menu
 		pMenu = new JPanelMenuPrincipal();
-		add(pMenu); 
-		
+		add(pMenu);
+
 		//
 		pPregunta = new JPanelPregunta();
 		add(pPregunta);
 		pPregunta.setVisible(false);
-	}
 
+		pInstrucciones = new JPanelInstrucciones();
+		add(pInstrucciones);
+		pInstrucciones.setVisible(false);
+
+		pRanking = new JPanelRanking();
+		add(pRanking);
+		pRanking.setVisible(false);
+
+		pModo = new JPanelModoJuego();
+		add(pModo);
+		pModo.setVisible(false);
+
+	}
 
 	public JPanelInformacionUsuario getpInformacion() {
 		return pInformacion;
 	}
 
-
 	public void setpInformacion(JPanelInformacionUsuario pInformacion) {
 		this.pInformacion = pInformacion;
 	}
-
 
 	public JPanelMenuPrincipal getpMenu() {
 		return pMenu;
 	}
 
-
 	public void setpMenu(JPanelMenuPrincipal pMenu) {
 		this.pMenu = pMenu;
 	}
-
 
 	public JPanelPregunta getpPregunta() {
 		return pPregunta;
 	}
 
-
 	public void setpPregunta(JPanelPregunta pPregunta) {
 		this.pPregunta = pPregunta;
 	}
 
-	
-	
-	
+	public JPanelInstrucciones getpInstrucciones() {
+		return pInstrucciones;
+	}
+
+	public void setpInstrucciones(JPanelInstrucciones pInstrucciones) {
+		this.pInstrucciones = pInstrucciones;
+	}
+
+	public JPanelRanking getpRanking() {
+		return pRanking;
+	}
+
+	public void setpRanking(JPanelRanking pRanking) {
+		this.pRanking = pRanking;
+	}
+
+	public JPanelModoJuego getpModo() {
+		return pModo;
+	}
+
+	public void setpModo(JPanelModoJuego pModo) {
+		this.pModo = pModo;
+	}
+
 }

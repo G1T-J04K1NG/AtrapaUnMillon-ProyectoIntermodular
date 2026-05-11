@@ -23,6 +23,7 @@ public class JPanelMenuPrincipal extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JButton btnRanking;
 	public JButton btnEmpezarPartida;
+	private JLabel label;
 
 	/**
 	 * Create the panel.
@@ -70,6 +71,10 @@ public class JPanelMenuPrincipal extends JPanel {
 		labelimagen.setIcon(new ImageIcon(JPanelMenuPrincipal.class.getResource("/resources/FondoMenuPrincipal.png")));
 		labelimagen.setBounds(-170, 0, 1500, 770);
 		add(labelimagen);
+		
+		label = new JLabel("New label");
+		label.setBounds(120, 458, 46, 14);
+		add(label);
 
 	}
 }
