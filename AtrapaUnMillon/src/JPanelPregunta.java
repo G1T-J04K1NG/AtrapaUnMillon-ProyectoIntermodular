@@ -19,175 +19,207 @@ import javax.swing.border.LineBorder;
 
 public class JPanelPregunta extends JPanel {
 
-    private static final long serialVersionUID = 1L;
-    private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/Fondo JFrame Pregunta.png")).getImage();
+	private static final long serialVersionUID = 1L;
+	private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/Fondo JFrame Pregunta.png"))
+			.getImage();
 
-    private JButton btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD;
-    private JLabel lblPregunta, lblDinero; 
-    private Pregunta preguntaActual; 
-    private JButton btnVolverMenu;
-    
-    private ArrayList<Pregunta> bancoPreguntas;
-    private Usuario jugadorActual = new Usuario("Jugador1", "1234");
+	private JButton btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD;
+	private JLabel lblPregunta, lblDinero;
+	private Pregunta preguntaActual;
+	private JButton btnVolverMenu;
 
-    public JPanelPregunta() {
-        setLayout(null);
-        setBounds(0,30,1200,770);
-        setOpaque(true); 
-       
-        lblDinero = new JLabel("Saldo: " + jugadorActual.getdineroUsuario() + " €");
-        lblDinero.setForeground(Color.YELLOW); 
-        lblDinero.setFont(new Font("Tahoma", Font.BOLD, 26));
-        lblDinero.setBounds(30, 680, 300, 50); 
-        add(lblDinero);
+	private ArrayList<Pregunta> bancoPreguntas;
+	private Usuario jugadorActual = new Usuario("Jugador1", "1234");
 
-        
-        btnOpcionA = new JButton("");
-        estiloBoton(btnOpcionA);
-        btnOpcionA.setBounds(255, 419, 250, 40);
-        btnOpcionA.addActionListener(e -> comprobarRespuesta(btnOpcionA.getText()));
-        add(btnOpcionA);
+	private JButtonRedondo buttonMago;
+	private JButtonRedondo buttonPublico;
+	private JButtonRedondo buttonCambiarPregunta;
+	private JButtonRedondo buttonSalvavidas;
 
-        btnOpcionB = new JButton("");
-        estiloBoton(btnOpcionB);
-        btnOpcionB.setBounds(728, 421, 250, 40);
-        btnOpcionB.addActionListener(e -> comprobarRespuesta(btnOpcionB.getText()));
-        add(btnOpcionB);
+	public JPanelPregunta() {
+		setLayout(null);
+		setBounds(0, 30, 1200, 770);
+		setOpaque(true);
 
-        btnOpcionC = new JButton("");
-        estiloBoton(btnOpcionC);
-        btnOpcionC.setBounds(255, 679, 250, 40);
-        btnOpcionC.addActionListener(e -> comprobarRespuesta(btnOpcionC.getText()));
-        add(btnOpcionC);
+		lblDinero = new JLabel("Saldo: " + jugadorActual.getdineroUsuario() + " €");
+		lblDinero.setForeground(Color.YELLOW);
+		lblDinero.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblDinero.setBounds(30, 680, 300, 50);
+		add(lblDinero);
 
-        btnOpcionD = new JButton("");
-        estiloBoton(btnOpcionD);
-        btnOpcionD.setBounds(728, 679, 250, 40);
-        btnOpcionD.addActionListener(e -> comprobarRespuesta(btnOpcionD.getText()));
-        add(btnOpcionD);
+		btnOpcionA = new JButton("");
+		estiloBoton(btnOpcionA);
+		btnOpcionA.setBounds(255, 419, 250, 40);
+		btnOpcionA.addActionListener(e -> comprobarRespuesta(btnOpcionA.getText()));
+		add(btnOpcionA);
 
-        // --- LABEL PREGUNTA ---
-        lblPregunta = new JLabel("CARGANDO PREGUNTA...");
-        lblPregunta.setOpaque(true); 
-        lblPregunta.setBackground(new Color(50, 50, 50)); 
-        lblPregunta.setForeground(Color.WHITE); 
-        lblPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPregunta.setFont(new Font("Tahoma", Font.BOLD, 22));
-        lblPregunta.setBounds(255, 518, 723, 60);
-        lblPregunta.setBorder(new javax.swing.border.LineBorder(Color.CYAN, 1));
-        add(lblPregunta);
-        
-        // --- BOTÓN VOLVER AL MENÚ ---
-        btnVolverMenu = new JButton("Volver al Menú");
-        btnVolverMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    JPanelFondo p = (JPanelFondo) getParent();
-                    p.getpPregunta().setVisible(false);
-                    p.getpMenu().setVisible(true); 
-                    p.revalidate(); 
-                    p.repaint();
-                    p.setComponentZOrder(p.getpMenu(), 0);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        btnVolverMenu.setBounds(940, 24, 250, 40);
-        add(btnVolverMenu);
-        
-        
-        this.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                try {
-                    JPanelFondo p = (JPanelFondo) getParent();
-                    if (p != null && p.getpMenu() != null) {
-                        p.getpMenu().setVisible(false); 
-                    }
-                } catch (Exception ex) {
-                    
-                }
-            }
-        });
-        
-        cargarBancoDePreguntas();
-        rellenarPreguntas();
-    }
+		btnOpcionB = new JButton("");
+		estiloBoton(btnOpcionB);
+		btnOpcionB.setBounds(728, 421, 250, 40);
+		btnOpcionB.addActionListener(e -> comprobarRespuesta(btnOpcionB.getText()));
+		add(btnOpcionB);
 
-    private void comprobarRespuesta(String textoBoton) {
-        String respuestaLimpia = textoBoton.substring(3); 
+		btnOpcionC = new JButton("");
+		estiloBoton(btnOpcionC);
+		btnOpcionC.setBounds(255, 679, 250, 40);
+		btnOpcionC.addActionListener(e -> comprobarRespuesta(btnOpcionC.getText()));
+		add(btnOpcionC);
 
-        if (respuestaLimpia.equals(preguntaActual.getRespuestaCorrecta())) {
-            // --- ACERTÓ ---
-            int dineroNuevo = jugadorActual.getdineroUsuario() + 1000;
-            jugadorActual.setdineroUsuario(dineroNuevo);
-            lblDinero.setText("Saldo: " + jugadorActual.getdineroUsuario() + " €");
-            
-            rellenarPreguntas(); 
-            
-        } else {
-            // --- FALLÓ ---
-            lblPregunta.setText("¡HAS FALLADO! Fin de la partida.");
-            lblPregunta.setForeground(Color.RED); 
-            
-            btnOpcionA.setEnabled(false);
-            btnOpcionB.setEnabled(false);
-            btnOpcionC.setEnabled(false);
-            btnOpcionD.setEnabled(false);
-        }
-    }
+		btnOpcionD = new JButton("");
+		estiloBoton(btnOpcionD);
+		btnOpcionD.setBounds(728, 679, 250, 40);
+		btnOpcionD.addActionListener(e -> comprobarRespuesta(btnOpcionD.getText()));
+		add(btnOpcionD);
 
-    private void estiloBoton(JButton btn) {
-        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        btn.setBackground(new Color(220, 220, 220)); 
-        btn.setForeground(Color.BLACK);          
-        btn.setOpaque(true);
-        btn.setContentAreaFilled(true);
-        btn.setBorder(new LineBorder(Color.WHITE, 2));
-        btn.setFont(new Font("Tahoma", Font.BOLD, 16));
-        btn.setFocusPainted(false);
-        btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); 
-    }
+		// --- LABEL PREGUNTA ---
+		lblPregunta = new JLabel("CARGANDO PREGUNTA...");
+		lblPregunta.setOpaque(true);
+		lblPregunta.setBackground(new Color(50, 50, 50));
+		lblPregunta.setForeground(Color.WHITE);
+		lblPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPregunta.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblPregunta.setBounds(255, 518, 723, 60);
+		lblPregunta.setBorder(new javax.swing.border.LineBorder(Color.CYAN, 1));
+		add(lblPregunta);
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (imagenFondo != null) {
-            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
-        }
-    }
+		// --- BOTÓN VOLVER AL MENÚ ---
+		btnVolverMenu = new JButton("Volver al Menú");
+		btnVolverMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					JPanelFondo p = (JPanelFondo) getParent();
+					p.getpPregunta().setVisible(false);
+					p.getpMenu().setVisible(true);
+					p.revalidate();
+					p.repaint();
+					p.setComponentZOrder(p.getpMenu(), 0);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnVolverMenu.setBounds(940, 24, 250, 40);
+		add(btnVolverMenu);
 
-    private void cargarBancoDePreguntas() {
-        bancoPreguntas = new ArrayList<>();
-        bancoPreguntas.add(new Pregunta("¿Qué órgano del cuerpo humano bombea sangre?", "Corazón", new ArrayList<>(Arrays.asList("Pulmón", "Hígado", "Corazón", "Riñón")), 1));
-        bancoPreguntas.add(new Pregunta("¿Cuál es la moneda oficial de España?", "Euro", new ArrayList<>(Arrays.asList("Peseta", "Dólar", "Euro", "Libra")), 1));
-        
-        Collections.shuffle(bancoPreguntas);
-    }
+		this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				try {
+					JPanelFondo p = (JPanelFondo) getParent();
+					if (p != null && p.getpMenu() != null) {
+						p.getpMenu().setVisible(false);
+					}
+				} catch (Exception ex) {
 
-    public void rellenarPreguntas() {
-        if (bancoPreguntas.isEmpty()) {
-            lblPregunta.setText("¡ENHORABUENA! HAS GANADO EL MILLÓN.");
-            lblPregunta.setForeground(Color.GREEN);
-            btnOpcionA.setEnabled(false);
-            btnOpcionB.setEnabled(false);
-            btnOpcionC.setEnabled(false);
-            btnOpcionD.setEnabled(false);
-            return; 
-        }
+				}
+			}
+		});
 
-        preguntaActual = bancoPreguntas.remove(0); 
+		cargarBancoDePreguntas();
 
-        lblPregunta.setText(preguntaActual.getPregunta());
-        lblPregunta.setForeground(Color.WHITE); 
-        
-        ArrayList<String> opciones = new ArrayList<>(preguntaActual.getRespuestas());
-        Collections.shuffle(opciones);
+		buttonMago = new JButtonRedondo((String) null);
+		buttonMago.setIcon(null);
+		buttonMago.setBounds(79, 11, 50, 50);
+		add(buttonMago);
+		buttonMago.setFocusPainted(false);
+		buttonMago.setContentAreaFilled(false);
+		buttonMago.setBorderPainted(false);
 
-        btnOpcionA.setText("A: " + opciones.get(0)); btnOpcionA.setEnabled(true);
-        btnOpcionB.setText("B: " + opciones.get(1)); btnOpcionB.setEnabled(true);
-        btnOpcionC.setText("C: " + opciones.get(2)); btnOpcionC.setEnabled(true);
-        btnOpcionD.setText("D: " + opciones.get(3)); btnOpcionD.setEnabled(true);
-    }
+		buttonPublico = new JButtonRedondo((String) null);
+		buttonPublico.setBounds(10, 83, 50, 50);
+		add(buttonPublico);
+
+		buttonCambiarPregunta = new JButtonRedondo((String) null);
+
+		buttonCambiarPregunta.setBounds(79, 83, 50, 50);
+		add(buttonCambiarPregunta);
+
+		buttonSalvavidas = new JButtonRedondo((String) null);
+		buttonSalvavidas.setBounds(10, 11, 50, 50);
+		add(buttonSalvavidas);
+
+		rellenarPreguntas();
+	}
+
+	private void comprobarRespuesta(String textoBoton) {
+		String respuestaLimpia = textoBoton.substring(3);
+
+		if (respuestaLimpia.equals(preguntaActual.getRespuestaCorrecta())) {
+			// --- ACERTÓ ---
+			int dineroNuevo = jugadorActual.getdineroUsuario() + 1000;
+			jugadorActual.setdineroUsuario(dineroNuevo);
+			lblDinero.setText("Saldo: " + jugadorActual.getdineroUsuario() + " €");
+
+			rellenarPreguntas();
+
+		} else {
+			// --- FALLÓ ---
+			lblPregunta.setText("¡HAS FALLADO! Fin de la partida.");
+			lblPregunta.setForeground(Color.RED);
+
+			btnOpcionA.setEnabled(false);
+			btnOpcionB.setEnabled(false);
+			btnOpcionC.setEnabled(false);
+			btnOpcionD.setEnabled(false);
+		}
+	}
+
+	private void estiloBoton(JButton btn) {
+		btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+		btn.setBackground(new Color(220, 220, 220));
+		btn.setForeground(Color.BLACK);
+		btn.setOpaque(true);
+		btn.setContentAreaFilled(true);
+		btn.setBorder(new LineBorder(Color.WHITE, 2));
+		btn.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btn.setFocusPainted(false);
+		btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (imagenFondo != null) {
+			g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+		}
+	}
+
+	private void cargarBancoDePreguntas() {
+		bancoPreguntas = new ArrayList<>();
+		bancoPreguntas.add(new Pregunta("¿Qué órgano del cuerpo humano bombea sangre?", "Corazón",
+				new ArrayList<>(Arrays.asList("Pulmón", "Hígado", "Corazón", "Riñón")), 1));
+		bancoPreguntas.add(new Pregunta("¿Cuál es la moneda oficial de España?", "Euro",
+				new ArrayList<>(Arrays.asList("Peseta", "Dólar", "Euro", "Libra")), 1));
+
+		Collections.shuffle(bancoPreguntas);
+	}
+
+	public void rellenarPreguntas() {
+		if (bancoPreguntas.isEmpty()) {
+			lblPregunta.setText("¡ENHORABUENA! HAS GANADO EL MILLÓN.");
+			lblPregunta.setForeground(Color.GREEN);
+			btnOpcionA.setEnabled(false);
+			btnOpcionB.setEnabled(false);
+			btnOpcionC.setEnabled(false);
+			btnOpcionD.setEnabled(false);
+			return;
+		}
+
+		preguntaActual = bancoPreguntas.remove(0);
+
+		lblPregunta.setText(preguntaActual.getPregunta());
+		lblPregunta.setForeground(Color.WHITE);
+
+		ArrayList<String> opciones = new ArrayList<>(preguntaActual.getRespuestas());
+		Collections.shuffle(opciones);
+
+		btnOpcionA.setText("A: " + opciones.get(0));
+		btnOpcionA.setEnabled(true);
+		btnOpcionB.setText("B: " + opciones.get(1));
+		btnOpcionB.setEnabled(true);
+		btnOpcionC.setText("C: " + opciones.get(2));
+		btnOpcionC.setEnabled(true);
+		btnOpcionD.setText("D: " + opciones.get(3));
+		btnOpcionD.setEnabled(true);
+	}
 }
