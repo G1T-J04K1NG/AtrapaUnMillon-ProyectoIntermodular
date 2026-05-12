@@ -4,6 +4,12 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import org.bson.Document;
+
+import model.Usuario;
+import mongo.MongoDBColecciones;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,6 +42,7 @@ public class JPanelModoJuego extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
 				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
+				p.getpMenu().getBtnRanking().setEnabled(true);
 				p.getpMenu().setVisible(false);
 				p.getpModo().setVisible(false);
 				p.getpPregunta().setVisible(true);
@@ -52,6 +59,8 @@ public class JPanelModoJuego extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
 				p.getpMenu().setVisible(false);
+				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
+				p.getpMenu().getBtnRanking().setEnabled(true);
 				p.getpModo().setVisible(false);
 				p.getpPregunta().setVisible(true);
 			}

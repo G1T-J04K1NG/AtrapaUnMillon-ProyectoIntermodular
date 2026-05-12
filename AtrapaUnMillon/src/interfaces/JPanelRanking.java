@@ -14,6 +14,9 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Usuario;
 import mongo.MongoDBColecciones;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JPanelRanking extends JPanel {
 
@@ -33,7 +36,7 @@ public class JPanelRanking extends JPanel {
 	public JPanelRanking() {
 		
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = MongoDBColecciones.rellenarArrayListUsuarios(users);
+		users = MongoDBColecciones.getUsuarios();
 		
 		ordenadosDineroUsuario = users.stream()
 					.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();
@@ -47,7 +50,7 @@ public class JPanelRanking extends JPanel {
 		setBounds(0, 30, 1200, 770);
 		
 		PanelScrollDineroTotal = new JScrollPane();
-		PanelScrollDineroTotal.setBounds(150, 135, 300,500);
+		PanelScrollDineroTotal.setBounds(150, 110, 300,500);
 		add(PanelScrollDineroTotal);
 		
 		TablaDineroPartida = new JTable();
@@ -76,7 +79,7 @@ public class JPanelRanking extends JPanel {
 		
 		
 		panelScrollMejorPartida = new JScrollPane();
-		panelScrollMejorPartida.setBounds(750, 135, 300, 500);
+		panelScrollMejorPartida.setBounds(750, 110, 300, 500);
 		add(panelScrollMejorPartida);
 		
 		TablaDineroTotal = new JTable();
@@ -105,22 +108,37 @@ public class JPanelRanking extends JPanel {
 		lblMejoresPuntuaciones.setForeground(Color.WHITE);
 		lblMejoresPuntuaciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblMejoresPuntuaciones.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMejoresPuntuaciones.setBounds(150, 58, 300, 67);
+		lblMejoresPuntuaciones.setBounds(150, 50, 300, 67);
 		add(lblMejoresPuntuaciones);
 		
 		lblMáximosGanadores = new JLabel("Máximos Puntajes");
 		lblMáximosGanadores.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMáximosGanadores.setForeground(Color.WHITE);
 		lblMáximosGanadores.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMáximosGanadores.setBounds(750, 45, 300, 67);
+		lblMáximosGanadores.setBounds(750, 50, 300, 67);
 		add(lblMáximosGanadores);
+		
+		JButton btnVolverMenu = new JButton("Volver al Menú Principal");
+		btnVolverMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanelFondo p = (JPanelFondo)getParent();
+				setVisible(false);
+				p.getpMenu().setVisible(true);
+			}
+		});
+		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnVolverMenu.setBounds(525, 650, 150, 60);
+		add(btnVolverMenu);
 		
 		
 }
 	
 	
-	private void reiniciarSituacionInicial() {
-		users = MongoDBColecciones.rellenarArrayListUsuarios(users);
+	void reiniciarSituacionInicial() {
+		if (users != null) {
+			users.clear();
+		}
+		users = MongoDBColecciones.getUsuarios();
 		
 		ordenadosDineroUsuario = users.stream()
 					.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();
@@ -187,24 +205,6 @@ public class JPanelRanking extends JPanel {
 		}
 		TablaDineroTotal.setModel(modeloDineroTotal);
 		panelScrollMejorPartida.setViewportView(TablaDineroTotal);
-		
-		lblMejoresPuntuaciones = new JLabel("Mejores Puntuaciones Únicas");
-		lblMejoresPuntuaciones.setForeground(Color.WHITE);
-		lblMejoresPuntuaciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMejoresPuntuaciones.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMejoresPuntuaciones.setBounds(150, 58, 300, 67);
-		add(lblMejoresPuntuaciones);
-		
-		lblMáximosGanadores = new JLabel("Máximos Puntajes");
-		lblMáximosGanadores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMáximosGanadores.setForeground(Color.WHITE);
-		lblMáximosGanadores.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMáximosGanadores.setBounds(750, 45, 300, 67);
-		add(lblMáximosGanadores);
+		repaint();
 	}
-
-	
-	
-	
-	
 }

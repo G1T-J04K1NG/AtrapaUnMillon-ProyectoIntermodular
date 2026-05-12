@@ -18,8 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import org.bson.Document;
+
 import model.Pregunta;
 import model.Usuario;
+import mongo.MongoDBColecciones;
 
 public class JPanelPregunta extends JPanel {
 
@@ -44,7 +47,7 @@ public class JPanelPregunta extends JPanel {
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
 		setOpaque(true);
-
+		
 		lblDinero = new JLabel("Saldo: " + jugadorActual.getDineroUsuario() + " €");
 		lblDinero.setForeground(Color.YELLOW);
 		lblDinero.setFont(new Font("Tahoma", Font.BOLD, 26));

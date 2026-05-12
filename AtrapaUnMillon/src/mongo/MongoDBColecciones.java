@@ -22,14 +22,19 @@ public class MongoDBColecciones {
 	private static MongoCollection<Document> collectionUsuarios = database.getCollection("usuarios");
 	private static MongoCollection<Document> collectionPreguntas = database.getCollection("preguntas");
 
-	public ArrayList<Usuario> getUsuarios() {
+	public static ArrayList<Usuario> getUsuarios() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		FindIterable<Document> usuariosDocumentos = collectionUsuarios.find();
 		for (Document usuario : usuariosDocumentos) {
-			usuarios.add(new Usuario(usuario.getString("usuario"), usuario.getString("contraseña"),
-					usuario.getInteger("dineroUsuario"), usuario.getInteger("dineroMejorPartida")));
+			usuarios.add(documentoCastUsuario(usuario));
 		}
 		return usuarios;
+	}
+	
+	public static void añadirDocumentoUsuario(Usuario usuario) {
+		collectionUsuarios.insertOne(usuarioCastDocumento(usuario));
+		
+		collectionUsuarios = database.getCollection("usuarios");
 	}
 
 	public static Usuario getUsuarioPorUsuarioNombre(String usuarioNombre) {
@@ -50,6 +55,15 @@ public class MongoDBColecciones {
 		usuarioCast.setDineroUsuario(documento.getInteger("dineroUsuario"));
 		return usuarioCast;
 	}
+	
+	public static Document usuarioCastDocumento(Usuario usuario) {
+		Document documentoCast = new Document("usuario",usuario.getNombre())
+				.append("contraseña",usuario.getContraseña())
+				.append("dineroUsuario", usuario.getDineroUsuario())
+				.append("dineroMejorPartida", usuario.getDineroMejorPartida());
+		return documentoCast;
+	}
+	
 	
 	public static boolean comprobarExistenciaUsuario(String usuario) {
 		boolean existe =false;
@@ -78,15 +92,6 @@ public class MongoDBColecciones {
 		MongoDBColecciones.collectionPreguntas = collectionPreguntas;
 	}
 	
-	public static ArrayList<Usuario> rellenarArrayListUsuarios(ArrayList<Usuario> users) {
-		users.clear();
-		FindIterable<Document> resultadoUsuarios = collectionUsuarios.find();
-		for (Document u : resultadoUsuarios) {
-			Usuario usuario = new Usuario (u.getString("usuario"), u.getString("contraseña"),
-					u.getInteger("dineroUsuario"),u.getInteger("dineroMejorPartida"));
-			users.add(usuario);
-		}
-		return users;
-	}
+	
 	
 }

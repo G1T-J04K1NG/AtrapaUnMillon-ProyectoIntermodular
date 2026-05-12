@@ -97,12 +97,8 @@ public class JFrameRegistro extends JFrame {
 						} 
 						else {
 							dispose();
-							Document user = new Document("usuario", txtUsuario.getText())
-									.append("contraseña", txtContrasenia.getText()).append("dineroUsuario", 0)
-									.append("dineroMejorPartida", 0);
-							MongoDBColecciones.getCollectionUsuarios().insertOne(user);
 							Usuario usuario = new Usuario(txtUsuario.getText(), txtContrasenia.getText());
-
+							MongoDBColecciones.añadirDocumentoUsuario(usuario);
 							JPanelFondo panelFondo = new JPanelFondo(usuario);
 							frame.setContentPane(panelFondo);
 						}
