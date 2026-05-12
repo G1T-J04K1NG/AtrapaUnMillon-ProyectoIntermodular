@@ -46,6 +46,8 @@ public class JPanelMenuPrincipal extends JPanel {
 				p.getpModo().setVisible(true);
 				p.setComponentZOrder(p.getpModo(), 0);
 				p.repaint();
+				btnEmpezarPartida.setEnabled(false);
+				btnRanking.setEnabled(false);
 			}
 		});
 		btnEmpezarPartida.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -60,7 +62,7 @@ public class JPanelMenuPrincipal extends JPanel {
 		btnRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-
+				
 			}
 		});
 		btnRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -77,4 +79,22 @@ public class JPanelMenuPrincipal extends JPanel {
 		add(label);
 
 	}
+
+	public JButton getBtnRanking() {
+		return btnRanking;
+	}
+
+	public void setBtnRanking(JButton btnRanking) {
+		this.btnRanking = btnRanking;
+	}
+
+	public JButton getBtnEmpezarPartida() {
+		return btnEmpezarPartida;
+	}
+
+	public void setBtnEmpezarPartida(JButton btnEmpezarPartida) {
+		this.btnEmpezarPartida = btnEmpezarPartida;
+	}
+	
+	
 }

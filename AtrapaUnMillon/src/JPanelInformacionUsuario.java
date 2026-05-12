@@ -34,8 +34,13 @@ public class JPanelInformacionUsuario extends JPanel {
 				p.getpMenu().setVisible(false);
 				p.getpInstrucciones().setBounds(0, 0, p.getWidth(), p.getHeight());
 				p.getpInstrucciones().setVisible(true);
-				p.setBounds(0, 0, 1200, 700);
-
+				if (p.getpModo().isVisible() ) {
+					p.getpModo().setVisible(false);
+					p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
+					p.getpMenu().getBtnRanking().setEnabled(true);
+					
+				}
+				
 			}
 		});
 		btnInformacion

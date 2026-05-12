@@ -4,13 +4,16 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JPanelModoJuego extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblModoJuego;
 	private JButton btnModoNormal;
-	private JButton btnModoInfinito;
+	private JButton btnModoAleatorio;
+	private JButton btnVolver;
 
 	
 	public JPanelModoJuego() {
@@ -27,14 +30,46 @@ public class JPanelModoJuego extends JPanel {
 		add(lblModoJuego);
 		
 		btnModoNormal = new JButton("Normal");
+		btnModoNormal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanelFondo p = (JPanelFondo) getParent();
+				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
+				p.getpMenu().setVisible(false);
+				p.getpModo().setVisible(false);
+				p.getpPregunta().setVisible(true);
+				
+			}
+		});
 		btnModoNormal.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnModoNormal.setBounds(75, 220, 180, 120);
+		btnModoNormal.setBounds(75, 150, 180, 120);
 		add(btnModoNormal);
 		
-		btnModoInfinito = new JButton("Infinito");
-		btnModoInfinito.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnModoInfinito.setBounds(345, 220, 180, 120);
-		add(btnModoInfinito);
+		btnModoAleatorio = new JButton("Aleatorio");
+		btnModoAleatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanelFondo p = (JPanelFondo) getParent();
+				p.getpMenu().setVisible(false);
+				p.getpModo().setVisible(false);
+				p.getpPregunta().setVisible(true);
+			}
+		});
+		btnModoAleatorio.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnModoAleatorio.setBounds(345, 150, 180, 120);
+		add(btnModoAleatorio);
+		
+		btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanelFondo p = (JPanelFondo) getParent();
+				setVisible(false);
+				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
+				p.getpMenu().getBtnRanking().setEnabled(true);
+				
+			}
+		});
+		btnVolver.setBounds(240, 315, 120, 40);
+		add(btnVolver);
 		
 		
 	}
