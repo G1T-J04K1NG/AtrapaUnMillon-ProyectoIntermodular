@@ -1,3 +1,5 @@
+package interfaces;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,6 +18,9 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
+import model.Usuario;
+import mongo.MongoDBColecciones;
+
 public class JFrameLogIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +37,7 @@ public class JFrameLogIn extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameLogIn(MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas, JframeInterfaz frame) {
+	public JFrameLogIn(JframeInterfaz frame) {
 		setTitle("Atrapa Un Millón: Inicio De Sesión");
 		setBounds(350, 200, 650, 400);
 		contentPane = new JPanel();
@@ -80,15 +85,16 @@ public class JFrameLogIn extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!txtUsuario.getText().trim().isEmpty() && !txtContrasenia.getText().trim().isEmpty()) {
 					String usuarionombre = txtUsuario.getText();
-					Document usuarioEncontrado = collectionUsuarios.find(Filters.eq("usuario", usuarionombre)).first();
+					Usuario usuarioEncontrado = MongoDBColecciones.getUsuarioPorUsuarioNombre(usuarionombre);
 					if (usuarioEncontrado != null) {
 						if (txtContrasenia.getText().trim().equals(usuarioEncontrado.getString("contraseña"))) {
 							dispose();
-							
+
 							Usuario usuario = new Usuario(usuarionombre, usuarioEncontrado.getString("contraseña"),
-									usuarioEncontrado.getInteger("dineroUsuario"), usuarioEncontrado.getInteger("dineroMejorPartida"));
-							
-							 JPanelFondo panelFondo = new JPanelFondo(usuario, collectionUsuarios,collectionPreguntas);
+									usuarioEncontrado.getInteger("dineroUsuario"),
+									usuarioEncontrado.getInteger("dineroMejorPartida"));
+
+							JPanelFondo panelFondo = new JPanelFondo(usuario, collectionUsuarios, collectionPreguntas);
 							frame.setContentPane(panelFondo);
 
 						} else {

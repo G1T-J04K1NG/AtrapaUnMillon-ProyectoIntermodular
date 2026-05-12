@@ -1,3 +1,4 @@
+package interfaces;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,9 @@ import org.bson.Document;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+
+import model.Usuario;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;

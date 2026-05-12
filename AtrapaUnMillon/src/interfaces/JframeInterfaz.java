@@ -1,3 +1,5 @@
+package interfaces;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -21,12 +23,11 @@ import com.mongodb.client.MongoDatabase;
 
 public class JframeInterfaz extends JFrame {
 
-
 	private static final long serialVersionUID = 1L;
 	public JPanel contentPanel;
 
 	// CrearJFRAME
-	public JframeInterfaz(MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas) {
+	public JframeInterfaz() {
 		setFont(new Font("Guttman Frank", Font.BOLD, 13));
 		setTitle("Atrapa Un Millón");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +52,7 @@ public class JframeInterfaz extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios,collectionPreguntas, JframeInterfaz.this);
+							JFrameLogIn frameLogIn = new JFrameLogIn(JframeInterfaz.this);
 							frameLogIn.setVisible(true);
 							frameLogIn.setResizable(false); // Para que no se pueda redimensionar.
 						} catch (Exception e) {
@@ -79,7 +80,7 @@ public class JframeInterfaz extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios,collectionPreguntas, JframeInterfaz.this);
+							JFrameRegistro frameRegistro = new JFrameRegistro(JframeInterfaz.this);
 							frameRegistro.setVisible(true);
 							frameRegistro.setResizable(false); // Para que no se pueda redimensionar.
 						} catch (Exception e) {

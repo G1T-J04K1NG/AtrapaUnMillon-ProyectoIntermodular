@@ -1,3 +1,4 @@
+package interfaces;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+import model.Pregunta;
+import model.Usuario;
 
 public class JPanelPregunta extends JPanel {
 
@@ -92,6 +96,7 @@ public class JPanelPregunta extends JPanel {
 					p.getpMenu().setVisible(true);
 					p.revalidate();
 					p.repaint();
+					createPreguntas();
 					p.setComponentZOrder(p.getpMenu(), 0);
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -114,28 +119,45 @@ public class JPanelPregunta extends JPanel {
 				}
 			}
 		});
+		createPreguntas();
 
+	}
+
+	private void createPreguntas() {
 		cargarBancoDePreguntas();
 
 		buttonMago = new JButtonRedondo((String) null);
-		buttonMago.setIcon(null);
-		buttonMago.setBounds(79, 11, 50, 50);
+		buttonMago.setForeground(Color.BLACK);
+		buttonMago.setBackground(Color.GREEN);
+		buttonMago.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/IconoMagoFinal.png")));
+		buttonMago.setBounds(90, 12, 60, 60);
 		add(buttonMago);
 		buttonMago.setFocusPainted(false);
 		buttonMago.setContentAreaFilled(false);
 		buttonMago.setBorderPainted(false);
 
 		buttonPublico = new JButtonRedondo((String) null);
-		buttonPublico.setBounds(10, 83, 50, 50);
+		buttonPublico.setBackground(Color.GREEN);
+		buttonPublico.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ComodinPublico (2).png")));
+		buttonPublico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		buttonPublico.setBounds(12, 83, 60, 60);
 		add(buttonPublico);
+		buttonPublico.setFocusPainted(false);
+		buttonPublico.setContentAreaFilled(false);
+		buttonPublico.setBorderPainted(false);
 
 		buttonCambiarPregunta = new JButtonRedondo((String) null);
 
-		buttonCambiarPregunta.setBounds(79, 83, 50, 50);
+		buttonCambiarPregunta.setBounds(90, 83, 60, 60);
 		add(buttonCambiarPregunta);
 
 		buttonSalvavidas = new JButtonRedondo((String) null);
-		buttonSalvavidas.setBounds(10, 11, 50, 50);
+		buttonSalvavidas.setIcon(null);
+		buttonSalvavidas.setBackground(Color.GREEN);
+		buttonSalvavidas.setBounds(12, 12, 60, 60);
 		add(buttonSalvavidas);
 
 		rellenarPreguntas();

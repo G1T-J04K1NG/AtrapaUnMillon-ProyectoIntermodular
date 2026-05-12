@@ -1,9 +1,12 @@
+package interfaces;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
+
+import model.Usuario;
 
 public class JPanelFondo extends JPanel {
 
