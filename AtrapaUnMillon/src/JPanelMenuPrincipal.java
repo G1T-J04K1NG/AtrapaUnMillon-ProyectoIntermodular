@@ -63,6 +63,7 @@ public class JPanelMenuPrincipal extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				JPanelFondo p = (JPanelFondo)getParent();
+				p.getpRanking().reiniciarSituacionInicial(p.getpRanking());
 				p.getpRanking().setVisible(true);
 			}
 		});
