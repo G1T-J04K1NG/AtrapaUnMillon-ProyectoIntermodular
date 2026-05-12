@@ -62,7 +62,8 @@ public class JPanelMenuPrincipal extends JPanel {
 		btnRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				
+				JPanelFondo p = (JPanelFondo)getParent();
+				p.getpRanking().setVisible(true);
 			}
 		});
 		btnRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));

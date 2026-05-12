@@ -38,12 +38,22 @@ public class Usuario {
 		this.contraseña = contraseña;
 	}
 
-	public int getdineroUsuario() {
+	public int getDineroUsuario() {
 		return dineroUsuario;
 	}
 
-	public void setdineroUsuario(int dinero) {
-		this.dineroUsuario = dinero;
+	public void setDineroUsuario(int dineroUsuario) {
+		this.dineroUsuario = dineroUsuario;
 	}
 
+	public int getDineroMejorPartida() {
+		return dineroMejorPartida;
+	}
+
+	public void setDineroMejorPartida(int dineroMejorPartida) {
+		this.dineroMejorPartida = dineroMejorPartida;
+	}
+
+	
+	
 }

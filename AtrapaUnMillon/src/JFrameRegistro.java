@@ -31,7 +31,7 @@ public class JFrameRegistro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameRegistro(MongoCollection<Document> collectionUsuarios,JframeInterfaz frame) {
+	public JFrameRegistro(MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas, JframeInterfaz frame) {
 		setTitle("Atrapa Un Millón: Registro de Usuario");
 		setBounds(350, 200, 650, 400);
 		contentPane = new JPanel();
@@ -95,11 +95,13 @@ public class JFrameRegistro extends JFrame {
 							 dispose();
 							 Document user = new Document("usuario",txtUsuario.getText())
 									 .append("contraseña", txtContrasenia.getText())
-									 .append("dinero",0);
+									 .append("dineroUsuario",0)
+							 		 .append("dineroMejorPartida",0);
 							 collectionUsuarios.insertOne(user);
 							 Usuario usuario = new Usuario(txtUsuario.getText(),txtContrasenia.getText());
-							 contentPane=(new JPanelInformacionUsuario(usuario));
-								contentPane.add(new JPanelMenuPrincipal());
+							 
+							 JPanelFondo panelFondo = new JPanelFondo(usuario, collectionUsuarios,collectionPreguntas);
+								frame.setContentPane(panelFondo);
 						 }
 					 }
 					 else {

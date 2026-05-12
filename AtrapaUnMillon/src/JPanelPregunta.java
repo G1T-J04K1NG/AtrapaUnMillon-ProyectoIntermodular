@@ -41,7 +41,7 @@ public class JPanelPregunta extends JPanel {
 		setBounds(0, 30, 1200, 770);
 		setOpaque(true);
 
-		lblDinero = new JLabel("Saldo: " + jugadorActual.getdineroUsuario() + " €");
+		lblDinero = new JLabel("Saldo: " + jugadorActual.getDineroUsuario() + " €");
 		lblDinero.setForeground(Color.YELLOW);
 		lblDinero.setFont(new Font("Tahoma", Font.BOLD, 26));
 		lblDinero.setBounds(30, 680, 300, 50);
@@ -146,9 +146,9 @@ public class JPanelPregunta extends JPanel {
 
 		if (respuestaLimpia.equals(preguntaActual.getRespuestaCorrecta())) {
 			// --- ACERTÓ ---
-			int dineroNuevo = jugadorActual.getdineroUsuario() + 1000;
-			jugadorActual.setdineroUsuario(dineroNuevo);
-			lblDinero.setText("Saldo: " + jugadorActual.getdineroUsuario() + " €");
+			int dineroNuevo = jugadorActual.getDineroUsuario() + 1000;
+			jugadorActual.setDineroUsuario(dineroNuevo);
+			lblDinero.setText("Saldo: " + jugadorActual.getDineroUsuario() + " €");
 
 			rellenarPreguntas();
 

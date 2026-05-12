@@ -18,7 +18,7 @@ public class JPanelModoJuego extends JPanel {
 	
 	public JPanelModoJuego() {
 		setBackground(Color.DARK_GRAY);
-		setOpaque(true);
+		setOpaque(true); 
 		setLayout(null);
 		setBounds(300,200,600,400);
 		
@@ -41,7 +41,11 @@ public class JPanelModoJuego extends JPanel {
 				
 			}
 		});
-
+		btnModoNormal.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnModoNormal.setBounds(75, 150, 180, 120);
+		add(btnModoNormal);
+		
+		
 		btnModoAleatorio = new JButton("Aleatorio");
 		btnModoAleatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

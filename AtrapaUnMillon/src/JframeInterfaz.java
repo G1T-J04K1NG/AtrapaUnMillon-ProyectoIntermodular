@@ -21,8 +21,6 @@ import com.mongodb.client.MongoDatabase;
 
 public class JframeInterfaz extends JFrame {
 
-	private MongoCollection<Document> collectionUsuarios;
-	private MongoCollection<Document> collectionPreguntas;
 
 	private static final long serialVersionUID = 1L;
 	public JPanel contentPanel;
@@ -32,7 +30,7 @@ public class JframeInterfaz extends JFrame {
 		setFont(new Font("Guttman Frank", Font.BOLD, 13));
 		setTitle("Atrapa Un Millón");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 15, 1200, 800);
+		setBounds(100, 5, 1200, 800);
 		contentPanel = new JPanel();
 		contentPanel.setBackground(Color.BLACK);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,7 +51,7 @@ public class JframeInterfaz extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios, JframeInterfaz.this);
+							JFrameLogIn frameLogIn = new JFrameLogIn(collectionUsuarios,collectionPreguntas, JframeInterfaz.this);
 							frameLogIn.setVisible(true);
 							frameLogIn.setResizable(false); // Para que no se pueda redimensionar.
 						} catch (Exception e) {
@@ -81,7 +79,7 @@ public class JframeInterfaz extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios, JframeInterfaz.this);
+							JFrameRegistro frameRegistro = new JFrameRegistro(collectionUsuarios,collectionPreguntas, JframeInterfaz.this);
 							frameRegistro.setVisible(true);
 							frameRegistro.setResizable(false); // Para que no se pueda redimensionar.
 						} catch (Exception e) {

@@ -1,6 +1,10 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
+
 public class JPanelFondo extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -11,8 +15,10 @@ public class JPanelFondo extends JPanel {
 	private JPanelInstrucciones pInstrucciones;
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
+	private MongoCollection<Document> collectionPreguntas,	collectionUsuarios;
 
-	public JPanelFondo(Usuario usuario) {
+	public JPanelFondo(Usuario usuario, MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas ) {
+		
 		setLayout(null);
 		setBounds(0, 0, 1200, 800);
 		// JPanelInformación Arriba
@@ -32,7 +38,7 @@ public class JPanelFondo extends JPanel {
 		add(pInstrucciones);
 		pInstrucciones.setVisible(false);
 
-		pRanking = new JPanelRanking();
+		pRanking = new JPanelRanking(collectionUsuarios);
 		add(pRanking);
 		pRanking.setVisible(false);
 
@@ -90,4 +96,22 @@ public class JPanelFondo extends JPanel {
 		this.pModo = pModo;
 	}
 
+	public MongoCollection<Document> getCollectionPreguntas() {
+		return collectionPreguntas;
+	}
+
+	public void setCollectionPreguntas(MongoCollection<Document> collectionPreguntas) {
+		this.collectionPreguntas = collectionPreguntas;
+	}
+
+	public MongoCollection<Document> getCollectionUsuarios() {
+		return collectionUsuarios;
+	}
+
+	public void setCollectionUsuarios(MongoCollection<Document> collectionUsuarios) {
+		this.collectionUsuarios = collectionUsuarios;
+	}
+
+	
+	
 }
