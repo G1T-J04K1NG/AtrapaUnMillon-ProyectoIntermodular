@@ -1,3 +1,4 @@
+package interfaces;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+import model.Pregunta;
+import model.Usuario;
 
 public class JPanelPregunta extends JPanel {
 

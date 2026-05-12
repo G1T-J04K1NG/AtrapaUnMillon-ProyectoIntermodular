@@ -1,9 +1,10 @@
-import java.util.ArrayList;
+package model;
+import java.util.*;
+
+//Creación clase Pregunta Rafa: 07/05/25
 
 public class Pregunta {
 
-	//ATRIBUTOS
-	
 	private String pregunta;
 	private String respuestaCorrecta;
 	private ArrayList<String> respuestas;
@@ -40,6 +41,8 @@ public class Pregunta {
 	public void setDificultad(int dificultad) {
 		this.dificultad = dificultad;
 	}
+	public String getEnunciado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
-
-

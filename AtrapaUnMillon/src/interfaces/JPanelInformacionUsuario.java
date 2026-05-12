@@ -1,3 +1,4 @@
+package interfaces;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -10,6 +11,8 @@ import java.awt.Cursor;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
+import model.Usuario;
 
 public class JPanelInformacionUsuario extends JPanel {
 

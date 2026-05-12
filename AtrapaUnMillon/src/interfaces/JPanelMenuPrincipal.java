@@ -1,3 +1,4 @@
+package interfaces;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JLabel;

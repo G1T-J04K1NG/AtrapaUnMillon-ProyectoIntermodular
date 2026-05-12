@@ -1,3 +1,6 @@
+package model;
+
+import org.bson.Document;
 
 public class Usuario {
 
@@ -7,6 +10,10 @@ public class Usuario {
 	private String contraseña;
 	private int dineroUsuario;
 	private int dineroMejorPartida;
+
+	public Usuario() {
+
+	}
 
 	public Usuario(String nombre, String contraseña) {
 		this.nombre = nombre;
@@ -54,6 +61,4 @@ public class Usuario {
 		this.dineroMejorPartida = dineroMejorPartida;
 	}
 
-	
-	
 }
