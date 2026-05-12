@@ -1,4 +1,5 @@
 package interfaces;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -6,6 +7,7 @@ import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
 
+import model.Partida;
 import model.Usuario;
 
 public class JPanelFondo extends JPanel {
@@ -18,13 +20,14 @@ public class JPanelFondo extends JPanel {
 	private JPanelInstrucciones pInstrucciones;
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
+	private Partida partida;
 
-	public JPanelFondo(Usuario usuario) {
-		
+	public JPanelFondo(Partida partida) {
+
 		setLayout(null);
 		setBounds(0, 0, 1200, 800);
 		// JPanelInformación Arriba
-		pInformacion = new JPanelInformacionUsuario(usuario);
+		pInformacion = new JPanelInformacionUsuario(partida.getUsuario());
 		add(pInformacion);
 
 		// JPanel Menu
@@ -32,7 +35,7 @@ public class JPanelFondo extends JPanel {
 		add(pMenu);
 
 		//
-		pPregunta = new JPanelPregunta();
+		pPregunta = new JPanelPregunta(partida);
 		add(pPregunta);
 		pPregunta.setVisible(false);
 
@@ -97,5 +100,13 @@ public class JPanelFondo extends JPanel {
 	public void setpModo(JPanelModoJuego pModo) {
 		this.pModo = pModo;
 	}
-		
+
+	public Partida getPartida() {
+		return partida;
+	}
+
+	public void setPartida(Partida partida) {
+		this.partida = partida;
+	}
+
 }

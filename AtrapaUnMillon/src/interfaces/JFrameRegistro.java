@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,11 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import org.bson.Document;
-
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-
+import model.Partida;
 import model.Usuario;
 import mongo.MongoDBColecciones;
 
@@ -88,25 +83,22 @@ public class JFrameRegistro extends JFrame {
 				} else {
 					if (!txtContrasenia.getText().equals(txtRepetir.getText())) {
 						lblIncorrecto.setText("Las contraseñas no coinciden.");
-						
-						}
-					else {
+
+					} else {
 						boolean existe = MongoDBColecciones.comprobarExistenciaUsuario(txtUsuario.getText());
 						if (existe) {
 							lblIncorrecto.setText("El nombre " + txtUsuario.getText() + " ya está escogido.");
-						} 
-						else {
+						} else {
 							dispose();
 							Usuario usuario = new Usuario(txtUsuario.getText(), txtContrasenia.getText());
 							MongoDBColecciones.añadirDocumentoUsuario(usuario);
-							JPanelFondo panelFondo = new JPanelFondo(usuario);
+							JPanelFondo panelFondo = new JPanelFondo(new Partida(usuario));
 							frame.setContentPane(panelFondo);
 						}
-					}					
+					}
 				}
 			}
 		});
-
 
 		btnRegistrar.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnRegistrar.setBounds(275, 288, 100, 23);

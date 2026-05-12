@@ -1,19 +1,20 @@
 package model;
+
 import java.util.*;
 
 public class Partida {
 
 	// Creación clase Partida Rafa: 07/05/25
-	private Usuario jugador;
+	private Usuario usuario;
 	private int dinero;
 	private int ronda;
-
+	private boolean modoJuego;
 
 	public Partida(Usuario jugador) {
-		this.jugador = jugador;
+		this.usuario = jugador;
 		this.dinero = 0;
 		this.ronda = 0;
-		
+		this.modoJuego= true;
 	}
 	/*
 	 * Sobre el constructor de Partida: Lo suyo es que empieze con dinero 500 e ir
@@ -30,12 +31,12 @@ public class Partida {
 	 * 
 	 */
 
-	public Usuario getJugador() {
-		return jugador;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setJugador(Usuario jugador) {
-		this.jugador = jugador;
+	public void setUsuario(Usuario jugador) {
+		this.usuario = jugador;
 	}
 
 	public int getDinero() {
@@ -54,5 +55,14 @@ public class Partida {
 		this.ronda = ronda;
 	}
 
+	public boolean isModoJuego() {
+		return modoJuego;
+	}
 
+	public void setModoJuego(boolean modoJuego) {
+		this.modoJuego = modoJuego;
+	}
+
+	
+	
 }

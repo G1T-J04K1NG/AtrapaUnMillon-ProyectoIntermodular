@@ -18,6 +18,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
+import model.Partida;
 import model.Usuario;
 import mongo.MongoDBColecciones;
 
@@ -89,8 +90,8 @@ public class JFrameLogIn extends JFrame {
 					if (usuarioEncontrado != null) {
 						if (txtContrasenia.getText().trim().equals(usuarioEncontrado.getContraseña())) {
 							dispose();
-
-							JPanelFondo panelFondo = new JPanelFondo(usuarioEncontrado);
+							Partida partida = new Partida(usuarioEncontrado);
+							JPanelFondo panelFondo = new JPanelFondo(partida);
 							frame.setContentPane(panelFondo);
 
 						} else {

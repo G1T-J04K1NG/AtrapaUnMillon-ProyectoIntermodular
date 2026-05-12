@@ -1,4 +1,5 @@
 package interfaces;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ import javax.swing.border.LineBorder;
 
 import org.bson.Document;
 
+import model.Partida;
 import model.Pregunta;
 import model.Usuario;
 import mongo.MongoDBColecciones;
@@ -36,18 +38,20 @@ public class JPanelPregunta extends JPanel {
 	private JButton btnVolverMenu;
 
 	private ArrayList<Pregunta> bancoPreguntas;
-	private Usuario jugadorActual = new Usuario("Jugador1", "1234");
-
+	private Usuario jugadorActual;
+	private boolean modoJuego;
 	private JButtonRedondo buttonMago;
 	private JButtonRedondo buttonPublico;
 	private JButtonRedondo buttonCambiarPregunta;
 	private JButtonRedondo buttonSalvavidas;
 
-	public JPanelPregunta() {
+	public JPanelPregunta(Partida partida) {
+		this.jugadorActual = partida.getUsuario();
+		this.modoJuego = partida.isModoJuego();
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
 		setOpaque(true);
-		
+
 		lblDinero = new JLabel("Saldo: " + jugadorActual.getDineroUsuario() + " €");
 		lblDinero.setForeground(Color.YELLOW);
 		lblDinero.setFont(new Font("Tahoma", Font.BOLD, 26));
@@ -99,7 +103,7 @@ public class JPanelPregunta extends JPanel {
 					p.getpMenu().setVisible(true);
 					p.revalidate();
 					p.repaint();
-					createPreguntas();
+					createEsqueletoPreguntas();
 					p.setComponentZOrder(p.getpMenu(), 0);
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -122,11 +126,11 @@ public class JPanelPregunta extends JPanel {
 				}
 			}
 		});
-		createPreguntas();
+		createEsqueletoPreguntas();
 
 	}
 
-	private void createPreguntas() {
+	private void createEsqueletoPreguntas() {
 		cargarBancoDePreguntas();
 
 		buttonMago = new JButtonRedondo((String) null);
@@ -153,6 +157,7 @@ public class JPanelPregunta extends JPanel {
 		buttonPublico.setBorderPainted(false);
 
 		buttonCambiarPregunta = new JButtonRedondo((String) null);
+		buttonCambiarPregunta.setBackground(Color.GREEN);
 
 		buttonCambiarPregunta.setBounds(90, 83, 60, 60);
 		add(buttonCambiarPregunta);
@@ -210,13 +215,13 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	private void cargarBancoDePreguntas() {
-		bancoPreguntas = new ArrayList<>();
-		bancoPreguntas.add(new Pregunta("¿Qué órgano del cuerpo humano bombea sangre?", "Corazón",
-				new ArrayList<>(Arrays.asList("Pulmón", "Hígado", "Corazón", "Riñón")), 1));
-		bancoPreguntas.add(new Pregunta("¿Cuál es la moneda oficial de España?", "Euro",
-				new ArrayList<>(Arrays.asList("Peseta", "Dólar", "Euro", "Libra")), 1));
+		JPanelFondo p = (JPanelFondo) getParent();
+		if (p.getPartida().isModoJuego()) {
+			bancoPreguntas = MongoDBColecciones.getPreguntasNormal();
 
-		Collections.shuffle(bancoPreguntas);
+		} else {
+			bancoPreguntas = MongoDBColecciones.getPreguntasAleatorio();
+		}
 	}
 
 	public void rellenarPreguntas() {
