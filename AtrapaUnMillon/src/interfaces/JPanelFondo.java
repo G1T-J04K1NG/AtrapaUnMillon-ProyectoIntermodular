@@ -18,9 +18,8 @@ public class JPanelFondo extends JPanel {
 	private JPanelInstrucciones pInstrucciones;
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
-	private MongoCollection<Document> collectionPreguntas,	collectionUsuarios;
 
-	public JPanelFondo(Usuario usuario, MongoCollection<Document> collectionUsuarios, MongoCollection<Document> collectionPreguntas ) {
+	public JPanelFondo(Usuario usuario) {
 		
 		setLayout(null);
 		setBounds(0, 0, 1200, 800);
@@ -41,7 +40,7 @@ public class JPanelFondo extends JPanel {
 		add(pInstrucciones);
 		pInstrucciones.setVisible(false);
 
-		pRanking = new JPanelRanking(collectionUsuarios);
+		pRanking = new JPanelRanking();
 		add(pRanking);
 		pRanking.setVisible(false);
 
@@ -98,23 +97,5 @@ public class JPanelFondo extends JPanel {
 	public void setpModo(JPanelModoJuego pModo) {
 		this.pModo = pModo;
 	}
-
-	public MongoCollection<Document> getCollectionPreguntas() {
-		return collectionPreguntas;
-	}
-
-	public void setCollectionPreguntas(MongoCollection<Document> collectionPreguntas) {
-		this.collectionPreguntas = collectionPreguntas;
-	}
-
-	public MongoCollection<Document> getCollectionUsuarios() {
-		return collectionUsuarios;
-	}
-
-	public void setCollectionUsuarios(MongoCollection<Document> collectionUsuarios) {
-		this.collectionUsuarios = collectionUsuarios;
-	}
-
-	
-	
+		
 }

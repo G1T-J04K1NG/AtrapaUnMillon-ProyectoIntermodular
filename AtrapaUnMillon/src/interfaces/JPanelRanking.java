@@ -1,25 +1,19 @@
 package interfaces;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import org.bson.Document;
-
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-
 import model.Usuario;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
+import mongo.MongoDBColecciones;
 
 public class JPanelRanking extends JPanel {
 
@@ -36,10 +30,10 @@ public class JPanelRanking extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public JPanelRanking(MongoCollection<Document> collectionUsuarios) {
+	public JPanelRanking() {
 		
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		rellenarUsuarios(users,collectionUsuarios);
+		users = MongoDBColecciones.rellenarArrayListUsuarios(users);
 		
 		ordenadosDineroUsuario = users.stream()
 					.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();
@@ -125,9 +119,8 @@ public class JPanelRanking extends JPanel {
 }
 	
 	
-	private void reiniciarSituacionInicial(MongoCollection<Document> collectionUsuarios) {
-		users = new ArrayList<Usuario>();
-		rellenarUsuarios(users,collectionUsuarios);
+	private void reiniciarSituacionInicial() {
+		users = MongoDBColecciones.rellenarArrayListUsuarios(users);
 		
 		ordenadosDineroUsuario = users.stream()
 					.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();
@@ -210,16 +203,7 @@ public class JPanelRanking extends JPanel {
 		add(lblMáximosGanadores);
 	}
 
-	private void rellenarUsuarios(ArrayList<Usuario> users,MongoCollection<Document> collectionUsuarios) {
-		users.clear();
-		FindIterable<Document> resultadoUsuarios = collectionUsuarios.find();
-		for (Document u : resultadoUsuarios) {
-			Usuario usuario = new Usuario (u.getString("usuario"), u.getString("contraseña"),
-					u.getInteger("dineroUsuario"),u.getInteger("dineroMejorPartida"));
-			users.add(usuario);
-		}
-		
-	}
+	
 	
 	
 	

@@ -87,14 +87,10 @@ public class JFrameLogIn extends JFrame {
 					String usuarionombre = txtUsuario.getText();
 					Usuario usuarioEncontrado = MongoDBColecciones.getUsuarioPorUsuarioNombre(usuarionombre);
 					if (usuarioEncontrado != null) {
-						if (txtContrasenia.getText().trim().equals(usuarioEncontrado.getString("contraseña"))) {
+						if (txtContrasenia.getText().trim().equals(usuarioEncontrado.getContraseña())) {
 							dispose();
 
-							Usuario usuario = new Usuario(usuarionombre, usuarioEncontrado.getString("contraseña"),
-									usuarioEncontrado.getInteger("dineroUsuario"),
-									usuarioEncontrado.getInteger("dineroMejorPartida"));
-
-							JPanelFondo panelFondo = new JPanelFondo(usuario, collectionUsuarios, collectionPreguntas);
+							JPanelFondo panelFondo = new JPanelFondo(usuarioEncontrado);
 							frame.setContentPane(panelFondo);
 
 						} else {

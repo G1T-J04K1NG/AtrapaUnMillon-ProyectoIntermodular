@@ -138,7 +138,7 @@ public class JPanelPregunta extends JPanel {
 
 		buttonPublico = new JButtonRedondo((String) null);
 		buttonPublico.setBackground(Color.GREEN);
-		buttonPublico.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ComodinPublico (2).png")));
+		buttonPublico.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/IconoComodinPublico.png")));
 		buttonPublico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

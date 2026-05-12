@@ -42,7 +42,7 @@ public class MongoDBColecciones {
 		
 	}
 
-	private static Usuario documentoCastUsuario(Document documento) {
+	public static Usuario documentoCastUsuario(Document documento) {
 		Usuario usuarioCast = new Usuario();
 		usuarioCast.setNombre(documento.getString("usuario"));
 		usuarioCast.setContraseña(documento.getString("contraseña"));
@@ -50,4 +50,43 @@ public class MongoDBColecciones {
 		usuarioCast.setDineroUsuario(documento.getInteger("dineroUsuario"));
 		return usuarioCast;
 	}
+	
+	public static boolean comprobarExistenciaUsuario(String usuario) {
+		boolean existe =false;
+		FindIterable<Document> usuarios = collectionUsuarios.find();
+		for (Document user : usuarios) {
+			if(user.getString("usuario").equals(usuario)) {
+				existe = true;
+			}
+		}
+		return existe;
+	}
+
+	public static MongoCollection<Document> getCollectionUsuarios() {
+		return collectionUsuarios;
+	}
+
+	public static void setCollectionUsuarios(MongoCollection<Document> collectionUsuarios) {
+		MongoDBColecciones.collectionUsuarios = collectionUsuarios;
+	}
+
+	public static MongoCollection<Document> getCollectionPreguntas() {
+		return collectionPreguntas;
+	}
+
+	public static void setCollectionPreguntas(MongoCollection<Document> collectionPreguntas) {
+		MongoDBColecciones.collectionPreguntas = collectionPreguntas;
+	}
+	
+	public static ArrayList<Usuario> rellenarArrayListUsuarios(ArrayList<Usuario> users) {
+		users.clear();
+		FindIterable<Document> resultadoUsuarios = collectionUsuarios.find();
+		for (Document u : resultadoUsuarios) {
+			Usuario usuario = new Usuario (u.getString("usuario"), u.getString("contraseña"),
+					u.getInteger("dineroUsuario"),u.getInteger("dineroMejorPartida"));
+			users.add(usuario);
+		}
+		return users;
+	}
+	
 }

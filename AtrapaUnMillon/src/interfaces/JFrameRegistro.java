@@ -20,6 +20,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
 import model.Usuario;
+import mongo.MongoDBColecciones;
 
 public class JFrameRegistro extends JFrame {
 
@@ -85,32 +86,31 @@ public class JFrameRegistro extends JFrame {
 						|| txtRepetir.getText().isEmpty()) {
 					lblIncorrecto.setText("Debes rellenar todos los campos.");
 				} else {
-					if (txtContrasenia.getText().equals(txtRepetir.getText())) {
-						FindIterable<Document> usuarios = collectionUsuarios.find();
-						ArrayList<String> nombresUsuario = new ArrayList<String>();
-						for (Document u : usuarios) {
-							nombresUsuario.add(u.getString("usuario"));
+					if (!txtContrasenia.getText().equals(txtRepetir.getText())) {
+						lblIncorrecto.setText("Las contraseñas no coinciden.");
+						
 						}
-						if (nombresUsuario.contains(txtUsuario.getText())) {
+					else {
+						boolean existe = MongoDBColecciones.comprobarExistenciaUsuario(txtUsuario.getText());
+						if (existe) {
 							lblIncorrecto.setText("El nombre " + txtUsuario.getText() + " ya está escogido.");
-						} else {
+						} 
+						else {
 							dispose();
 							Document user = new Document("usuario", txtUsuario.getText())
 									.append("contraseña", txtContrasenia.getText()).append("dineroUsuario", 0)
 									.append("dineroMejorPartida", 0);
-							collectionUsuarios.insertOne(user);
+							MongoDBColecciones.getCollectionUsuarios().insertOne(user);
 							Usuario usuario = new Usuario(txtUsuario.getText(), txtContrasenia.getText());
 
-							JPanelFondo panelFondo = new JPanelFondo(usuario, collectionUsuarios, collectionPreguntas);
+							JPanelFondo panelFondo = new JPanelFondo(usuario);
 							frame.setContentPane(panelFondo);
 						}
-					} else {
-						lblIncorrecto.setText("Las contraseñas no coinciden.");
-					}
+					}					
 				}
 			}
-
 		});
+
 
 		btnRegistrar.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnRegistrar.setBounds(275, 288, 100, 23);
