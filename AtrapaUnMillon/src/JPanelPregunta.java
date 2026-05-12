@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,97 +23,131 @@ public class JPanelPregunta extends JPanel {
     private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/Fondo JFrame Pregunta.png")).getImage();
 
     private JButton btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD;
-    private JLabel lblPregunta, lblResultado; // Añadimos lblResultado
-    private Pregunta preguntaActual; // Para guardar la pregunta que está en pantalla
+    private JLabel lblPregunta, lblDinero; 
+    private Pregunta preguntaActual; 
     private JButton btnVolverMenu;
+    
+    private ArrayList<Pregunta> bancoPreguntas;
+    private Usuario jugadorActual = new Usuario("Jugador1", "1234");
 
     public JPanelPregunta() {
         setLayout(null);
-        setSize(1202, 802);
+        setBounds(0,30,1200,770);
+        setOpaque(true); 
+       
+        lblDinero = new JLabel("Saldo: " + jugadorActual.getdineroUsuario() + " €");
+        lblDinero.setForeground(Color.YELLOW); 
+        lblDinero.setFont(new Font("Tahoma", Font.BOLD, 26));
+        lblDinero.setBounds(30, 680, 300, 50); 
+        add(lblDinero);
 
-        // --- LABEL RESULTADO (¡CORRECTO!) ---
-        lblResultado = new JLabel("");
-        lblResultado.setHorizontalAlignment(SwingConstants.CENTER);
-        lblResultado.setFont(new Font("Tahoma", Font.BOLD, 40));
-        lblResultado.setBounds(300, 250, 600, 100);
-        lblResultado.setVisible(false); // Empieza oculto
-        add(lblResultado);
-
-        // --- BOTONES CON LÓGICA ---
+        
         btnOpcionA = new JButton("");
         estiloBoton(btnOpcionA);
-        btnOpcionA.setBounds(275, 421, 250, 40);
+        btnOpcionA.setBounds(255, 419, 250, 40);
         btnOpcionA.addActionListener(e -> comprobarRespuesta(btnOpcionA.getText()));
         add(btnOpcionA);
 
         btnOpcionB = new JButton("");
         estiloBoton(btnOpcionB);
-        btnOpcionB.setBounds(763, 421, 250, 40);
+        btnOpcionB.setBounds(728, 421, 250, 40);
         btnOpcionB.addActionListener(e -> comprobarRespuesta(btnOpcionB.getText()));
         add(btnOpcionB);
 
         btnOpcionC = new JButton("");
         estiloBoton(btnOpcionC);
-        btnOpcionC.setBounds(275, 679, 250, 40);
+        btnOpcionC.setBounds(255, 679, 250, 40);
         btnOpcionC.addActionListener(e -> comprobarRespuesta(btnOpcionC.getText()));
         add(btnOpcionC);
 
         btnOpcionD = new JButton("");
         estiloBoton(btnOpcionD);
-        btnOpcionD.setBounds(763, 679, 250, 40);
+        btnOpcionD.setBounds(728, 679, 250, 40);
         btnOpcionD.addActionListener(e -> comprobarRespuesta(btnOpcionD.getText()));
         add(btnOpcionD);
 
         // --- LABEL PREGUNTA ---
         lblPregunta = new JLabel("CARGANDO PREGUNTA...");
-        lblPregunta.setBackground(Color.BLACK);
+        lblPregunta.setOpaque(true); 
+        lblPregunta.setBackground(new Color(50, 50, 50)); 
+        lblPregunta.setForeground(Color.WHITE); 
         lblPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPregunta.setForeground(Color.WHITE);
         lblPregunta.setFont(new Font("Tahoma", Font.BOLD, 22));
-        lblPregunta.setBounds(200, 519, 800, 60);
+        lblPregunta.setBounds(255, 518, 723, 60);
+        lblPregunta.setBorder(new javax.swing.border.LineBorder(Color.CYAN, 1));
         add(lblPregunta);
         
+        // --- BOTÓN VOLVER AL MENÚ ---
         btnVolverMenu = new JButton("Volver al Menú");
         btnVolverMenu.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		
-        	}
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JPanelFondo p = (JPanelFondo) getParent();
+                    p.getpPregunta().setVisible(false);
+                    p.getpMenu().setVisible(true); 
+                    p.revalidate(); 
+                    p.repaint();
+                    p.setComponentZOrder(p.getpMenu(), 0);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
         });
-        btnVolverMenu.setEnabled(true);
-        btnVolverMenu.setBounds(882, 33, 250, 40);
+        btnVolverMenu.setBounds(940, 24, 250, 40);
         add(btnVolverMenu);
+        
+        
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                try {
+                    JPanelFondo p = (JPanelFondo) getParent();
+                    if (p != null && p.getpMenu() != null) {
+                        p.getpMenu().setVisible(false); 
+                    }
+                } catch (Exception ex) {
+                    
+                }
+            }
+        });
+        
+        cargarBancoDePreguntas();
         rellenarPreguntas();
     }
 
-    // Método para ver si el usuario ha acertado
     private void comprobarRespuesta(String textoBoton) {
-        if (textoBoton.equals(preguntaActual.getRespuestaCorrecta())) {
-            lblResultado.setText("¡CORRECTO!");
-            lblResultado.setForeground(Color.GREEN);
+        String respuestaLimpia = textoBoton.substring(3); 
+
+        if (respuestaLimpia.equals(preguntaActual.getRespuestaCorrecta())) {
+            // --- ACERTÓ ---
+            int dineroNuevo = jugadorActual.getdineroUsuario() + 1000;
+            jugadorActual.setdineroUsuario(dineroNuevo);
+            lblDinero.setText("Saldo: " + jugadorActual.getdineroUsuario() + " €");
+            
+            rellenarPreguntas(); 
+            
         } else {
-            lblResultado.setText("¡FALLASTE!");
-            lblResultado.setForeground(Color.RED);
+            // --- FALLÓ ---
+            lblPregunta.setText("¡HAS FALLADO! Fin de la partida.");
+            lblPregunta.setForeground(Color.RED); 
+            
+            btnOpcionA.setEnabled(false);
+            btnOpcionB.setEnabled(false);
+            btnOpcionC.setEnabled(false);
+            btnOpcionD.setEnabled(false);
         }
-        lblResultado.setVisible(true);
-        
-        // Opcional: Desactivar botones para que no sigan pulsando
-        btnOpcionA.setEnabled(false);
-        btnOpcionB.setEnabled(false);
-        btnOpcionC.setEnabled(false);
-        btnOpcionD.setEnabled(false);
-        JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/FondoPreguntas.png")));
-        lblNewLabel_1.setBounds(-59, -84, 1331, 886);
-        add(lblNewLabel_1);
     }
 
     private void estiloBoton(JButton btn) {
-        btn.setOpaque(false);
-        btn.setContentAreaFilled(false);
-        btn.setForeground(Color.CYAN);
+        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btn.setBackground(new Color(220, 220, 220)); 
+        btn.setForeground(Color.BLACK);          
+        btn.setOpaque(true);
+        btn.setContentAreaFilled(true);
+        btn.setBorder(new LineBorder(Color.WHITE, 2));
+        btn.setFont(new Font("Tahoma", Font.BOLD, 16));
         btn.setFocusPainted(false);
-        btn.setBorder(new LineBorder(Color.CYAN, 2, true));
-        btn.setFont(new Font("Tahoma", Font.BOLD, 14));
+        btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); 
     }
 
     @Override
@@ -121,36 +158,36 @@ public class JPanelPregunta extends JPanel {
         }
     }
 
-    public void rellenarPreguntas() {
-        ArrayList<Pregunta> bancoPreguntas = new ArrayList<>();
-        // Aquí meterías tus 40 preguntas...
+    private void cargarBancoDePreguntas() {
+        bancoPreguntas = new ArrayList<>();
         bancoPreguntas.add(new Pregunta("¿Qué órgano del cuerpo humano bombea sangre?", "Corazón", new ArrayList<>(Arrays.asList("Pulmón", "Hígado", "Corazón", "Riñón")), 1));
         bancoPreguntas.add(new Pregunta("¿Cuál es la moneda oficial de España?", "Euro", new ArrayList<>(Arrays.asList("Peseta", "Dólar", "Euro", "Libra")), 1));
-
+        
         Collections.shuffle(bancoPreguntas);
-        preguntaActual = bancoPreguntas.get(0); // Guardamos la elegida
+    }
+
+    public void rellenarPreguntas() {
+        if (bancoPreguntas.isEmpty()) {
+            lblPregunta.setText("¡ENHORABUENA! HAS GANADO EL MILLÓN.");
+            lblPregunta.setForeground(Color.GREEN);
+            btnOpcionA.setEnabled(false);
+            btnOpcionB.setEnabled(false);
+            btnOpcionC.setEnabled(false);
+            btnOpcionD.setEnabled(false);
+            return; 
+        }
+
+        preguntaActual = bancoPreguntas.remove(0); 
 
         lblPregunta.setText(preguntaActual.getPregunta());
-        lblResultado.setVisible(false); // Ocultamos el mensaje de acierto anterior
+        lblPregunta.setForeground(Color.WHITE); 
         
         ArrayList<String> opciones = new ArrayList<>(preguntaActual.getRespuestas());
         Collections.shuffle(opciones);
 
-        btnOpcionA.setText(opciones.get(0)); btnOpcionA.setEnabled(true);
-        btnOpcionB.setText(opciones.get(1)); btnOpcionB.setEnabled(true);
-        btnOpcionC.setText(opciones.get(2)); btnOpcionC.setEnabled(true);
-        btnOpcionD.setText(opciones.get(3)); btnOpcionD.setEnabled(true);
-    }
-    private void colorBoton(JButton btn) {
-        btn.setOpaque(true); // ¡IMPORTANTE! Activamos que sea opaco para que se vea el fondo negro
-        btn.setContentAreaFilled(true); // Permitimos que Java pinte el fondo del botón
-        
-        btn.setBackground(Color.BLACK);  // Fondo negro
-        btn.setForeground(Color.WHITE);  // Texto blanco (para que contraste)
-        
-        btn.setFocusPainted(false); // Quita el recuadro feo al hacer clic
-        btn.setBorder(new LineBorder(Color.CYAN, 2, true)); // Borde cian redondeado para que "brille"
-        
-        btn.setFont(new Font("Tahoma", Font.BOLD, 14)); // Fuente un poco más grande y en negrita
+        btnOpcionA.setText("A: " + opciones.get(0)); btnOpcionA.setEnabled(true);
+        btnOpcionB.setText("B: " + opciones.get(1)); btnOpcionB.setEnabled(true);
+        btnOpcionC.setText("C: " + opciones.get(2)); btnOpcionC.setEnabled(true);
+        btnOpcionD.setText("D: " + opciones.get(3)); btnOpcionD.setEnabled(true);
     }
 }

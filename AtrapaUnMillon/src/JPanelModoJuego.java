@@ -4,6 +4,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JPanelModoJuego extends JPanel {
 
@@ -27,9 +29,12 @@ public class JPanelModoJuego extends JPanel {
 		add(lblModoJuego);
 		
 		btnModoNormal = new JButton("Normal");
+		
 		btnModoNormal.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnModoNormal.setBounds(75, 220, 180, 120);
 		add(btnModoNormal);
+		
+		
 		
 		btnModoInfinito = new JButton("Infinito");
 		btnModoInfinito.setFont(new Font("Tahoma", Font.PLAIN, 20));
