@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 public class JPanelInstrucciones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JButton btnBotonSalirInformacion;
+	private JButton btnSalirInformacion;
 
 	/**
 	 * Create the panel.
@@ -21,7 +21,6 @@ public class JPanelInstrucciones extends JPanel {
 		setLayout(null);
 
 		JTextArea txtrbienvenidoAlJuego = new JTextArea();
-
 		txtrbienvenidoAlJuego.setEditable(false);
 		txtrbienvenidoAlJuego.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 16));
 		txtrbienvenidoAlJuego.setToolTipText("");
@@ -38,18 +37,19 @@ public class JPanelInstrucciones extends JPanel {
 		txtrbienvenidoAlJuego.setForeground(Color.white);
 		add(txtrbienvenidoAlJuego);
 
-		btnBotonSalirInformacion = new JButton("SALIR");
-		btnBotonSalirInformacion.addActionListener(new ActionListener() {
+		btnSalirInformacion = new JButton("VOLVER");
+		btnSalirInformacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
-				p.getpInstrucciones().setVisible(false);
+				setVisible(false);
 				p.getpMenu().setVisible(true);
 				p.revalidate();
 				p.repaint();
 			}
 		});
-		btnBotonSalirInformacion.setBounds(173, 253, 89, 23);
-		add(btnBotonSalirInformacion);
+		btnSalirInformacion.setBounds(173, 253, 89, 23);
+		add(btnSalirInformacion);
+		setComponentZOrder(btnSalirInformacion, 0);
 
 	}
 
