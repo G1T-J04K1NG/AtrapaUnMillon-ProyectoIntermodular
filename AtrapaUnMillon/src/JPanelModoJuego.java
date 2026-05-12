@@ -30,6 +30,7 @@ public class JPanelModoJuego extends JPanel {
 		add(lblModoJuego);
 		
 		btnModoNormal = new JButton("Normal");
+
 		btnModoNormal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
@@ -40,10 +41,7 @@ public class JPanelModoJuego extends JPanel {
 				
 			}
 		});
-		btnModoNormal.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnModoNormal.setBounds(75, 150, 180, 120);
-		add(btnModoNormal);
-		
+
 		btnModoAleatorio = new JButton("Aleatorio");
 		btnModoAleatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,6 +68,7 @@ public class JPanelModoJuego extends JPanel {
 		});
 		btnVolver.setBounds(240, 315, 120, 40);
 		add(btnVolver);
+
 		
 		
 	}
