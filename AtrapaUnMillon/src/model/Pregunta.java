@@ -10,6 +10,10 @@ public class Pregunta {
 	private ArrayList<String> respuestas;
 	private int dificultad;
 	
+	public Pregunta() {
+		
+	}
+	
 	
 	public Pregunta(String pregunta, String respuestaCorrecta, ArrayList<String> respuestas, int dificultad) {
 		this.pregunta = pregunta;
@@ -40,9 +44,5 @@ public class Pregunta {
 	}
 	public void setDificultad(int dificultad) {
 		this.dificultad = dificultad;
-	}
-	public String getEnunciado() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

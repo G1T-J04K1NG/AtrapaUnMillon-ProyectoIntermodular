@@ -1,6 +1,8 @@
 package mongo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.bson.Document;
 
@@ -11,6 +13,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
+import model.Pregunta;
 import model.Usuario;
 
 public class MongoDBColecciones {
@@ -90,6 +93,55 @@ public class MongoDBColecciones {
 
 	public static void setCollectionPreguntas(MongoCollection<Document> collectionPreguntas) {
 		MongoDBColecciones.collectionPreguntas = collectionPreguntas;
+	}
+	
+	public static ArrayList<Pregunta> getPreguntasNormal() {
+		ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
+		ArrayList<Pregunta> totalPreguntas = getPreguntas();
+		for (int i = 0 ; i < 3 ; i++) {
+			int preguntasSacadas = 0;
+			do {
+				int aux = (int)(Math.random()*totalPreguntas.size());
+				if (totalPreguntas.get(aux).getDificultad() == i + 1) {
+					preguntas.add(totalPreguntas.remove(aux));
+				}
+			}while(preguntasSacadas!=6);
+		}
+		
+		return preguntas;
+	}
+	
+	public static ArrayList<Pregunta> getPreguntasAleatorio() {
+		ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
+		ArrayList<Pregunta> totalPreguntas = getPreguntas();
+		for (int i = 0 ; i < 18 ; i++) {
+			int aux = (int)(Math.random()*totalPreguntas.size());
+			preguntas.add(totalPreguntas.remove(aux));
+		}
+		
+		return preguntas;
+	}
+	
+	public static ArrayList<Pregunta> getPreguntas () {
+		ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
+		FindIterable<Document> preguntasDocumentos = collectionPreguntas.find();
+		for (Document pregunta : preguntasDocumentos) {
+			preguntas.add(documentoCastPregunta(pregunta));
+		}
+		return preguntas;
+	}
+	
+	public static Pregunta documentoCastPregunta(Document documento) {
+		Pregunta preguntaCast = new Pregunta();
+		preguntaCast.setPregunta(documento.getString("pregunta"));
+		preguntaCast.setRespuestaCorrecta(documento.getString("respuestaCorrecta"));
+		preguntaCast.setDificultad(documento.getInteger("dificultad"));
+		preguntaCast.setRespuestas(new ArrayList<String>(List.of(documento.getString("respuesta1"),
+				documento.getString("respuesta2"),
+				documento.getString("respuesta3"),
+				documento.getString("respuesta4"))));
+		Collections.shuffle(preguntaCast.getRespuestas());
+		return preguntaCast;
 	}
 	
 	
