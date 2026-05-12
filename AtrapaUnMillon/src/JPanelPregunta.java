@@ -23,6 +23,10 @@ public class JPanelPregunta extends JPanel {
     private JLabel lblPregunta, lblResultado; // Añadimos lblResultado
     private Pregunta preguntaActual; // Para guardar la pregunta que está en pantalla
     private JButton btnVolverMenu;
+    private JButtonRedondo buttonMago;
+    private JButtonRedondo buttonPublico;
+    private JButtonRedondo buttonCambiarPregunta;
+    private JButtonRedondo buttonSalvavidas;
 
     public JPanelPregunta() {
         setLayout(null);
@@ -79,6 +83,27 @@ public class JPanelPregunta extends JPanel {
         btnVolverMenu.setEnabled(true);
         btnVolverMenu.setBounds(882, 33, 250, 40);
         add(btnVolverMenu);
+        
+        buttonMago = new JButtonRedondo((String) null);
+        buttonMago.setIcon(null);
+        buttonMago.setBounds(79, 11, 50, 50);
+        add(buttonMago);
+        buttonMago.setFocusPainted(false);      
+        buttonMago.setContentAreaFilled(false);  
+        buttonMago.setBorderPainted(false);
+        
+        buttonPublico = new JButtonRedondo((String) null);
+        buttonPublico.setBounds(10, 83, 50, 50);
+        add(buttonPublico);
+        
+        buttonCambiarPregunta = new JButtonRedondo((String) null);
+     
+        buttonCambiarPregunta.setBounds(79, 83, 50, 50);
+        add(buttonCambiarPregunta);
+        
+        buttonSalvavidas = new JButtonRedondo((String) null);
+        buttonSalvavidas.setBounds(10, 11, 50, 50);
+        add(buttonSalvavidas);
         rellenarPreguntas();
     }
 
