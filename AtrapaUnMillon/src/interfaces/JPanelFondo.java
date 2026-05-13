@@ -26,16 +26,15 @@ public class JPanelFondo extends JPanel {
 		setLayout(null);
 		setBounds(0, 0, 1200, 800);
 		// JPanelInformación Arriba
+
 		pInformacion = new JPanelInformacionUsuario(usuario);
 		add(pInformacion);
 
 		// JPanel Menu
 		pMenu = new JPanelMenuPrincipal();
 		add(pMenu);
-		
-		pPregunta = new JPanelPregunta(new Partida (usuario,true));
-		add(pPregunta);
-		pPregunta.setVisible(false);
+
+		pPregunta = null;
 
 		pRanking = new JPanelRanking();
 		add(pRanking);
@@ -93,6 +92,25 @@ public class JPanelFondo extends JPanel {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public void iniciarPartida(boolean modoJuego) {
+
+		if (pPregunta != null) {
+			remove(pPregunta);
+		}
+
+		pPregunta = new JPanelPregunta(new Partida(getUsuario(), modoJuego));
+		pPregunta.setBounds(0, 30, 1200, 770);
+		add(pPregunta);
+
+		pMenu.setVisible(false);
+		pModo.setVisible(false);
+		pPregunta.setVisible(true);
+
+		setComponentZOrder(pPregunta, 0);
+		revalidate();
+		repaint();
 	}
 
 }

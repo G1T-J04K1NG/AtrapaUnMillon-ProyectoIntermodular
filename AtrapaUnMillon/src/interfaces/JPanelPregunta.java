@@ -133,7 +133,7 @@ public class JPanelPregunta extends JPanel {
 		buttonSalvavidas.setBounds(12, 12, 60, 60);
 		add(buttonSalvavidas);
 
-		// --- BOTÓN VOLVER AL MENÚ ---
+		// --- BOTÓN VOLVER AL MENÚ PANTALLA GENERAL ---
 		btnVolverMenu = new JButton("Volver al Menú");
 		btnVolverMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,10 +141,10 @@ public class JPanelPregunta extends JPanel {
 					JPanelFondo p = (JPanelFondo) getParent();
 					p.getpPregunta().setVisible(false);
 					p.getpMenu().setVisible(true);
+					p.setComponentZOrder(p.getpMenu(), 0);
 					p.revalidate();
 					p.repaint();
 
-					p.setComponentZOrder(p.getpMenu(), 0);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -173,23 +173,15 @@ public class JPanelPregunta extends JPanel {
 		String respuestaLimpia = textoBoton.substring(3);
 
 		if (respuestaLimpia.equals(preguntaActual.getRespuestaCorrecta())) {
-			// --- ACERTÓ ---
+
 			int dineroNuevo = partida.getDinero() + 1000;
 			partida.setDinero(dineroNuevo);
 			lblDinero.setText("Saldo: " + partida.getDinero() + " €");
 
-			recargarPanelPreguntas();
-
 		} else {
-			// --- FALLÓ ---
-			lblPregunta.setText("¡HAS FALLADO! Fin de la partida.");
-			lblPregunta.setForeground(Color.RED);
 
-			btnOpcionA.setEnabled(false);
-			btnOpcionB.setEnabled(false);
-			btnOpcionC.setEnabled(false);
-			btnOpcionD.setEnabled(false);
 		}
+
 	}
 
 	private void estiloBoton(JButton btn) {
@@ -224,23 +216,12 @@ public class JPanelPregunta extends JPanel {
 
 	public void recargarPanelPreguntas() {
 
-		if (preguntas.isEmpty()) {
-			lblPregunta.setText("¡ENHORABUENA! HAS GANADO EL MILLÓN.");
-			lblPregunta.setForeground(Color.GREEN);
-			btnOpcionA.setEnabled(false);
-			btnOpcionB.setEnabled(false);
-			btnOpcionC.setEnabled(false);
-			btnOpcionD.setEnabled(false);
-
-		}
-
 		preguntaActual = preguntas.remove(0);
 
 		lblPregunta.setText(preguntaActual.getPregunta());
 		lblPregunta.setForeground(Color.WHITE);
 
 		ArrayList<String> opciones = new ArrayList<>(preguntaActual.getRespuestas());
-		Collections.shuffle(opciones);
 
 		btnOpcionA.setText("A: " + opciones.get(0));
 		btnOpcionA.setEnabled(true);

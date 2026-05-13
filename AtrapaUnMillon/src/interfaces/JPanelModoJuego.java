@@ -40,19 +40,7 @@ public class JPanelModoJuego extends JPanel {
 				JPanelFondo p = (JPanelFondo) getParent();
 				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
 				p.getpMenu().getBtnRanking().setEnabled(true);
-				p.getpMenu().setVisible(false);
-				p.getpModo().setVisible(false);
-				
-				
-				/*p.setpPregunta(new JPanelPregunta(new Partida(p.getUsuario(),true)));
-				p.add(p.getpPregunta());*/
-				p.getpPregunta().setVisible(true);
-				p.getpPregunta().revalidate();
-				p.repaint();
-				
-				
-				
-				
+				p.iniciarPartida(true);
 
 			}
 		});
@@ -64,19 +52,11 @@ public class JPanelModoJuego extends JPanel {
 		btnModoAleatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
-				p.getpMenu().setVisible(false);
+
 				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
 				p.getpMenu().getBtnRanking().setEnabled(true);
-				
-				
-				p.getpModo().setVisible(false);
-				
-				/*p.setpPregunta(new JPanelPregunta(new Partida(p.getUsuario(),false)));
-				p.add(p.getpPregunta());*/
-				p.getpPregunta().setVisible(true);
-				p.getpPregunta().revalidate();
-				p.repaint();
-				
+				p.iniciarPartida(true);
+
 			}
 		});
 		btnModoAleatorio.setFont(new Font("Tahoma", Font.PLAIN, 20));
