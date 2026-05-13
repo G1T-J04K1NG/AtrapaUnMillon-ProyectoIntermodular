@@ -17,7 +17,7 @@ public class JPanelFondo extends JPanel {
 	private JPanelInformacionUsuario pInformacion;
 	private JPanelMenuPrincipal pMenu;
 	private JPanelPregunta pPregunta;
-	private JPanelInstrucciones pInstrucciones;
+
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
 	private Usuario usuario;
@@ -35,13 +35,9 @@ public class JPanelFondo extends JPanel {
 		add(pMenu);
 
 		//
-		//pPregunta = new JPanelPregunta(usuario);
-		add(pPregunta);
-		pPregunta.setVisible(false);
-
-		pInstrucciones = new JPanelInstrucciones();
-		add(pInstrucciones);
-		pInstrucciones.setVisible(false);
+		// pPregunta = new JPanelPregunta(usuario);
+		//add(pPregunta);
+		//pPregunta.setVisible(false);
 
 		pRanking = new JPanelRanking();
 		add(pRanking);
@@ -77,14 +73,6 @@ public class JPanelFondo extends JPanel {
 		this.pPregunta = pPregunta;
 	}
 
-	public JPanelInstrucciones getpInstrucciones() {
-		return pInstrucciones;
-	}
-
-	public void setpInstrucciones(JPanelInstrucciones pInstrucciones) {
-		this.pInstrucciones = pInstrucciones;
-	}
-
 	public JPanelRanking getpRanking() {
 		return pRanking;
 	}
@@ -108,7 +96,5 @@ public class JPanelFondo extends JPanel {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	
 
 }

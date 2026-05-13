@@ -1,4 +1,5 @@
 package interfaces;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -32,20 +33,12 @@ public class JPanelInformacionUsuario extends JPanel {
 		JButton btnInformacion = new JButton("");
 		btnInformacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				JPanelFondo p = (JPanelFondo) getParent();
-				p.getpMenu().setVisible(false);
-				p.getpInstrucciones().setBounds(0, 0, p.getWidth(), p.getHeight());
-				p.getpInstrucciones().setVisible(true);
-				if (p.getpModo().isVisible() ) {
-					p.getpModo().setVisible(false);
-					p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
-					p.getpMenu().getBtnRanking().setEnabled(true);
-					
-				}
-				
+				JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(JPanelInformacionUsuario.this);
+				new DialogInstrucciones(frame).setVisible(true);
 			}
+
 		});
+
 		btnInformacion
 				.setIcon(new ImageIcon(JPanelInformacionUsuario.class.getResource("/resources/Proyecto nuevo.png")));
 		btnInformacion.setBounds(1101, 0, 99, 30);
