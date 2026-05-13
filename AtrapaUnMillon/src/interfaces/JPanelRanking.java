@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import model.Usuario;
@@ -143,13 +144,20 @@ public class JPanelRanking extends JPanel {
 				JPanelFondo p = (JPanelFondo)getParent();
 				setVisible(false);
 				p.getpMenu().setVisible(true);
-			}
-		});
+				}
+			});
 		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnVolverMenu.setBounds(525, 650, 150, 60);
+				
+				
+		btnVolverMenu.setOpaque(false);
+		btnVolverMenu.setContentAreaFilled(false); 
+		btnVolverMenu.setFocusPainted(false); 
+		btnVolverMenu.setBorder(new LineBorder(Color.WHITE, 2)); 
+		btnVolverMenu.setForeground(Color.WHITE); 
+				
 		add(btnVolverMenu);
 		
-		//LABEL E IMAGEN DE FONDO
 		
 		JLabel lblFondo = new JLabel("");
 		lblFondo.setBounds(0, 0, 1200, 770);
