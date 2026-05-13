@@ -35,8 +35,7 @@ public class JPanelRanking extends JPanel {
 	 */
 	public JPanelRanking() {
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = MongoDBColecciones.getUsuarios();
+		ArrayList<Usuario> users = MongoDBColecciones.getInstance().getUsuarios();
 		
 		ordenadosDineroUsuario = users.stream()
 					.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();
@@ -138,7 +137,7 @@ public class JPanelRanking extends JPanel {
 		if (users != null) {
 			users.clear();
 		}
-		users = MongoDBColecciones.getUsuarios();
+		users = MongoDBColecciones.getInstance().getUsuarios();
 		
 		ordenadosDineroUsuario = users.stream()
 					.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();

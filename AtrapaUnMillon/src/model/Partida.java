@@ -10,11 +10,11 @@ public class Partida {
 	private int ronda;
 	private boolean modoJuego;
 
-	public Partida(Usuario jugador) {
+	public Partida(Usuario jugador, boolean modo) {
 		this.usuario = jugador;
 		this.dinero = 0;
 		this.ronda = 0;
-		this.modoJuego= true;
+		this.modoJuego= modo;
 	}
 	/*
 	 * Sobre el constructor de Partida: Lo suyo es que empieze con dinero 500 e ir

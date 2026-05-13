@@ -38,16 +38,15 @@ public class JPanelPregunta extends JPanel {
 	private JButton btnVolverMenu;
 	private Partida partida;
 
-	private ArrayList<Pregunta> bancoPreguntas;
+	private ArrayList<Pregunta> preguntas;
 
 	private JButtonRedondo buttonMago;
 	private JButtonRedondo buttonPublico;
 	private JButtonRedondo buttonCambiarPregunta;
 	private JButtonRedondo buttonSalvavidas;
 
-	public JPanelPregunta(Usuario usuario) {
-		this.partida = new Partida (usuario);
-
+	public JPanelPregunta(Partida partida) {
+		this.partida = partida;
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
 		setOpaque(true);
@@ -92,48 +91,9 @@ public class JPanelPregunta extends JPanel {
 		lblPregunta.setBounds(255, 518, 723, 60);
 		lblPregunta.setBorder(new javax.swing.border.LineBorder(Color.CYAN, 1));
 		add(lblPregunta);
-
-		// --- BOTÓN VOLVER AL MENÚ ---
-		btnVolverMenu = new JButton("Volver al Menú");
-		btnVolverMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					JPanelFondo p = (JPanelFondo) getParent();
-					p.getpPregunta().setVisible(false);
-					p.getpMenu().setVisible(true);
-					p.revalidate();
-					p.repaint();
-					createEsqueletoPreguntas();
-					p.setComponentZOrder(p.getpMenu(), 0);
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-		});
-		btnVolverMenu.setBounds(940, 24, 250, 40);
-		add(btnVolverMenu);
-
-		/*this.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentShown(ComponentEvent e) {
-				try {
-					JPanelFondo p = (JPanelFondo) getParent();
-					if (p != null && p.getpMenu() != null) {
-						p.getpMenu().setVisible(false);
-					}
-				} catch (Exception ex) {
-
-				}
-			}
-		});*/
-		createEsqueletoPreguntas();
-
-	}
-
-	private void createEsqueletoPreguntas() {
-
-		cargarBancoDePreguntas();
-
+		
+		
+		
 		buttonMago = new JButtonRedondo((String) null);
 		buttonMago.setForeground(Color.BLACK);
 		buttonMago.setBackground(Color.GREEN);
@@ -168,6 +128,52 @@ public class JPanelPregunta extends JPanel {
 		buttonSalvavidas.setBackground(Color.GREEN);
 		buttonSalvavidas.setBounds(12, 12, 60, 60);
 		add(buttonSalvavidas);
+		
+		
+		// --- BOTÓN VOLVER AL MENÚ ---
+		btnVolverMenu = new JButton("Volver al Menú");
+		btnVolverMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					JPanelFondo p = (JPanelFondo) getParent();
+					p.getpPregunta().setVisible(false);
+					p.getpMenu().setVisible(true);
+					p.revalidate();
+					p.repaint();
+					createEsqueletoPreguntas();
+					p.setComponentZOrder(p.getpMenu(), 0);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnVolverMenu.setBounds(940, 24, 250, 40);
+		add(btnVolverMenu);
+
+		this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				try {
+					JPanelFondo p = (JPanelFondo) getParent();
+					if (p != null && p.getpMenu() != null) {
+						p.getpMenu().setVisible(false);
+					}
+				} catch (Exception ex) {
+
+				}
+			}
+		});
+		
+		//cogerPreguntas();
+		//createEsqueletoPreguntas();
+
+	}
+
+	private void createEsqueletoPreguntas() {
+
+		
+
+		
 
 		rellenarPreguntas();
 	}
@@ -215,18 +221,18 @@ public class JPanelPregunta extends JPanel {
 		}
 	}
 
-	private void cargarBancoDePreguntas() {
+	private void cogerPreguntas() {
 		if (partida.isModoJuego()) {
-			bancoPreguntas = MongoDBColecciones.getPreguntasNormal();
+			preguntas = MongoDBColecciones.getInstance().getPreguntasNormal();
 
 		} else {
-			bancoPreguntas = MongoDBColecciones.getPreguntasAleatorio();
+			preguntas = MongoDBColecciones.getInstance().getPreguntasAleatorio();
 		}
 	}
 
 	public void rellenarPreguntas() {
 
-		if (bancoPreguntas.isEmpty()) {
+		if (preguntas.isEmpty()) {
 			lblPregunta.setText("¡ENHORABUENA! HAS GANADO EL MILLÓN.");
 			lblPregunta.setForeground(Color.GREEN);
 			btnOpcionA.setEnabled(false);
@@ -236,7 +242,7 @@ public class JPanelPregunta extends JPanel {
 			return;
 		}
 
-		preguntaActual = bancoPreguntas.remove(0);
+		preguntaActual = preguntas.remove(0);
 
 		lblPregunta.setText(preguntaActual.getPregunta());
 		lblPregunta.setForeground(Color.WHITE);

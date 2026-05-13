@@ -36,8 +36,8 @@ public class JPanelFondo extends JPanel {
 
 		//
 		//pPregunta = new JPanelPregunta(usuario);
-		//add(pPregunta);
-		//pPregunta.setVisible(false);
+		add(pPregunta);
+		pPregunta.setVisible(false);
 
 		pInstrucciones = new JPanelInstrucciones();
 		add(pInstrucciones);

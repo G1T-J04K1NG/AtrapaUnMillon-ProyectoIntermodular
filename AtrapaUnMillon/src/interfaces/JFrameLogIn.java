@@ -86,7 +86,7 @@ public class JFrameLogIn extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!txtUsuario.getText().trim().isEmpty() && !txtContrasenia.getText().trim().isEmpty()) {
 					String usuarionombre = txtUsuario.getText();
-					Usuario usuarioEncontrado = MongoDBColecciones.getUsuarioPorUsuarioNombre(usuarionombre);
+					Usuario usuarioEncontrado = MongoDBColecciones.getInstance().getUsuarioPorUsuarioNombre(usuarionombre);
 					if (usuarioEncontrado != null) {
 						if (txtContrasenia.getText().trim().equals(usuarioEncontrado.getContraseña())) {
 							dispose();

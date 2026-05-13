@@ -85,13 +85,13 @@ public class JFrameRegistro extends JFrame {
 						lblIncorrecto.setText("Las contraseñas no coinciden.");
 
 					} else {
-						boolean existe = MongoDBColecciones.comprobarExistenciaUsuario(txtUsuario.getText());
+						boolean existe = MongoDBColecciones.getInstance().comprobarExistenciaUsuario(txtUsuario.getText());
 						if (existe) {
 							lblIncorrecto.setText("El nombre " + txtUsuario.getText() + " ya está escogido.");
 						} else {
 							dispose();
 							Usuario usuario = new Usuario(txtUsuario.getText(), txtContrasenia.getText());
-							MongoDBColecciones.añadirDocumentoUsuario(usuario);
+							MongoDBColecciones.getInstance().añadirDocumentoUsuario(usuario);
 							JPanelFondo panelFondo = new JPanelFondo(usuario);
 							frame.setContentPane(panelFondo);
 						}

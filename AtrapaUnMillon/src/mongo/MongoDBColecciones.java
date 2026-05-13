@@ -1,39 +1,53 @@
 package mongo;
-
+ 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+ 
 import org.bson.Document;
-
+ 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-
+ 
 import model.Pregunta;
 import model.Usuario;
-
+ 
 public class MongoDBColecciones {
-	// Conexión a la BDD
-	static String url;
-	static MongoClient mongoClient;
-	static MongoDatabase database;
-	private static MongoCollection<Document> collectionUsuarios ;
-	private static MongoCollection<Document> collectionPreguntas ;
-	
-	public MongoDBColecciones() {
-		url = "mongodb+srv://joaest22_db_user:"
-				+ "UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
-		MongoClient mongoClient = MongoClients.create(url);
-		database = mongoClient.getDatabase("atrapa1millon");
-		collectionUsuarios = database.getCollection("usuarios");
-		collectionPreguntas = database.getCollection("preguntas");
+ 
+	private static MongoDBColecciones instancia;
+ 
+	private MongoClient mongoClient;
+	private MongoDatabase database;
+	private MongoCollection<Document> collectionUsuarios;
+	private MongoCollection<Document> collectionPreguntas;
+ 
+	// Constructor privado: inicializa la conexión y las colecciones
+	private MongoDBColecciones() {
+		try {
+			String url = "mongodb+srv://joaest22_db_user:"
+					+ "UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
+			this.mongoClient = MongoClients.create(url);
+			this.database = mongoClient.getDatabase("atrapa1millon");
+			this.collectionUsuarios = database.getCollection("usuarios");
+			this.collectionPreguntas = database.getCollection("preguntas");
+		} catch (Exception e) {
+			throw new RuntimeException("Error al conectar con MongoDB: " + e.getMessage());
+		}
 	}
-
-	public static ArrayList<Usuario> getUsuarios() {
+ 
+	// Punto de acceso global a la instancia única
+	public static MongoDBColecciones getInstance() {
+		if (instancia == null) {
+			instancia = new MongoDBColecciones();
+		}
+		return instancia;
+	}
+ 
+	public ArrayList<Usuario> getUsuarios() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		FindIterable<Document> usuariosDocumentos = collectionUsuarios.find();
 		for (Document usuario : usuariosDocumentos) {
@@ -41,24 +55,21 @@ public class MongoDBColecciones {
 		}
 		return usuarios;
 	}
-	
-	public static void añadirDocumentoUsuario(Usuario usuario) {
+ 
+	public void añadirDocumentoUsuario(Usuario usuario) {
 		collectionUsuarios.insertOne(usuarioCastDocumento(usuario));
-		
 		collectionUsuarios = database.getCollection("usuarios");
 	}
-
-	public static Usuario getUsuarioPorUsuarioNombre(String usuarioNombre) {
+ 
+	public Usuario getUsuarioPorUsuarioNombre(String usuarioNombre) {
 		Document documento = collectionUsuarios.find(Filters.eq("usuario", usuarioNombre)).first();
 		if (documento != null) {
-
 			return documentoCastUsuario(documento);
 		}
-			return null;
-		
+		return null;
 	}
-
-	public static Usuario documentoCastUsuario(Document documento) {
+ 
+	public Usuario documentoCastUsuario(Document documento) {
 		Usuario usuarioCast = new Usuario();
 		usuarioCast.setNombre(documento.getString("usuario"));
 		usuarioCast.setContraseña(documento.getString("contraseña"));
@@ -66,80 +77,77 @@ public class MongoDBColecciones {
 		usuarioCast.setDineroUsuario(documento.getInteger("dineroUsuario"));
 		return usuarioCast;
 	}
-	
-	public static Document usuarioCastDocumento(Usuario usuario) {
-		Document documentoCast = new Document("usuario",usuario.getNombre())
-				.append("contraseña",usuario.getContraseña())
+ 
+	public Document usuarioCastDocumento(Usuario usuario) {
+		Document documentoCast = new Document("usuario", usuario.getNombre())
+				.append("contraseña", usuario.getContraseña())
 				.append("dineroUsuario", usuario.getDineroUsuario())
 				.append("dineroMejorPartida", usuario.getDineroMejorPartida());
 		return documentoCast;
 	}
-	
-	
-	public static boolean comprobarExistenciaUsuario(String usuario) {
-		boolean existe =false;
+ 
+	public boolean comprobarExistenciaUsuario(String usuario) {
+		boolean existe = false;
 		FindIterable<Document> usuarios = collectionUsuarios.find();
 		for (Document user : usuarios) {
-			if(user.getString("usuario").equals(usuario)) {
+			if (user.getString("usuario").equals(usuario)) {
 				existe = true;
 			}
 		}
 		return existe;
 	}
-
-	public static MongoCollection<Document> getCollectionUsuarios() {
+ 
+	public MongoCollection<Document> getCollectionUsuarios() {
 		return collectionUsuarios;
 	}
-
-	public static void setCollectionUsuarios(MongoCollection<Document> collectionUsuarios) {
-		MongoDBColecciones.collectionUsuarios = collectionUsuarios;
+ 
+	public void setCollectionUsuarios(MongoCollection<Document> collectionUsuarios) {
+		this.collectionUsuarios = collectionUsuarios;
 	}
-
-	public static MongoCollection<Document> getCollectionPreguntas() {
+ 
+	public MongoCollection<Document> getCollectionPreguntas() {
 		return collectionPreguntas;
 	}
-
-	public static void setCollectionPreguntas(MongoCollection<Document> collectionPreguntas) {
-		MongoDBColecciones.collectionPreguntas = collectionPreguntas;
+ 
+	public void setCollectionPreguntas(MongoCollection<Document> collectionPreguntas) {
+		this.collectionPreguntas = collectionPreguntas;
 	}
-	
-	public static ArrayList<Pregunta> getPreguntasNormal() {
+ 
+	public ArrayList<Pregunta> getPreguntasNormal() {
 		ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
 		ArrayList<Pregunta> totalPreguntas = getPreguntas();
-		for (int i = 0 ; i < 3 ; i++) {
+		for (int i = 0; i < 3; i++) {
 			int preguntasSacadas = 0;
 			do {
-				int aux = (int)(Math.random()*totalPreguntas.size());
+				int aux = (int) (Math.random() * totalPreguntas.size());
 				if (totalPreguntas.get(aux).getDificultad() == i + 1) {
 					preguntas.add(totalPreguntas.remove(aux));
 				}
-			}while(preguntasSacadas!=6);
+			} while (preguntasSacadas != 6);
 		}
-		
 		return preguntas;
 	}
-	
-	public static ArrayList<Pregunta> getPreguntasAleatorio() {
+ 
+	public ArrayList<Pregunta> getPreguntasAleatorio() {
 		ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
 		ArrayList<Pregunta> totalPreguntas = getPreguntas();
-		for (int i = 0 ; i < 18 ; i++) {
-			int aux = (int)(Math.random()*totalPreguntas.size());
+		for (int i = 0; i < 18; i++) {
+			int aux = (int) (Math.random() * totalPreguntas.size());
 			preguntas.add(totalPreguntas.remove(aux));
 		}
-		
 		return preguntas;
 	}
-	
-	public static ArrayList<Pregunta> getPreguntas () {
+ 
+	public ArrayList<Pregunta> getPreguntas() {
 		ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
 		FindIterable<Document> preguntasDocumentos = collectionPreguntas.find();
-		for (Document pregunta : preguntasDocumentos) {
-			preguntas.add(documentoCastPregunta(pregunta));
+		for (Document documento : preguntasDocumentos) {
+			preguntas.add(documentoCastPregunta(documento));
 		}
 		return preguntas;
 	}
-	
-	public static Pregunta documentoCastPregunta(Document documento) {
+ 
+	public Pregunta documentoCastPregunta(Document documento) {
 		Pregunta preguntaCast = new Pregunta();
 		preguntaCast.setPregunta(documento.getString("pregunta"));
 		preguntaCast.setRespuestaCorrecta(documento.getString("respuestaCorrecta"));
@@ -151,7 +159,4 @@ public class MongoDBColecciones {
 		Collections.shuffle(preguntaCast.getRespuestas());
 		return preguntaCast;
 	}
-	
-	
-	
 }

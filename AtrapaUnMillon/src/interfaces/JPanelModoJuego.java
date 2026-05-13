@@ -1,19 +1,16 @@
 package interfaces;
 
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-
-import org.bson.Document;
-
-import model.Usuario;
-import mongo.MongoDBColecciones;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import model.Partida;
 
 public class JPanelModoJuego extends JPanel {
 
@@ -45,9 +42,14 @@ public class JPanelModoJuego extends JPanel {
 				p.getpMenu().getBtnRanking().setEnabled(true);
 				p.getpMenu().setVisible(false);
 				p.getpModo().setVisible(false);
-				p.setpPregunta(new JPanelPregunta(p.getUsuario()));
-				p.add(p.getpPregunta());
+				
+				
+				p.setpPregunta(new JPanelPregunta(new Partida(p.getUsuario(),true)));
+				p.getpPregunta().revalidate();
+				p.repaint();
 				p.getpPregunta().setVisible(true);
+				
+				
 				
 
 			}
@@ -63,12 +65,18 @@ public class JPanelModoJuego extends JPanel {
 				p.getpMenu().setVisible(false);
 				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
 				p.getpMenu().getBtnRanking().setEnabled(true);
+				
+				
 				p.getpModo().setVisible(false);
 				
-				p.setpPregunta(new JPanelPregunta(p.getUsuario()));
+				p.setpPregunta(new JPanelPregunta(new Partida(p.getUsuario(),false)));
 				p.add(p.getpPregunta());
+
+
 				p.getpPregunta().setVisible(true);
-				p.getpPregunta().getPartida().setModoJuego(false);
+				
+				p.getpPregunta().revalidate();
+				p.repaint();
 				
 			}
 		});
