@@ -3,10 +3,13 @@ package interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,20 +35,30 @@ public class JframeInterfaz extends JFrame {
 		setTitle("Atrapa Un Millón");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 5, 1200, 800);
-		contentPanel = new JPanel();
+		contentPanel = new JPanel() {
+		    private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/interfaz.png")).getImage();
+
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        super.paintComponent(g);
+		        if (imagenFondo != null) {
+		            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+		        }
+		    }
+		};
 		contentPanel.setBackground(Color.BLACK);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 
-		JLabel lblBienvenida = new JLabel("Esto es Atrapa Un Millón");
+		/*JLabel lblBienvenida = new JLabel("Esto es Atrapa Un Millón");
 		lblBienvenida.setForeground(Color.WHITE);
 		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenida.setFont(new Font("Verdana", Font.BOLD, 30));
 		lblBienvenida.setBounds(335, 118, 530, 165);
-		contentPanel.add(lblBienvenida);
+		contentPanel.add(lblBienvenida);*/
 
-		// Funcionalidad de btnIniciarSesion
+	
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -54,7 +67,7 @@ public class JframeInterfaz extends JFrame {
 						try {
 							JFrameLogIn frameLogIn = new JFrameLogIn(JframeInterfaz.this);
 							frameLogIn.setVisible(true);
-							frameLogIn.setResizable(false); // Para que no se pueda redimensionar.
+							frameLogIn.setResizable(false); 
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -73,7 +86,7 @@ public class JframeInterfaz extends JFrame {
 		btnRegistrarse.setBounds(800, 470, 250, 150);
 		contentPanel.add(btnRegistrarse);
 
-		// Funcionalidad Registrar
+	
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -82,7 +95,7 @@ public class JframeInterfaz extends JFrame {
 						try {
 							JFrameRegistro frameRegistro = new JFrameRegistro(JframeInterfaz.this);
 							frameRegistro.setVisible(true);
-							frameRegistro.setResizable(false); // Para que no se pueda redimensionar.
+							frameRegistro.setResizable(false); 
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

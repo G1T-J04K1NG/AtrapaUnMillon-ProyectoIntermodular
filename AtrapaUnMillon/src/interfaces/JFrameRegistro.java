@@ -2,9 +2,12 @@ package interfaces;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,20 +38,32 @@ public class JFrameRegistro extends JFrame {
 	public JFrameRegistro(JframeInterfaz frame) {
 		setTitle("Atrapa Un Millón: Registro de Usuario");
 		setBounds(350, 200, 650, 400);
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+		    private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/registro.png")).getImage();
+
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        super.paintComponent(g);
+		        if (imagenFondo != null) {
+		            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+		        }
+		    }
+		};
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblUsuario.setBounds(99, 80, 73, 21);
+		lblUsuario.setForeground(Color.WHITE); 
+		lblUsuario.setFont(new Font("Arial", Font.BOLD, 18)); 
+		lblUsuario.setBounds(80, 80, 100, 21); 
 		contentPane.add(lblUsuario);
 
 		JLabel lblContrasenia = new JLabel("Contraseña:");
-		lblContrasenia.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblContrasenia.setBounds(72, 137, 100, 21);
+		lblContrasenia.setForeground(Color.WHITE);
+		lblContrasenia.setFont(new Font("Arial", Font.BOLD, 18)); 
+		lblContrasenia.setBounds(50, 137, 130, 21); 
 		contentPane.add(lblContrasenia);
 
 		txtUsuario = new JTextField();
@@ -67,8 +82,9 @@ public class JFrameRegistro extends JFrame {
 		contentPane.add(lblIncorrecto);
 
 		JLabel lblRegistro = new JLabel("Registro");
+		lblRegistro.setForeground(Color.WHITE); 
 		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistro.setFont(new Font("Verdana", Font.BOLD, 22));
+		lblRegistro.setFont(new Font("Verdana", Font.BOLD, 22)); 
 		lblRegistro.setBounds(180, 10, 290, 45);
 		contentPane.add(lblRegistro);
 
@@ -110,8 +126,9 @@ public class JFrameRegistro extends JFrame {
 		contentPane.add(txtRepetir);
 
 		JLabel lblRepetircontrasenia = new JLabel("RepetirContraseña:");
-		lblRepetircontrasenia.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblRepetircontrasenia.setBounds(30, 195, 175, 21);
+		lblRepetircontrasenia.setForeground(Color.WHITE); 
+		lblRepetircontrasenia.setFont(new Font("Arial", Font.BOLD, 18)); 
+		lblRepetircontrasenia.setBounds(25, 195, 180, 21); 
 		contentPane.add(lblRepetircontrasenia);
 
 	}
