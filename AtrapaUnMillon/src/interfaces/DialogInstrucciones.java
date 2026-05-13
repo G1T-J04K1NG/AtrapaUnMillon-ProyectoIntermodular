@@ -37,3 +37,4 @@ public class DialogInstrucciones extends JDialog {
         getContentPane().add(btnVolver);
     }
 }
+

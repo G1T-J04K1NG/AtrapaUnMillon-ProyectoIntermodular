@@ -17,7 +17,6 @@ public class JPanelFondo extends JPanel {
 	private JPanelInformacionUsuario pInformacion;
 	private JPanelMenuPrincipal pMenu;
 	private JPanelPregunta pPregunta;
-
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
 	private Usuario usuario;
@@ -33,13 +32,10 @@ public class JPanelFondo extends JPanel {
 		// JPanel Menu
 		pMenu = new JPanelMenuPrincipal();
 		add(pMenu);
-
-		//
-		//pPregunta = new JPanelPregunta(usuario);
-		//add(pPregunta);
-		//pPregunta.setVisible(false);
-
-
+		
+		pPregunta = new JPanelPregunta(new Partida (usuario,true));
+		add(pPregunta);
+		pPregunta.setVisible(false);
 
 		pRanking = new JPanelRanking();
 		add(pRanking);
