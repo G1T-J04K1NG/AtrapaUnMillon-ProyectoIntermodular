@@ -19,6 +19,7 @@ public class JPanelFondo extends JPanel {
 	private JPanelPregunta pPregunta;
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
+	private JPanelEntreRondas pEntreRondas;
 	private Usuario usuario;
 
 	public JPanelFondo(Usuario usuario) {
@@ -43,6 +44,10 @@ public class JPanelFondo extends JPanel {
 		pModo = new JPanelModoJuego();
 		add(pModo);
 		pModo.setVisible(false);
+		
+		pEntreRondas = new JPanelEntreRondas();
+		add(pEntreRondas);
+		pEntreRondas.setVisible(false);
 
 	}
 
@@ -113,4 +118,14 @@ public class JPanelFondo extends JPanel {
 		repaint();
 	}
 
+	public JPanelEntreRondas getpEntreRondas() {
+		return pEntreRondas;
+	}
+
+	public void setpEntreRondas(JPanelEntreRondas pEntreRondas) {
+		this.pEntreRondas = pEntreRondas;
+	}
+
+	
+	
 }
