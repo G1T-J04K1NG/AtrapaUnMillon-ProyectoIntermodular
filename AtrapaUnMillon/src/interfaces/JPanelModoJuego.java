@@ -45,9 +45,11 @@ public class JPanelModoJuego extends JPanel {
 				
 				
 				p.setpPregunta(new JPanelPregunta(new Partida(p.getUsuario(),true)));
+				p.add(p.getpPregunta());
+				p.getpPregunta().setVisible(true);
 				p.getpPregunta().revalidate();
 				p.repaint();
-				p.getpPregunta().setVisible(true);
+				
 				
 				
 				
@@ -71,10 +73,7 @@ public class JPanelModoJuego extends JPanel {
 				
 				p.setpPregunta(new JPanelPregunta(new Partida(p.getUsuario(),false)));
 				p.add(p.getpPregunta());
-
-
 				p.getpPregunta().setVisible(true);
-				
 				p.getpPregunta().revalidate();
 				p.repaint();
 				

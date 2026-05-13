@@ -164,19 +164,12 @@ public class JPanelPregunta extends JPanel {
 			}
 		});
 		
-		//cogerPreguntas();
+		cogerPreguntas();
 		//createEsqueletoPreguntas();
 
 	}
 
-	private void createEsqueletoPreguntas() {
-
-		
-
-		
-
-		rellenarPreguntas();
-	}
+	
 
 	private void comprobarRespuesta(String textoBoton) {
 		String respuestaLimpia = textoBoton.substring(3);
@@ -222,6 +215,7 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	private void cogerPreguntas() {
+		
 		if (partida.isModoJuego()) {
 			preguntas = MongoDBColecciones.getInstance().getPreguntasNormal();
 

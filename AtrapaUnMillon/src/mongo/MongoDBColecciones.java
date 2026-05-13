@@ -122,15 +122,18 @@ public class MongoDBColecciones {
 				int aux = (int) (Math.random() * totalPreguntas.size());
 				if (totalPreguntas.get(aux).getDificultad() == i + 1) {
 					preguntas.add(totalPreguntas.remove(aux));
+					preguntasSacadas++;
 				}
 			} while (preguntasSacadas != 6);
 		}
+		
 		return preguntas;
 	}
  
 	public ArrayList<Pregunta> getPreguntasAleatorio() {
 		ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
 		ArrayList<Pregunta> totalPreguntas = getPreguntas();
+		
 		for (int i = 0; i < 18; i++) {
 			int aux = (int) (Math.random() * totalPreguntas.size());
 			preguntas.add(totalPreguntas.remove(aux));
@@ -159,4 +162,12 @@ public class MongoDBColecciones {
 		Collections.shuffle(preguntaCast.getRespuestas());
 		return preguntaCast;
 	}
+	
+	public void actualizarRanking() {
+		instancia.setCollectionUsuarios(database.getCollection("usuarios"));
+	}
+	
+	
 }
+
+
