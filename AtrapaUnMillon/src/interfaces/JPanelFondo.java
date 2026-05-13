@@ -35,9 +35,11 @@ public class JPanelFondo extends JPanel {
 		add(pMenu);
 
 		//
-		// pPregunta = new JPanelPregunta(usuario);
+		//pPregunta = new JPanelPregunta(usuario);
 		//add(pPregunta);
 		//pPregunta.setVisible(false);
+
+
 
 		pRanking = new JPanelRanking();
 		add(pRanking);
