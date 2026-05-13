@@ -50,6 +50,12 @@ public class JPanelPregunta extends JPanel {
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
 		setOpaque(true);
+		crearBotonesdelPanel();
+		cogerPreguntas();
+
+	}
+
+	private void crearBotonesdelPanel() {
 
 		lblDinero = new JLabel("Saldo: " + partida.getDinero() + " €");
 		lblDinero.setForeground(Color.YELLOW);
@@ -91,9 +97,7 @@ public class JPanelPregunta extends JPanel {
 		lblPregunta.setBounds(255, 518, 723, 60);
 		lblPregunta.setBorder(new javax.swing.border.LineBorder(Color.CYAN, 1));
 		add(lblPregunta);
-		
-		
-		
+
 		buttonMago = new JButtonRedondo((String) null);
 		buttonMago.setForeground(Color.BLACK);
 		buttonMago.setBackground(Color.GREEN);
@@ -128,8 +132,7 @@ public class JPanelPregunta extends JPanel {
 		buttonSalvavidas.setBackground(Color.GREEN);
 		buttonSalvavidas.setBounds(12, 12, 60, 60);
 		add(buttonSalvavidas);
-		
-		
+
 		// --- BOTÓN VOLVER AL MENÚ ---
 		btnVolverMenu = new JButton("Volver al Menú");
 		btnVolverMenu.addActionListener(new ActionListener() {
@@ -140,7 +143,7 @@ public class JPanelPregunta extends JPanel {
 					p.getpMenu().setVisible(true);
 					p.revalidate();
 					p.repaint();
-					createEsqueletoPreguntas();
+
 					p.setComponentZOrder(p.getpMenu(), 0);
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -163,13 +166,8 @@ public class JPanelPregunta extends JPanel {
 				}
 			}
 		});
-		
-		cogerPreguntas();
-		//createEsqueletoPreguntas();
 
 	}
-
-	
 
 	private void comprobarRespuesta(String textoBoton) {
 		String respuestaLimpia = textoBoton.substring(3);
@@ -180,7 +178,7 @@ public class JPanelPregunta extends JPanel {
 			partida.setDinero(dineroNuevo);
 			lblDinero.setText("Saldo: " + partida.getDinero() + " €");
 
-			rellenarPreguntas();
+			recargarPanelPreguntas();
 
 		} else {
 			// --- FALLÓ ---
@@ -215,7 +213,7 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	private void cogerPreguntas() {
-		
+
 		if (partida.isModoJuego()) {
 			preguntas = MongoDBColecciones.getInstance().getPreguntasNormal();
 
@@ -224,7 +222,7 @@ public class JPanelPregunta extends JPanel {
 		}
 	}
 
-	public void rellenarPreguntas() {
+	public void recargarPanelPreguntas() {
 
 		if (preguntas.isEmpty()) {
 			lblPregunta.setText("¡ENHORABUENA! HAS GANADO EL MILLÓN.");
@@ -233,7 +231,7 @@ public class JPanelPregunta extends JPanel {
 			btnOpcionB.setEnabled(false);
 			btnOpcionC.setEnabled(false);
 			btnOpcionD.setEnabled(false);
-			return;
+
 		}
 
 		preguntaActual = preguntas.remove(0);
@@ -261,7 +259,5 @@ public class JPanelPregunta extends JPanel {
 	public void setPartida(Partida partida) {
 		this.partida = partida;
 	}
-	
-	
-	
+
 }
