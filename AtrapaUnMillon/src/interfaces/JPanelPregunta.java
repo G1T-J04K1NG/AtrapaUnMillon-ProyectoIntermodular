@@ -39,19 +39,22 @@ public class JPanelPregunta extends JPanel {
 	private Partida partida;
 
 	private ArrayList<Pregunta> preguntas;
-
+	private boolean salvavidasUsado = false;
 	private JButtonRedondo buttonMago;
 	private JButtonRedondo buttonPublico;
 	private JButtonRedondo buttonCambiarPregunta;
 	private JButtonRedondo buttonSalvavidas;
+	private ArrayList<String> opciones;
 
 	public JPanelPregunta(Partida partida) {
 		this.partida = partida;
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
 		setOpaque(true);
+
 		crearBotonesdelPanel();
 		cogerPreguntas();
+		recargarPanelPreguntas();
 
 	}
 
@@ -111,10 +114,7 @@ public class JPanelPregunta extends JPanel {
 		buttonPublico = new JButtonRedondo((String) null);
 		buttonPublico.setBackground(Color.GREEN);
 		buttonPublico.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/IconoComodinPublico.png")));
-		buttonPublico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		buttonPublico.setBounds(12, 83, 60, 60);
 		add(buttonPublico);
 		buttonPublico.setFocusPainted(false);
@@ -122,16 +122,61 @@ public class JPanelPregunta extends JPanel {
 		buttonPublico.setBorderPainted(false);
 
 		buttonCambiarPregunta = new JButtonRedondo((String) null);
+		buttonCambiarPregunta
+				.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ImagenComodinNuevaPregunta.png")));
 		buttonCambiarPregunta.setBackground(Color.GREEN);
 
 		buttonCambiarPregunta.setBounds(90, 83, 60, 60);
 		add(buttonCambiarPregunta);
 
 		buttonSalvavidas = new JButtonRedondo((String) null);
-		buttonSalvavidas.setIcon(null);
+		buttonSalvavidas
+				.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ImagenComodinSalvavida.png")));
 		buttonSalvavidas.setBackground(Color.GREEN);
 		buttonSalvavidas.setBounds(12, 12, 60, 60);
+		buttonSalvavidas.setFocusPainted(false);
+		buttonSalvavidas.setContentAreaFilled(false);
+		buttonSalvavidas.setBorderPainted(false);
 		add(buttonSalvavidas);
+		buttonSalvavidas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!salvavidasUsado) {
+
+					salvavidasUsado = true;
+					buttonSalvavidas.setEnabled(false);
+
+					buttonSalvavidas.setBackground(Color.RED);
+					buttonSalvavidas.setContentAreaFilled(false);
+					buttonSalvavidas.setBorderPainted(false);
+					buttonSalvavidas.setFocusPainted(false);
+					buttonSalvavidas.setBounds(12, 12, 60, 60);
+					add(buttonSalvavidas);
+					for (int i = 0; i < opciones.size(); i++) {
+						if (opciones.get(i).equals(preguntaActual.getRespuestaCorrecta()))
+							switch (i) {
+
+							case 0:
+								btnOpcionA.setBackground(Color.GREEN);
+								break;
+
+							case 1:
+								btnOpcionB.setBackground(Color.GREEN);
+								break;
+							case 2:
+								btnOpcionC.setBackground(Color.GREEN);
+								break;
+							case 3:
+								btnOpcionD.setBackground(Color.GREEN);
+								break;
+
+							}
+
+					}
+
+				}
+
+			}
+		});
 
 		// --- BOTÓN VOLVER AL MENÚ PANTALLA GENERAL ---
 		btnVolverMenu = new JButton("Volver al Menú");
@@ -173,10 +218,23 @@ public class JPanelPregunta extends JPanel {
 		String respuestaLimpia = textoBoton.substring(3);
 
 		if (respuestaLimpia.equals(preguntaActual.getRespuestaCorrecta())) {
-
-			int dineroNuevo = partida.getDinero() + 1000;
-			partida.setDinero(dineroNuevo);
-			lblDinero.setText("Saldo: " + partida.getDinero() + " €");
+			switch (partida.getRonda()) {
+			case 0, 1, 2, 3, 4:
+				partida.setDinero(partida.getDinero() + 1000);
+				break;
+			case 5, 6, 7, 8, 9:
+				partida.setDinero(partida.getDinero() + 2000);
+				break;
+			case 10, 11, 12, 13, 14:
+				partida.setDinero(partida.getDinero() + 4000);
+				break;
+			}
+			JPanelFondo p = (JPanelFondo) getParent();
+			p.getpEntreRondas().acierto();
+			p.setComponentZOrder(p.getpEntreRondas(), 0);
+			p.revalidate();
+			p.repaint();
+			p.getpEntreRondas().setVisible(true);
 
 		} else {
 
@@ -217,14 +275,17 @@ public class JPanelPregunta extends JPanel {
 	public void recargarPanelPreguntas() {
 
 		preguntaActual = preguntas.remove(0);
+		estiloBoton(btnOpcionA);
+		estiloBoton(btnOpcionB);
+		estiloBoton(btnOpcionC);
+		estiloBoton(btnOpcionD);
 
 		lblPregunta.setText(preguntaActual.getPregunta());
 		lblPregunta.setForeground(Color.WHITE);
 
-		ArrayList<String> opciones = new ArrayList<>(preguntaActual.getRespuestas());
+		opciones = new ArrayList<>(preguntaActual.getRespuestas());
 
 		btnOpcionA.setText("A: " + opciones.get(0));
-		
 		btnOpcionA.setEnabled(true);
 		btnOpcionB.setText("B: " + opciones.get(1));
 		btnOpcionB.setEnabled(true);
@@ -241,5 +302,4 @@ public class JPanelPregunta extends JPanel {
 	public void setPartida(Partida partida) {
 		this.partida = partida;
 	}
-
 }
