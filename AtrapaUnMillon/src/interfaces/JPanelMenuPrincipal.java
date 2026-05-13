@@ -69,7 +69,7 @@ public class JPanelMenuPrincipal extends JPanel {
 			}
 		});
 		btnRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnRanking.setBounds(40, 184, 168, 70);
+		btnRanking.setBounds(43, 55, 168, 70);
 		add(btnRanking);
 
 		JLabel labelimagen = new JLabel("");
