@@ -224,6 +224,7 @@ public class JPanelPregunta extends JPanel {
 		ArrayList<String> opciones = new ArrayList<>(preguntaActual.getRespuestas());
 
 		btnOpcionA.setText("A: " + opciones.get(0));
+		
 		btnOpcionA.setEnabled(true);
 		btnOpcionB.setText("B: " + opciones.get(1));
 		btnOpcionB.setEnabled(true);
