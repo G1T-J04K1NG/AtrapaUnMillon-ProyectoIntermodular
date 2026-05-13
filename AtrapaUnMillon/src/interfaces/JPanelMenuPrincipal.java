@@ -57,7 +57,6 @@ public class JPanelMenuPrincipal extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				JPanelFondo p = (JPanelFondo)getParent();
-				MongoDBColecciones.getInstance().actualizarRanking();
 				p.getpRanking().reiniciarSituacionInicial();
 				p.getpRanking().setVisible(true);
 			}

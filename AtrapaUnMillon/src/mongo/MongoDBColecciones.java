@@ -3,16 +3,19 @@ package mongo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
- 
+
 import org.bson.Document;
- 
+import org.bson.conversions.Bson;
+
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
- 
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
+
 import model.Pregunta;
 import model.Usuario;
  
@@ -48,6 +51,7 @@ public class MongoDBColecciones {
 	}
  
 	public ArrayList<Usuario> getUsuarios() {
+		instancia.actualizarRanking();
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		FindIterable<Document> usuariosDocumentos = collectionUsuarios.find();
 		for (Document usuario : usuariosDocumentos) {
@@ -95,6 +99,18 @@ public class MongoDBColecciones {
 			}
 		}
 		return existe;
+	}
+	
+	public void cambiarDineroUsuario (Usuario usuario) {
+		Bson filtro = Filters.eq("usuario",usuario.getNombre());
+		Bson nuevoDato = Updates.set("dineroUsuario",usuario.getDineroUsuario());
+		UpdateResult nuevoValor = collectionUsuarios.updateOne(filtro,nuevoDato);
+	}
+	
+	public void cambiarDineroMejorPartida (Usuario usuario, int saldo) {
+		Bson filtro = Filters.eq("usuario",usuario.getNombre());
+		Bson nuevoDato = Updates.set("dineroMejorPartida",saldo);
+		UpdateResult nuevoValor = collectionUsuarios.updateOne(filtro,nuevoDato);
 	}
  
 	public MongoCollection<Document> getCollectionUsuarios() {

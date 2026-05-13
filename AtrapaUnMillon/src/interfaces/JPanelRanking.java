@@ -173,76 +173,94 @@ public class JPanelRanking extends JPanel {
 	
 	
 	void reiniciarSituacionInicial() {
-		if (users != null) {
-			users.clear();
-		}
 		users = MongoDBColecciones.getInstance().getUsuarios();
-		
 		ordenadosDineroUsuario = users.stream()
-					.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();
-		ordenadosDineroUsuario=ordenadosDineroUsuario.reversed();
-		ordenadosDineroPartido = users.stream()
-				.sorted(Comparator.comparingInt(Usuario::getDineroMejorPartida)).toList();
-		ordenadosDineroPartido=ordenadosDineroPartido.reversed();
-		
-		setBackground(Color.DARK_GRAY);
-		setLayout(null);
-		setBounds(0, 30, 1200, 770);
-		
-		PanelScrollDineroTotal = new JScrollPane();
-		PanelScrollDineroTotal.setBounds(150, 135, 300,500);
-		add(PanelScrollDineroTotal);
-		
-		TablaDineroPartida = new JTable();
-		TablaDineroPartida.getTableHeader().setReorderingAllowed(false);
-		TablaDineroPartida.getTableHeader().setResizingAllowed(false);
-		PanelScrollDineroTotal.setViewportView(TablaDineroPartida);
-		
-		DefaultTableModel modeloDineroPartida = new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Posición", "Nombre", "DineroPartida"
-				}
-			);
-		modeloDineroPartida.setRowCount(0);
-		for (int i = 0 ; i < users.size() ; i++) {
-			Object[] fila = new Object[3];
-			fila[0] = i+1;
-			fila[1] = ordenadosDineroPartido.get(i).getNombre();
-			fila[2] = ordenadosDineroPartido.get(i).getDineroMejorPartida();
-			modeloDineroPartida.addRow(fila);
-		}
-		TablaDineroPartida.setModel(modeloDineroPartida);
-		
-		
-		
-		
-		panelScrollMejorPartida = new JScrollPane();
-		panelScrollMejorPartida.setBounds(750, 135, 300, 500);
-		add(panelScrollMejorPartida);
-		
-		TablaDineroTotal = new JTable();
-		TablaDineroTotal.getTableHeader().setReorderingAllowed(false);
-		TablaDineroTotal.getTableHeader().setResizingAllowed(false);
-		
-		DefaultTableModel modeloDineroTotal = new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Posición", "Nombre", "Total Recaudado"
-				}
-			);
-		modeloDineroTotal.setRowCount(0);
-		for (int i = 0 ; i < ordenadosDineroUsuario.size() ; i++) {
-			Object[] fila = new Object[3];
-			fila[0] = i+1;
-			fila[1] = ordenadosDineroUsuario.get(i).getNombre();
-			fila[2] = ordenadosDineroUsuario.get(i).getDineroUsuario();
-			modeloDineroTotal.addRow(fila);
-		}
-		TablaDineroTotal.setModel(modeloDineroTotal);
-		panelScrollMejorPartida.setViewportView(TablaDineroTotal);
-		repaint();
+				.sorted(Comparator.comparingInt(Usuario::getDineroUsuario)).toList();
+	ordenadosDineroUsuario=ordenadosDineroUsuario.reversed();
+	ordenadosDineroPartido = users.stream()
+			.sorted(Comparator.comparingInt(Usuario::getDineroMejorPartida)).toList();
+	ordenadosDineroPartido=ordenadosDineroPartido.reversed();
+	
+	DefaultTableModel modeloDineroPartida = (DefaultTableModel) TablaDineroPartida.getModel();
+	modeloDineroPartida = new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Posición", "Nombre", "DineroPartida"
+			}
+		);
+	modeloDineroPartida.setRowCount(0);
+	for (int i = 0 ; i < users.size() ; i++) {
+		Object[] fila = new Object[3];
+		fila[0] = i+1;
+		fila[1] = ordenadosDineroPartido.get(i).getNombre();
+		fila[2] = ordenadosDineroPartido.get(i).getDineroMejorPartida();
+		modeloDineroPartida.addRow(fila);
+	}
+	TablaDineroPartida.setModel(modeloDineroPartida);
+	
+	
+	DefaultTableModel modeloDineroTotal = (DefaultTableModel) TablaDineroTotal.getModel();
+	modeloDineroTotal = new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Posición", "Nombre", "Total Recaudado"
+			}
+		);
+	modeloDineroTotal.setRowCount(0);
+	for (int i = 0 ; i < ordenadosDineroUsuario.size() ; i++) {
+		Object[] fila = new Object[3];
+		fila[0] = i+1;
+		fila[1] = ordenadosDineroUsuario.get(i).getNombre();
+		fila[2] = ordenadosDineroUsuario.get(i).getDineroUsuario();
+		modeloDineroTotal.addRow(fila);
+	}
+	TablaDineroTotal.setModel(modeloDineroTotal);
+	panelScrollMejorPartida.setViewportView(TablaDineroTotal);
+	
+	lblMejoresPuntuaciones = new JLabel("MEJORES PUNTUACIONES UNICAS");
+	lblMejoresPuntuaciones.setForeground(Color.WHITE);
+	lblMejoresPuntuaciones.setFont(new Font("Franklin Gothic Book", Font.BOLD, 22));
+	lblMejoresPuntuaciones.setHorizontalAlignment(SwingConstants.CENTER);
+	lblMejoresPuntuaciones.setBounds(211, 50, 339, 67);
+	add(lblMejoresPuntuaciones);
+	
+	lblMáximosGanadores = new JLabel("MAXIMOS PUNTAJES");
+	lblMáximosGanadores.setHorizontalAlignment(SwingConstants.CENTER);
+	lblMáximosGanadores.setForeground(UIManager.getColor("CheckBox.highlight"));
+	lblMáximosGanadores.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
+	lblMáximosGanadores.setBounds(798, 50, 300, 67);
+	add(lblMáximosGanadores);
+
+	
+	JButton btnVolverMenu = new JButton("Volver al Menú Principal");
+	btnVolverMenu.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			JPanelFondo p = (JPanelFondo)getParent();
+			setVisible(false);
+			p.getpMenu().setVisible(true);
+			}
+		});
+	btnVolverMenu.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 14));
+	btnVolverMenu.setBounds(574, 656, 150, 60);
+			
+			
+	btnVolverMenu.setOpaque(false);
+	btnVolverMenu.setContentAreaFilled(false); 
+	btnVolverMenu.setFocusPainted(false); 
+	btnVolverMenu.setBorder(new LineBorder(Color.WHITE, 2)); 
+	btnVolverMenu.setForeground(Color.WHITE); 
+			
+	add(btnVolverMenu);
+	
+	
+	JLabel lblFondo = new JLabel("");
+	lblFondo.setBounds(0, 0, 1200, 770);
+	add(lblFondo);
+	
+	ImageIcon fondo = new ImageIcon("src/img/imagenFondoRankin.png");
+	lblFondo.setIcon(new ImageIcon(JPanelRanking.class.getResource("/resources/ImagenFondoRankin.png")));
+	
 	}
 }

@@ -19,10 +19,13 @@ public class JPanelInformacionUsuario extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Create the panel.
-	 */
+	private JLabel lblMejorPartida;
+	private JLabel lblDinero;
+	private Usuario usuario;
+	
+	
 	public JPanelInformacionUsuario(Usuario usuario) {
+		this.usuario = usuario;
 		setLayout(null);
 		setBounds(0, 0, 1200, 30);
 
@@ -49,13 +52,22 @@ public class JPanelInformacionUsuario extends JPanel {
 		btnInformacion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnInformacion);
 
-		JLabel lblDinero = new JLabel("Dinero : " + usuario.getDineroUsuario() + " $$");
+		lblDinero = new JLabel("Dinero : " + this.usuario .getDineroUsuario() + " $$");
 		lblDinero.setBounds(157, 0, 113, 30);
 		add(lblDinero);
 
-		JLabel lblMejorPartida = new JLabel("Mejor partida : " + usuario.getDineroMejorPartida());
+		lblMejorPartida = new JLabel("Mejor partida : " + this.usuario .getDineroMejorPartida());
 		lblMejorPartida.setBounds(289, 0, 211, 30);
 		add(lblMejorPartida);
 
+	}
+	
+	public void setearEtiquetas() {
+		lblDinero.setText("Dinero : " + usuario.getDineroUsuario() + " $$");
+		lblMejorPartida.setText("Mejor partida : " + usuario.getDineroMejorPartida());
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario; 
 	}
 }
