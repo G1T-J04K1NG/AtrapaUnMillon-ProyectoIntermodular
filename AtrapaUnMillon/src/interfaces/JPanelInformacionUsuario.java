@@ -48,6 +48,14 @@ public class JPanelInformacionUsuario extends JPanel {
 		btnInformacion.setOpaque(false);
 		btnInformacion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnInformacion);
+		
+		JLabel lblDinero = new JLabel("Dinero : " + usuario.getDineroUsuario() + " $$");
+		lblDinero.setBounds(157, 0, 113, 30);
+		add(lblDinero);
+		
+		JLabel lblMejorPartida = new JLabel("Mejor partida : " + usuario.getDineroMejorPartida());
+		lblMejorPartida.setBounds(289, 0, 211, 30);
+		add(lblMejorPartida);
 
 	}
 }
