@@ -1,10 +1,11 @@
 package interfaces;
-
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.Graphics;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,21 +42,37 @@ public class JFrameLogIn extends JFrame {
 	public JFrameLogIn(JframeInterfaz frame) {
 		setTitle("Atrapa Un Millón: Inicio De Sesión");
 		setBounds(350, 200, 650, 400);
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+		    // IMPORTANTE: Cambia "FondoLogin.png" por el nombre real de tu imagen
+		    private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/Captura de pantalla 2026-05-13 123945.png")).getImage();
+
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        super.paintComponent(g);
+		        // Esto dibuja la imagen ocupando todo el tamaño del panel
+		        if (imagenFondo != null) {
+		            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+		        }
+		    }
+		};
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblUsuario.setBounds(128, 117, 73, 21);
-		contentPane.add(lblUsuario);
+		// --- LABEL USUARIO ---
+				JLabel lblUsuario = new JLabel("Usuario:");
+				lblUsuario.setForeground(Color.WHITE); // LETRA BLANCA
+				lblUsuario.setFont(new Font("Arial", Font.BOLD, 18)); // Negrita para que se lea bien
+				lblUsuario.setBounds(100, 117, 90, 21);
+				contentPane.add(lblUsuario);
 
-		JLabel lblContrasenia = new JLabel("Contraseña:");
-		lblContrasenia.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblContrasenia.setBounds(101, 209, 100, 21);
-		contentPane.add(lblContrasenia);
+				// --- LABEL CONTRASEÑA ---
+				JLabel lblContrasenia = new JLabel("Contraseña:");
+				lblContrasenia.setForeground(Color.WHITE); // LETRA BLANCA
+				lblContrasenia.setFont(new Font("Arial", Font.BOLD, 18)); // Negrita
+				lblContrasenia.setBounds(70, 209, 120, 21);
+				contentPane.add(lblContrasenia);
 
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(193, 118, 220, 24);
@@ -68,8 +85,9 @@ public class JFrameLogIn extends JFrame {
 		contentPane.add(txtContrasenia);
 
 		JLabel lblSesion = new JLabel("Inicio de Sesión");
+		lblSesion.setForeground(Color.WHITE); // LETRA BLANCA
 		lblSesion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSesion.setFont(new Font("Verdana", Font.BOLD, 22));
+		lblSesion.setFont(new Font("Verdana", Font.BOLD, 26)); // Negrita y un poco más grande
 		lblSesion.setBounds(155, 28, 290, 45);
 		contentPane.add(lblSesion);
 
