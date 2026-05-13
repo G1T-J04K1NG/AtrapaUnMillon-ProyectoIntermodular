@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Usuario;
 import mongo.MongoDBColecciones;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -50,11 +52,21 @@ public class JPanelRanking extends JPanel {
 		
 		PanelScrollDineroTotal = new JScrollPane();
 		PanelScrollDineroTotal.setBounds(150, 110, 300,500);
+		PanelScrollDineroTotal.getViewport().setBackground(new Color(45, 45, 45));
+		PanelScrollDineroTotal.setBackground(new Color(35, 35, 35));
 		add(PanelScrollDineroTotal);
 		
 		TablaDineroPartida = new JTable();
 		TablaDineroPartida.getTableHeader().setReorderingAllowed(false);
 		TablaDineroPartida.getTableHeader().setResizingAllowed(false);
+	
+		TablaDineroPartida.setBackground(new Color(60,60,60));
+		TablaDineroPartida.setForeground(Color.WHITE);
+		TablaDineroPartida.setGridColor(Color.GRAY);
+		TablaDineroPartida.getTableHeader().setBackground(new Color(30,30,30));
+		TablaDineroPartida.getTableHeader().setForeground(Color.WHITE);
+		
+		TablaDineroPartida.setSelectionBackground(new Color(90,90,90));
 		PanelScrollDineroTotal.setViewportView(TablaDineroPartida);
 		
 		DefaultTableModel modeloDineroPartida = new DefaultTableModel(
@@ -79,11 +91,18 @@ public class JPanelRanking extends JPanel {
 		
 		panelScrollMejorPartida = new JScrollPane();
 		panelScrollMejorPartida.setBounds(750, 110, 300, 500);
+		panelScrollMejorPartida.getViewport().setBackground(new Color(45, 45, 45));
+		panelScrollMejorPartida.setBackground(new Color(35, 35, 35));
 		add(panelScrollMejorPartida);
 		
 		TablaDineroTotal = new JTable();
 		TablaDineroTotal.getTableHeader().setReorderingAllowed(false);
 		TablaDineroTotal.getTableHeader().setResizingAllowed(false);
+		TablaDineroTotal.setBackground(new Color(60,60,60));
+		TablaDineroTotal.setForeground(Color.WHITE);
+		TablaDineroTotal.setGridColor(Color.GRAY);
+		TablaDineroTotal.getTableHeader().setBackground(new Color(30,30,30));
+		TablaDineroTotal.getTableHeader().setForeground(Color.WHITE);
 		
 		DefaultTableModel modeloDineroTotal = new DefaultTableModel(
 				new Object[][] {
@@ -103,19 +122,20 @@ public class JPanelRanking extends JPanel {
 		TablaDineroTotal.setModel(modeloDineroTotal);
 		panelScrollMejorPartida.setViewportView(TablaDineroTotal);
 		
-		lblMejoresPuntuaciones = new JLabel("Mejores Puntuaciones Únicas");
-		lblMejoresPuntuaciones.setForeground(Color.WHITE);
+		lblMejoresPuntuaciones = new JLabel("MEJORES PUNTUACIONES UNICAS");
+		lblMejoresPuntuaciones.setForeground(Color.GREEN);
 		lblMejoresPuntuaciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblMejoresPuntuaciones.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMejoresPuntuaciones.setBounds(150, 50, 300, 67);
+		lblMejoresPuntuaciones.setBounds(129, 50, 339, 67);
 		add(lblMejoresPuntuaciones);
 		
-		lblMáximosGanadores = new JLabel("Máximos Puntajes");
+		lblMáximosGanadores = new JLabel("MAXIMOS PUNTAJES");
 		lblMáximosGanadores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMáximosGanadores.setForeground(Color.WHITE);
+		lblMáximosGanadores.setForeground(Color.GREEN);
 		lblMáximosGanadores.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblMáximosGanadores.setBounds(750, 50, 300, 67);
 		add(lblMáximosGanadores);
+
 		
 		JButton btnVolverMenu = new JButton("Volver al Menú Principal");
 		btnVolverMenu.addActionListener(new ActionListener() {
@@ -128,6 +148,15 @@ public class JPanelRanking extends JPanel {
 		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnVolverMenu.setBounds(525, 650, 150, 60);
 		add(btnVolverMenu);
+		
+		//LABEL E IMAGEN DE FONDO
+		
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setBounds(0, 0, 1200, 770);
+		add(lblFondo);
+		
+		ImageIcon fondo = new ImageIcon("src/img/imagenFondooRanking.png");
+		lblFondo.setIcon(new ImageIcon(JPanelRanking.class.getResource("/resources/imagenFondooRanking.png")));
 		
 		
 }
