@@ -25,6 +25,9 @@ public class JPanelEntreRondas extends JPanel {
 		
 	}
 	
+	
+	
+	
 	public void acierto() {
 		removeAll();
 		JButton btnSiguiente = new JButton("Siguiente");
@@ -36,11 +39,6 @@ public class JPanelEntreRondas extends JPanel {
 				setVisible(false);
 				p.getpPregunta().getPartida().setRonda(p.getpPregunta().getPartida().getRonda()+1);
 				p.getpPregunta().recargarPanelPreguntas();
-				
-				
-				
-				
-				
 			}
 		});
 		btnSiguiente.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -70,4 +68,43 @@ public class JPanelEntreRondas extends JPanel {
 		add(lblHacertasteLaPregunta);
 		
 	}
+
+
+
+public void fallo() {
+	removeAll();
+	JButton btnSalir = new JButton("Salir");
+	btnSalir.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			JPanelFondo p = (JPanelFondo)getParent();
+			
+			p.getpPregunta().recargarPanelPreguntas();
+		}
+	});
+	btnSalir.setFont(new Font("Tahoma", Font.BOLD, 10));
+	btnSalir.setBounds(175, 200, 150, 40);
+	add(btnSalir);
+	
+	ArrayList<String> frases = new ArrayList<>(List.of(
+			"Anda que no eres malo eh",
+			"¿En serio no has acertado eso?",
+			"Hasta un reloj parado acierta dos veces al día",
+			"No me lo creo, eres peor que Vinicius",
+		
+			"Tampoco era para tanto la pregunta",
+			"Vaya, te has lucido campeón",
+			"Eso lo sabe hasta mi abuela",
+			"No te emociones que fue de chiripa",
+			"Acertaste, pero con qué cara",
+			"Buf, por los pelos ¿no?",
+			"Menudo crack de pacotilla",
+			"Hasta tú puedes con esto"
+        ));
+	JLabel lblFallasteLaPregunta = new JLabel(frases.get((int)(Math.random()*frases.size())));
+	lblFallasteLaPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+	lblFallasteLaPregunta.setFont(new Font("Tahoma", Font.BOLD, 30));
+	lblFallasteLaPregunta.setBounds(21, 22, 469, 153);
+	add(lblFallasteLaPregunta);
+	
+}
 }

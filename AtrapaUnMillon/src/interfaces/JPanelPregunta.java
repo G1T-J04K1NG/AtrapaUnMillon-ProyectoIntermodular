@@ -40,6 +40,7 @@ public class JPanelPregunta extends JPanel {
 
 	private ArrayList<Pregunta> preguntas;
 	private boolean salvavidasUsado = false;
+	private boolean publicoUsado = false;
 	private JButtonRedondo buttonMago;
 	private JButtonRedondo buttonPublico;
 	private JButtonRedondo buttonCambiarPregunta;
@@ -101,6 +102,7 @@ public class JPanelPregunta extends JPanel {
 		lblPregunta.setBorder(new javax.swing.border.LineBorder(Color.CYAN, 1));
 		add(lblPregunta);
 
+		// COMODIN MAGO
 		buttonMago = new JButtonRedondo((String) null);
 		buttonMago.setForeground(Color.BLACK);
 		buttonMago.setBackground(Color.GREEN);
@@ -110,25 +112,126 @@ public class JPanelPregunta extends JPanel {
 		buttonMago.setFocusPainted(false);
 		buttonMago.setContentAreaFilled(false);
 		buttonMago.setBorderPainted(false);
+		buttonMago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
+				buttonMago.setEnabled(false);
+				buttonMago.setBackground(Color.RED);
+				buttonMago.setContentAreaFilled(false);
+				buttonMago.setBorderPainted(false);
+				buttonMago.setFocusPainted(false);
+
+				int probabilidad = (int) (Math.random() * 10);
+
+				int indiceVisible;
+				if (probabilidad < 7) {
+					//
+					indiceVisible = 0;
+
+					for (int i = 0; i < opciones.size(); i++) {
+						if (opciones.get(i).equals(preguntaActual.getRespuestaCorrecta())) {
+							indiceVisible = i;
+							break;
+						}
+					}
+				} else {
+
+					indiceVisible = (int) (Math.random() * 4);
+				}
+
+				if (indiceVisible != 0)
+					btnOpcionA.setVisible(false);
+				if (indiceVisible != 1)
+					btnOpcionB.setVisible(false);
+				if (indiceVisible != 2)
+					btnOpcionC.setVisible(false);
+				if (indiceVisible != 3)
+					btnOpcionD.setVisible(false);
+
+				buttonMago.setEnabled(false);
+
+				// Timer
+				javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
+					public void actionPerformed(ActionEvent e2) {
+						btnOpcionA.setVisible(true);
+						btnOpcionB.setVisible(true);
+						btnOpcionC.setVisible(true);
+						btnOpcionD.setVisible(true);
+					}
+				});
+				timer.setRepeats(false);
+				timer.start();
+			}
+		});
+		// COMODIN PUBLICO
 		buttonPublico = new JButtonRedondo((String) null);
 		buttonPublico.setBackground(Color.GREEN);
 		buttonPublico.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/IconoComodinPublico.png")));
-
 		buttonPublico.setBounds(12, 83, 60, 60);
 		add(buttonPublico);
 		buttonPublico.setFocusPainted(false);
 		buttonPublico.setContentAreaFilled(false);
 		buttonPublico.setBorderPainted(false);
+		buttonPublico.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
+                JButton[] opciones = {
+                    btnOpcionA,
+                    btnOpcionB,
+                    btnOpcionC,
+                    btnOpcionD
+                };
+
+                ArrayList<JButton> incorrectas = new ArrayList<>();
+
+                for (JButton boton : opciones) {
+                    String textosinprefijo = boton.getText().substring(3);
+                    if (!textosinprefijo.trim().equalsIgnoreCase(preguntaActual.getRespuestaCorrecta().trim())) {
+
+                        incorrectas.add(boton);
+                    }
+                }
+
+                Collections.shuffle(incorrectas);
+                incorrectas.get(0).setVisible(false);
+                incorrectas.get(1).setVisible(false);
+
+                buttonPublico.setEnabled(false);
+            }
+        });
+
+		// COMODIN CAMBIAR PREGUNTA
 		buttonCambiarPregunta = new JButtonRedondo((String) null);
 		buttonCambiarPregunta
 				.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ImagenComodinNuevaPregunta.png")));
 		buttonCambiarPregunta.setBackground(Color.GREEN);
-
 		buttonCambiarPregunta.setBounds(90, 83, 60, 60);
 		add(buttonCambiarPregunta);
 
+		buttonCambiarPregunta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				buttonCambiarPregunta.setEnabled(false);
+				buttonCambiarPregunta.setEnabled(false);
+				buttonCambiarPregunta.setBackground(Color.RED);
+				buttonCambiarPregunta.setContentAreaFilled(false);
+				buttonCambiarPregunta.setBorderPainted(false);
+				buttonCambiarPregunta.setFocusPainted(false);
+
+				preguntas.remove(preguntaActual);
+				if (preguntas.isEmpty()) {
+					cogerPreguntas();
+				}
+				Collections.shuffle(preguntas);
+				recargarPanelPreguntas();
+
+			}
+		});
+		buttonCambiarPregunta
+				.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ImagenComodinNuevaPregunta.png")));
+		buttonCambiarPregunta.setBackground(Color.GREEN);
+
+		// COMODIN SALVAVIDAS
 		buttonSalvavidas = new JButtonRedondo((String) null);
 		buttonSalvavidas
 				.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ImagenComodinSalvavida.png")));
@@ -144,13 +247,11 @@ public class JPanelPregunta extends JPanel {
 
 					salvavidasUsado = true;
 					buttonSalvavidas.setEnabled(false);
-
 					buttonSalvavidas.setBackground(Color.RED);
 					buttonSalvavidas.setContentAreaFilled(false);
 					buttonSalvavidas.setBorderPainted(false);
 					buttonSalvavidas.setFocusPainted(false);
-					buttonSalvavidas.setBounds(12, 12, 60, 60);
-					add(buttonSalvavidas);
+
 					for (int i = 0; i < opciones.size(); i++) {
 						if (opciones.get(i).equals(preguntaActual.getRespuestaCorrecta()))
 							switch (i) {
