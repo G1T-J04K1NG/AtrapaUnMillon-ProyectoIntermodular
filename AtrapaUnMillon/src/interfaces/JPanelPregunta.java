@@ -45,8 +45,8 @@ public class JPanelPregunta extends JPanel {
 	private JButtonRedondo buttonCambiarPregunta;
 	private JButtonRedondo buttonSalvavidas;
 
-	public JPanelPregunta(Partida partida) {
-		this.partida = partida;
+	public JPanelPregunta(Usuario usuario) {
+		this.partida = new Partida (usuario);
 
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
@@ -113,7 +113,7 @@ public class JPanelPregunta extends JPanel {
 		btnVolverMenu.setBounds(940, 24, 250, 40);
 		add(btnVolverMenu);
 
-		this.addComponentListener(new ComponentAdapter() {
+		/*this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				try {
@@ -125,7 +125,7 @@ public class JPanelPregunta extends JPanel {
 
 				}
 			}
-		});
+		});*/
 		createEsqueletoPreguntas();
 
 	}
@@ -216,7 +216,6 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	private void cargarBancoDePreguntas() {
-		JPanelFondo p = (JPanelFondo) getParent();
 		if (partida.isModoJuego()) {
 			bancoPreguntas = MongoDBColecciones.getPreguntasNormal();
 
@@ -254,4 +253,15 @@ public class JPanelPregunta extends JPanel {
 		btnOpcionD.setText("D: " + opciones.get(3));
 		btnOpcionD.setEnabled(true);
 	}
+
+	public Partida getPartida() {
+		return partida;
+	}
+
+	public void setPartida(Partida partida) {
+		this.partida = partida;
+	}
+	
+	
+	
 }

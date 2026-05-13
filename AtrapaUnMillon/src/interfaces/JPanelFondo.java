@@ -20,9 +20,10 @@ public class JPanelFondo extends JPanel {
 	private JPanelInstrucciones pInstrucciones;
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
+	private Usuario usuario;
 
 	public JPanelFondo(Usuario usuario) {
-
+		this.usuario = usuario;
 		setLayout(null);
 		setBounds(0, 0, 1200, 800);
 		// JPanelInformación Arriba
@@ -34,9 +35,9 @@ public class JPanelFondo extends JPanel {
 		add(pMenu);
 
 		//
-		pPregunta = new JPanelPregunta();
-		add(pPregunta);
-		pPregunta.setVisible(false);
+		//pPregunta = new JPanelPregunta(usuario);
+		//add(pPregunta);
+		//pPregunta.setVisible(false);
 
 		pInstrucciones = new JPanelInstrucciones();
 		add(pInstrucciones);
@@ -100,12 +101,14 @@ public class JPanelFondo extends JPanel {
 		this.pModo = pModo;
 	}
 
-	public Partida getPartida() {
-		return partida;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setPartida(Partida partida) {
-		this.partida = partida;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
+
+	
 
 }

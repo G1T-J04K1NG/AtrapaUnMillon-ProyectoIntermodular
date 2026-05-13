@@ -45,6 +45,8 @@ public class JPanelModoJuego extends JPanel {
 				p.getpMenu().getBtnRanking().setEnabled(true);
 				p.getpMenu().setVisible(false);
 				p.getpModo().setVisible(false);
+				p.setpPregunta(new JPanelPregunta(p.getUsuario()));
+				p.add(p.getpPregunta());
 				p.getpPregunta().setVisible(true);
 				
 
@@ -62,8 +64,11 @@ public class JPanelModoJuego extends JPanel {
 				p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
 				p.getpMenu().getBtnRanking().setEnabled(true);
 				p.getpModo().setVisible(false);
+				
+				p.setpPregunta(new JPanelPregunta(p.getUsuario()));
+				p.add(p.getpPregunta());
 				p.getpPregunta().setVisible(true);
-				p.getPartida().setModoJuego(false);
+				p.getpPregunta().getPartida().setModoJuego(false);
 				
 			}
 		});
