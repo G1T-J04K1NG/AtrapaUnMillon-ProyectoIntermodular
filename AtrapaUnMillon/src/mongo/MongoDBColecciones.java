@@ -18,12 +18,20 @@ import model.Usuario;
 
 public class MongoDBColecciones {
 	// Conexión a la BDD
-	static String url = "mongodb+srv://joaest22_db_user:"
-			+ "UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
-	static MongoClient mongoClient = MongoClients.create(url);
-	static MongoDatabase database = mongoClient.getDatabase("atrapa1millon");
-	private static MongoCollection<Document> collectionUsuarios = database.getCollection("usuarios");
-	private static MongoCollection<Document> collectionPreguntas = database.getCollection("preguntas");
+	static String url;
+	static MongoClient mongoClient;
+	static MongoDatabase database;
+	private static MongoCollection<Document> collectionUsuarios ;
+	private static MongoCollection<Document> collectionPreguntas ;
+	
+	public MongoDBColecciones() {
+		url = "mongodb+srv://joaest22_db_user:"
+				+ "UnjWo1ilrimUXFVL@atrapa1millon.dli87oo.mongodb.net/?appName=Atrapa1Millon";
+		MongoClient mongoClient = MongoClients.create(url);
+		database = mongoClient.getDatabase("atrapa1millon");
+		collectionUsuarios = database.getCollection("usuarios");
+		collectionPreguntas = database.getCollection("preguntas");
+	}
 
 	public static ArrayList<Usuario> getUsuarios() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
