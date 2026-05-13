@@ -20,6 +20,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class JPanelRanking extends JPanel {
 
@@ -52,7 +54,7 @@ public class JPanelRanking extends JPanel {
 		setBounds(0, 30, 1200, 770);
 		
 		PanelScrollDineroTotal = new JScrollPane();
-		PanelScrollDineroTotal.setBounds(192, 110, 300,500);
+		PanelScrollDineroTotal.setBounds(210, 110, 300,500);
 		PanelScrollDineroTotal.getViewport().setBackground(new Color(45, 45, 45));
 		PanelScrollDineroTotal.setBackground(new Color(35, 35, 35));
 		add(PanelScrollDineroTotal);
@@ -125,15 +127,15 @@ public class JPanelRanking extends JPanel {
 		
 		lblMejoresPuntuaciones = new JLabel("MEJORES PUNTUACIONES UNICAS");
 		lblMejoresPuntuaciones.setForeground(Color.WHITE);
-		lblMejoresPuntuaciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMejoresPuntuaciones.setFont(new Font("Franklin Gothic Book", Font.BOLD, 22));
 		lblMejoresPuntuaciones.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMejoresPuntuaciones.setBounds(175, 50, 339, 67);
+		lblMejoresPuntuaciones.setBounds(211, 50, 339, 67);
 		add(lblMejoresPuntuaciones);
 		
 		lblMáximosGanadores = new JLabel("MAXIMOS PUNTAJES");
 		lblMáximosGanadores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMáximosGanadores.setForeground(Color.WHITE);
-		lblMáximosGanadores.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMáximosGanadores.setForeground(UIManager.getColor("CheckBox.highlight"));
+		lblMáximosGanadores.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
 		lblMáximosGanadores.setBounds(798, 50, 300, 67);
 		add(lblMáximosGanadores);
 
@@ -146,8 +148,8 @@ public class JPanelRanking extends JPanel {
 				p.getpMenu().setVisible(true);
 				}
 			});
-		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnVolverMenu.setBounds(525, 650, 150, 60);
+		btnVolverMenu.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 14));
+		btnVolverMenu.setBounds(574, 656, 150, 60);
 				
 				
 		btnVolverMenu.setOpaque(false);

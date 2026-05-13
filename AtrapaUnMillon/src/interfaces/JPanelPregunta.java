@@ -173,32 +173,27 @@ public class JPanelPregunta extends JPanel {
 		buttonPublico.setContentAreaFilled(false);
 		buttonPublico.setBorderPainted(false);
 		buttonPublico.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 
-                JButton[] opciones = {
-                    btnOpcionA,
-                    btnOpcionB,
-                    btnOpcionC,
-                    btnOpcionD
-                };
+				JButton[] opciones = { btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD };
 
-                ArrayList<JButton> incorrectas = new ArrayList<>();
+				ArrayList<JButton> incorrectas = new ArrayList<>();
 
-                for (JButton boton : opciones) {
-                    String textosinprefijo = boton.getText().substring(3);
-                    if (!textosinprefijo.trim().equalsIgnoreCase(preguntaActual.getRespuestaCorrecta().trim())) {
+				for (JButton boton : opciones) {
+					String textosinprefijo = boton.getText().substring(3);
+					if (!textosinprefijo.trim().equalsIgnoreCase(preguntaActual.getRespuestaCorrecta().trim())) {
 
-                        incorrectas.add(boton);
-                    }
-                }
+						incorrectas.add(boton);
+					}
+				}
 
-                Collections.shuffle(incorrectas);
-                incorrectas.get(0).setVisible(false);
-                incorrectas.get(1).setVisible(false);
+				Collections.shuffle(incorrectas);
+				incorrectas.get(0).setVisible(false);
+				incorrectas.get(1).setVisible(false);
 
-                buttonPublico.setEnabled(false);
-            }
-        });
+				buttonPublico.setEnabled(false);
+			}
+		});
 
 		// COMODIN CAMBIAR PREGUNTA
 		buttonCambiarPregunta = new JButtonRedondo((String) null);
@@ -338,6 +333,12 @@ public class JPanelPregunta extends JPanel {
 			p.getpEntreRondas().setVisible(true);
 
 		} else {
+			JPanelFondo p = (JPanelFondo) getParent();
+			p.getpEntreRondas().fallo();
+			p.setComponentZOrder(p.getpEntreRondas(), 0);
+			p.revalidate();
+			p.repaint();
+			p.getpEntreRondas().setVisible(true);
 
 		}
 
