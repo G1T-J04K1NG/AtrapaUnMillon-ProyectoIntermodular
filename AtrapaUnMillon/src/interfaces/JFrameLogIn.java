@@ -90,8 +90,7 @@ public class JFrameLogIn extends JFrame {
 					if (usuarioEncontrado != null) {
 						if (txtContrasenia.getText().trim().equals(usuarioEncontrado.getContraseña())) {
 							dispose();
-							Partida partida = new Partida(usuarioEncontrado);
-							JPanelFondo panelFondo = new JPanelFondo(partida);
+							JPanelFondo panelFondo = new JPanelFondo(usuarioEncontrado);
 							frame.setContentPane(panelFondo);
 
 						} else {

@@ -46,6 +46,7 @@ public class JPanelModoJuego extends JPanel {
 				p.getpMenu().setVisible(false);
 				p.getpModo().setVisible(false);
 				p.getpPregunta().setVisible(true);
+				
 
 			}
 		});
@@ -62,6 +63,8 @@ public class JPanelModoJuego extends JPanel {
 				p.getpMenu().getBtnRanking().setEnabled(true);
 				p.getpModo().setVisible(false);
 				p.getpPregunta().setVisible(true);
+				p.getPartida().setModoJuego(false);
+				
 			}
 		});
 		btnModoAleatorio.setFont(new Font("Tahoma", Font.PLAIN, 20));

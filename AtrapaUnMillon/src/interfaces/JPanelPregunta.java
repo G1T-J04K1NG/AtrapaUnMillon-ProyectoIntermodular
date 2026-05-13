@@ -36,23 +36,23 @@ public class JPanelPregunta extends JPanel {
 	private JLabel lblPregunta, lblDinero;
 	private Pregunta preguntaActual;
 	private JButton btnVolverMenu;
+	private Partida partida;
 
 	private ArrayList<Pregunta> bancoPreguntas;
-	private Usuario jugadorActual;
-	private boolean modoJuego;
+
 	private JButtonRedondo buttonMago;
 	private JButtonRedondo buttonPublico;
 	private JButtonRedondo buttonCambiarPregunta;
 	private JButtonRedondo buttonSalvavidas;
 
 	public JPanelPregunta(Partida partida) {
-		this.jugadorActual = partida.getUsuario();
-		this.modoJuego = partida.isModoJuego();
+		this.partida = partida;
+
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
 		setOpaque(true);
 
-		lblDinero = new JLabel("Saldo: " + jugadorActual.getDineroUsuario() + " €");
+		lblDinero = new JLabel("Saldo: " + partida.getDinero() + " €");
 		lblDinero.setForeground(Color.YELLOW);
 		lblDinero.setFont(new Font("Tahoma", Font.BOLD, 26));
 		lblDinero.setBounds(30, 680, 300, 50);
@@ -131,6 +131,7 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	private void createEsqueletoPreguntas() {
+
 		cargarBancoDePreguntas();
 
 		buttonMago = new JButtonRedondo((String) null);
@@ -176,9 +177,9 @@ public class JPanelPregunta extends JPanel {
 
 		if (respuestaLimpia.equals(preguntaActual.getRespuestaCorrecta())) {
 			// --- ACERTÓ ---
-			int dineroNuevo = jugadorActual.getDineroUsuario() + 1000;
-			jugadorActual.setDineroUsuario(dineroNuevo);
-			lblDinero.setText("Saldo: " + jugadorActual.getDineroUsuario() + " €");
+			int dineroNuevo = partida.getDinero() + 1000;
+			partida.setDinero(dineroNuevo);
+			lblDinero.setText("Saldo: " + partida.getDinero() + " €");
 
 			rellenarPreguntas();
 
@@ -216,7 +217,7 @@ public class JPanelPregunta extends JPanel {
 
 	private void cargarBancoDePreguntas() {
 		JPanelFondo p = (JPanelFondo) getParent();
-		if (p.getPartida().isModoJuego()) {
+		if (partida.isModoJuego()) {
 			bancoPreguntas = MongoDBColecciones.getPreguntasNormal();
 
 		} else {
@@ -225,6 +226,7 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	public void rellenarPreguntas() {
+
 		if (bancoPreguntas.isEmpty()) {
 			lblPregunta.setText("¡ENHORABUENA! HAS GANADO EL MILLÓN.");
 			lblPregunta.setForeground(Color.GREEN);

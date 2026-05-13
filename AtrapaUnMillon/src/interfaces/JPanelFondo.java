@@ -20,14 +20,13 @@ public class JPanelFondo extends JPanel {
 	private JPanelInstrucciones pInstrucciones;
 	private JPanelRanking pRanking;
 	private JPanelModoJuego pModo;
-	private Partida partida;
 
-	public JPanelFondo(Partida partida) {
+	public JPanelFondo(Usuario usuario) {
 
 		setLayout(null);
 		setBounds(0, 0, 1200, 800);
 		// JPanelInformación Arriba
-		pInformacion = new JPanelInformacionUsuario(partida.getUsuario());
+		pInformacion = new JPanelInformacionUsuario(usuario);
 		add(pInformacion);
 
 		// JPanel Menu
@@ -35,7 +34,7 @@ public class JPanelFondo extends JPanel {
 		add(pMenu);
 
 		//
-		pPregunta = new JPanelPregunta(partida);
+		pPregunta = new JPanelPregunta();
 		add(pPregunta);
 		pPregunta.setVisible(false);
 
