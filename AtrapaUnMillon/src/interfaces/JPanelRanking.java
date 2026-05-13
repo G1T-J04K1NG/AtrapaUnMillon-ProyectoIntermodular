@@ -51,7 +51,7 @@ public class JPanelRanking extends JPanel {
 		setBounds(0, 30, 1200, 770);
 		
 		PanelScrollDineroTotal = new JScrollPane();
-		PanelScrollDineroTotal.setBounds(150, 110, 300,500);
+		PanelScrollDineroTotal.setBounds(192, 110, 300,500);
 		PanelScrollDineroTotal.getViewport().setBackground(new Color(45, 45, 45));
 		PanelScrollDineroTotal.setBackground(new Color(35, 35, 35));
 		add(PanelScrollDineroTotal);
@@ -90,7 +90,7 @@ public class JPanelRanking extends JPanel {
 		
 		
 		panelScrollMejorPartida = new JScrollPane();
-		panelScrollMejorPartida.setBounds(750, 110, 300, 500);
+		panelScrollMejorPartida.setBounds(798, 110, 300, 500);
 		panelScrollMejorPartida.getViewport().setBackground(new Color(45, 45, 45));
 		panelScrollMejorPartida.setBackground(new Color(35, 35, 35));
 		add(panelScrollMejorPartida);
@@ -123,17 +123,17 @@ public class JPanelRanking extends JPanel {
 		panelScrollMejorPartida.setViewportView(TablaDineroTotal);
 		
 		lblMejoresPuntuaciones = new JLabel("MEJORES PUNTUACIONES UNICAS");
-		lblMejoresPuntuaciones.setForeground(Color.GREEN);
+		lblMejoresPuntuaciones.setForeground(Color.WHITE);
 		lblMejoresPuntuaciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblMejoresPuntuaciones.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMejoresPuntuaciones.setBounds(129, 50, 339, 67);
+		lblMejoresPuntuaciones.setBounds(175, 50, 339, 67);
 		add(lblMejoresPuntuaciones);
 		
 		lblMáximosGanadores = new JLabel("MAXIMOS PUNTAJES");
 		lblMáximosGanadores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMáximosGanadores.setForeground(Color.GREEN);
+		lblMáximosGanadores.setForeground(Color.WHITE);
 		lblMáximosGanadores.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMáximosGanadores.setBounds(750, 50, 300, 67);
+		lblMáximosGanadores.setBounds(798, 50, 300, 67);
 		add(lblMáximosGanadores);
 
 		
@@ -155,8 +155,8 @@ public class JPanelRanking extends JPanel {
 		lblFondo.setBounds(0, 0, 1200, 770);
 		add(lblFondo);
 		
-		ImageIcon fondo = new ImageIcon("src/img/imagenFondooRanking.png");
-		lblFondo.setIcon(new ImageIcon(JPanelRanking.class.getResource("/resources/imagenFondooRanking.png")));
+		ImageIcon fondo = new ImageIcon("src/img/imagenFondoRankin.png");
+		lblFondo.setIcon(new ImageIcon(JPanelRanking.class.getResource("/resources/ImagenFondoRankin.png")));
 		
 		
 }
