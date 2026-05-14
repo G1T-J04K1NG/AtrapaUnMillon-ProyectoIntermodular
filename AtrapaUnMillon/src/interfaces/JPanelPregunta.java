@@ -61,7 +61,14 @@ public class JPanelPregunta extends JPanel {
 		crearBotonesdelPanel();
 		cogerPreguntas();
 		recargarPanelPreguntas();
-
+		
+		lblDificultad = new JLabel();
+		lblDificultad.setForeground(Color.YELLOW);
+		lblDificultad.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblDificultad.setBounds(180, 20, 300, 50);
+		lblDificultad.setText("Dificultad: " + preguntaActual.getDificultad());
+		add(lblDificultad);
+		
 	}
 
 	private void crearBotonesdelPanel() {
@@ -77,6 +84,8 @@ public class JPanelPregunta extends JPanel {
 		lblDinero.setBounds(30, 680, 300, 50);
 		lblDinero.setText("Saldo: " + partida.getDinero() + " €");
 		add(lblDinero);
+		
+		
 
 		btnOpcionA = new JButton("");
 		estiloBoton(btnOpcionA);
@@ -235,13 +244,8 @@ public class JPanelPregunta extends JPanel {
 					btnCambiarPregunta.setContentAreaFilled(false);
 					btnCambiarPregunta.setBorderPainted(false);
 					btnCambiarPregunta.setFocusPainted(false);
-
-					preguntas.remove(preguntaActual);
-					if (preguntas.isEmpty()) {
-						cogerPreguntas();
-					}
-					Collections.shuffle(preguntas);
 					recargarPanelPreguntas();
+					lblDificultad.setText("Dificultad: " + preguntaActual.getDificultad());
 				}
 			}
 		});
@@ -279,7 +283,6 @@ public class JPanelPregunta extends JPanel {
 							case 0:
 								btnOpcionA.setBackground(Color.GREEN);
 								break;
-
 							case 1:
 								btnOpcionB.setBackground(Color.GREEN);
 								break;
@@ -366,6 +369,10 @@ public class JPanelPregunta extends JPanel {
 			switch (partida.getRonda()) {
 			case 4, 9, 12:
 				p.getpEntreRondas().plantarse();
+				if (partida.getRonda() == 4 || partida.getRonda() == 9) {
+					preguntas.removeFirst();
+				}
+				
 				break;
 			case 14:
 				p.getpEntreRondas().ganaste();
@@ -428,7 +435,7 @@ public class JPanelPregunta extends JPanel {
 		btnPublico.setEnabled(true);
 		btnCambiarPregunta.setEnabled(true);
 
-		preguntaActual = preguntas.remove(0);
+		preguntaActual = preguntas.removeFirst();
 		estiloBoton(btnOpcionA);
 		estiloBoton(btnOpcionB);
 		estiloBoton(btnOpcionC);
@@ -498,6 +505,22 @@ public class JPanelPregunta extends JPanel {
 
 	public void setLblRonda(JLabel lblRonda) {
 		this.lblRonda = lblRonda;
+	}
+
+	public JLabel getLblDificultad() {
+		return lblDificultad;
+	}
+
+	public void setLblDificultad(JLabel lblDificultad) {
+		this.lblDificultad = lblDificultad;
+	}
+
+	public Pregunta getPreguntaActual() {
+		return preguntaActual;
+	}
+
+	public void setPreguntaActual(Pregunta preguntaActual) {
+		this.preguntaActual = preguntaActual;
 	}
 	
 	

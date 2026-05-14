@@ -42,14 +42,14 @@ public class MongoDBColecciones {
 		}
 	}
  
-	// Punto de acceso global a la instancia única
+	// Instancia con la conexión
 	public static MongoDBColecciones getInstance() {
 		if (instancia == null) {
 			instancia = new MongoDBColecciones();
 		}
 		return instancia;
 	}
- 
+	//ArrayList todos los usuarios de la BDD
 	public ArrayList<Usuario> getUsuarios() {
 		instancia.actualizarRanking();
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -59,12 +59,11 @@ public class MongoDBColecciones {
 		}
 		return usuarios;
 	}
- 
+	//Añadir Usuario a BDD
 	public void añadirDocumentoUsuario(Usuario usuario) {
 		collectionUsuarios.insertOne(usuarioCastDocumento(usuario));
-		collectionUsuarios = database.getCollection("usuarios");
 	}
- 
+	//Filtro buscar usuario
 	public Usuario getUsuarioPorUsuarioNombre(String usuarioNombre) {
 		Document documento = collectionUsuarios.find(Filters.eq("usuario", usuarioNombre)).first();
 		if (documento != null) {
@@ -72,7 +71,7 @@ public class MongoDBColecciones {
 		}
 		return null;
 	}
- 
+	//Documento a Usuario
 	public Usuario documentoCastUsuario(Document documento) {
 		Usuario usuarioCast = new Usuario();
 		usuarioCast.setNombre(documento.getString("usuario"));
@@ -81,7 +80,7 @@ public class MongoDBColecciones {
 		usuarioCast.setDineroUsuario(documento.getInteger("dineroUsuario"));
 		return usuarioCast;
 	}
- 
+	//Usuario a Documento
 	public Document usuarioCastDocumento(Usuario usuario) {
 		Document documentoCast = new Document("usuario", usuario.getNombre())
 				.append("contraseña", usuario.getContraseña())
