@@ -88,6 +88,8 @@ public class JPanelRanking extends JPanel {
 			modeloDineroPartida.addRow(fila);
 		}
 		TablaDineroPartida.setModel(modeloDineroPartida);
+		TablaDineroPartida.setEnabled(false);
+		PanelScrollDineroTotal.setViewportView(TablaDineroPartida);
 		
 		
 		
@@ -123,24 +125,27 @@ public class JPanelRanking extends JPanel {
 			modeloDineroTotal.addRow(fila);
 		}
 		TablaDineroTotal.setModel(modeloDineroTotal);
+		TablaDineroTotal.setEnabled(false);
 		panelScrollMejorPartida.setViewportView(TablaDineroTotal);
 		
 		lblMejoresPuntuaciones = new JLabel("MEJORES PUNTUACIONES UNICAS");
 		lblMejoresPuntuaciones.setForeground(Color.WHITE);
 		lblMejoresPuntuaciones.setFont(new Font("Franklin Gothic Book", Font.BOLD, 22));
 		lblMejoresPuntuaciones.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMejoresPuntuaciones.setBounds(211, 50, 339, 67);
+		lblMejoresPuntuaciones.setBounds(131, 50, 450
+				, 67);
 		add(lblMejoresPuntuaciones);
 		
 		lblMáximosGanadores = new JLabel("MAXIMOS PUNTAJES");
+		lblMáximosGanadores.setBackground(new Color(240, 240, 240));
 		lblMáximosGanadores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMáximosGanadores.setForeground(UIManager.getColor("CheckBox.highlight"));
+		lblMáximosGanadores.setForeground(Color.WHITE);
 		lblMáximosGanadores.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
 		lblMáximosGanadores.setBounds(798, 50, 300, 67);
 		add(lblMáximosGanadores);
 
 		
-		JButton btnVolverMenu = new JButton("Volver al Menú Principal");
+		JButton btnVolverMenu = new JButton("Volver al Menú");
 		btnVolverMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo)getParent();
