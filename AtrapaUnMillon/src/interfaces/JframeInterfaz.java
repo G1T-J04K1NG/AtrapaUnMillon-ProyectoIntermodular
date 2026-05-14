@@ -24,6 +24,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.awt.Toolkit;
 
 public class JframeInterfaz extends JFrame {
 
@@ -32,6 +33,7 @@ public class JframeInterfaz extends JFrame {
 
 	// CrearJFRAME
 	public JframeInterfaz() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(JframeInterfaz.class.getResource("/resources/logo_atrapa_millon.png")));
 		setFont(new Font("Guttman Frank", Font.BOLD, 13));
 		setTitle("Atrapa Un Millón");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

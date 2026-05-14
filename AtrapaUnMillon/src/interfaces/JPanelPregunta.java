@@ -28,7 +28,7 @@ public class JPanelPregunta extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/Fondo JFrame Pregunta.png"))
 			.getImage();
-
+	private javax.sound.sampled.Clip clipActual;
 	private JButton btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD;
 	private JLabel lblPregunta, lblDinero;
 	private Pregunta preguntaActual;
@@ -38,8 +38,8 @@ public class JPanelPregunta extends JPanel {
 	private ArrayList<Pregunta> preguntas;
 	private boolean salvavidasUsado;
 	private boolean publicoUsado;
-	private boolean magoUsado ;
-	private boolean cambiarPreguntaUsado ;
+	private boolean magoUsado;
+	private boolean cambiarPreguntaUsado;
 	private JButtonRedondo btnMago;
 	private JButtonRedondo btnPublico;
 	private JButtonRedondo btnCambiarPregunta;
@@ -50,7 +50,7 @@ public class JPanelPregunta extends JPanel {
 		salvavidasUsado = false;
 		magoUsado = false;
 		publicoUsado = false;
-		cambiarPreguntaUsado =false;
+		cambiarPreguntaUsado = false;
 		this.partida = partida;
 		setLayout(null);
 		setBounds(0, 30, 1200, 770);
@@ -63,7 +63,7 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	private void crearBotonesdelPanel() {
-		
+
 		UIManager.put("ToolTip.background", new Color(30, 30, 30));
 		UIManager.put("ToolTip.foreground", Color.YELLOW);
 		UIManager.put("ToolTip.font", new Font("Tahoma", Font.BOLD, 14));
@@ -122,55 +122,58 @@ public class JPanelPregunta extends JPanel {
 		btnMago.setContentAreaFilled(false);
 		btnMago.setBorderPainted(false);
 		btnMago.setToolTipText("Mago: Muestra una opción durante 2 segundos, probablemente la correcta...");
+		javax.swing.ToolTipManager.sharedInstance().registerComponent(btnMago);
 		btnMago.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				btnMago.setEnabled(false);
-				btnMago.setBackground(Color.RED);
-				btnMago.setContentAreaFilled(false);
-				btnMago.setBorderPainted(false);
-				btnMago.setFocusPainted(false);
+				if (!magoUsado) {
+					magoUsado = true;
+					btnMago.setBackground(Color.RED);
+					btnMago.setContentAreaFilled(false);
+					btnMago.setBorderPainted(false);
+					btnMago.setFocusPainted(false);
 
-				int probabilidad = (int) (Math.random() * 10);
+					int probabilidad = (int) (Math.random() * 10);
 
-				int indiceVisible;
-				if (probabilidad < 7) {
-					//
-					indiceVisible = 0;
+					int indiceVisible;
+					if (probabilidad < 7) {
+						//
+						indiceVisible = 0;
 
-					for (int i = 0; i < opciones.size(); i++) {
-						if (opciones.get(i).equals(preguntaActual.getRespuestaCorrecta())) {
-							indiceVisible = i;
-							break;
+						for (int i = 0; i < opciones.size(); i++) {
+							if (opciones.get(i).equals(preguntaActual.getRespuestaCorrecta())) {
+								indiceVisible = i;
+								break;
+							}
 						}
-					}
-				} else {
+					} else {
 
-					indiceVisible = (int) (Math.random() * 4);
+						indiceVisible = (int) (Math.random() * 4);
+					}
+
+					if (indiceVisible != 0)
+						btnOpcionA.setVisible(false);
+					if (indiceVisible != 1)
+						btnOpcionB.setVisible(false);
+					if (indiceVisible != 2)
+						btnOpcionC.setVisible(false);
+					if (indiceVisible != 3)
+						btnOpcionD.setVisible(false);
+
+					btnMago.setEnabled(false);
+
+					// Timer
+					javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
+						public void actionPerformed(ActionEvent e2) {
+							btnOpcionA.setVisible(true);
+							btnOpcionB.setVisible(true);
+							btnOpcionC.setVisible(true);
+							btnOpcionD.setVisible(true);
+						}
+					});
+					timer.setRepeats(false);
+					timer.start();
 				}
-
-				if (indiceVisible != 0)
-					btnOpcionA.setVisible(false);
-				if (indiceVisible != 1)
-					btnOpcionB.setVisible(false);
-				if (indiceVisible != 2)
-					btnOpcionC.setVisible(false);
-				if (indiceVisible != 3)
-					btnOpcionD.setVisible(false);
-
-				btnMago.setEnabled(false);
-
-				// Timer
-				javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
-					public void actionPerformed(ActionEvent e2) {
-						btnOpcionA.setVisible(true);
-						btnOpcionB.setVisible(true);
-						btnOpcionC.setVisible(true);
-						btnOpcionD.setVisible(true);
-					}
-				});
-				timer.setRepeats(false);
-				timer.start();
 			}
 		});
 		// COMODIN PUBLICO
@@ -181,31 +184,32 @@ public class JPanelPregunta extends JPanel {
 		add(btnPublico);
 		btnPublico.setFocusPainted(false);
 		btnPublico.setContentAreaFilled(false);
-		
+
 		btnPublico.setBorderPainted(false);
 		btnPublico.setToolTipText("Público: Elimina dos respuestas incorrectas");
+		javax.swing.ToolTipManager.sharedInstance().registerComponent(btnPublico);
 		btnPublico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!publicoUsado) {
 					publicoUsado = true;
-				JButton[] opciones = { btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD };
-				btnPublico.setBackground(Color.RED);
-				ArrayList<JButton> incorrectas = new ArrayList<>();
+					JButton[] opciones = { btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD };
+					btnPublico.setBackground(Color.RED);
+					ArrayList<JButton> incorrectas = new ArrayList<>();
 
-				for (JButton boton : opciones) {
-					String textosinprefijo = boton.getText().substring(3);
-					if (!textosinprefijo.trim().equalsIgnoreCase(preguntaActual.getRespuestaCorrecta().trim())) {
+					for (JButton boton : opciones) {
+						String textosinprefijo = boton.getText().substring(3);
+						if (!textosinprefijo.trim().equalsIgnoreCase(preguntaActual.getRespuestaCorrecta().trim())) {
 
-						incorrectas.add(boton);
+							incorrectas.add(boton);
+						}
 					}
+
+					Collections.shuffle(incorrectas);
+					incorrectas.get(0).setVisible(false);
+					incorrectas.get(1).setVisible(false);
+
+					btnPublico.setEnabled(false);
 				}
-
-				Collections.shuffle(incorrectas);
-				incorrectas.get(0).setVisible(false);
-				incorrectas.get(1).setVisible(false);
-
-				btnPublico.setEnabled(false);
-			}
 			}
 		});
 
@@ -218,23 +222,24 @@ public class JPanelPregunta extends JPanel {
 		add(btnCambiarPregunta);
 
 		btnCambiarPregunta.setToolTipText("Cambiar pregunta: Sustituye la pregunta actual por otra");
+		javax.swing.ToolTipManager.sharedInstance().registerComponent(btnCambiarPregunta);
 		btnCambiarPregunta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			if(!cambiarPreguntaUsado) {
-				cambiarPreguntaUsado = true;
-				btnCambiarPregunta.setEnabled(false);
-				btnCambiarPregunta.setEnabled(false);
-				btnCambiarPregunta.setBackground(Color.RED);
-				btnCambiarPregunta.setContentAreaFilled(false);
-				btnCambiarPregunta.setBorderPainted(false);
-				btnCambiarPregunta.setFocusPainted(false);
+				if (!cambiarPreguntaUsado) {
+					cambiarPreguntaUsado = true;
+					btnCambiarPregunta.setEnabled(false);
+					btnCambiarPregunta.setEnabled(false);
+					btnCambiarPregunta.setBackground(Color.RED);
+					btnCambiarPregunta.setContentAreaFilled(false);
+					btnCambiarPregunta.setBorderPainted(false);
+					btnCambiarPregunta.setFocusPainted(false);
 
-				preguntas.remove(preguntaActual);
-				if (preguntas.isEmpty()) {
-					cogerPreguntas();
-				}
-				Collections.shuffle(preguntas);
-				recargarPanelPreguntas();
+					preguntas.remove(preguntaActual);
+					if (preguntas.isEmpty()) {
+						cogerPreguntas();
+					}
+					Collections.shuffle(preguntas);
+					recargarPanelPreguntas();
 				}
 			}
 		});
@@ -244,8 +249,7 @@ public class JPanelPregunta extends JPanel {
 
 		// COMODIN SALVAVIDAS
 		btnSalvavidas = new JButtonRedondo((String) null);
-		btnSalvavidas
-				.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ImagenComodinSalvavida.png")));
+		btnSalvavidas.setIcon(new ImageIcon(JPanelPregunta.class.getResource("/resources/ImagenComodinSalvavida.png")));
 		btnSalvavidas.setBackground(Color.GREEN);
 		btnSalvavidas.setBounds(12, 12, 60, 60);
 		btnSalvavidas.setFocusPainted(false);
@@ -253,6 +257,8 @@ public class JPanelPregunta extends JPanel {
 		btnSalvavidas.setBorderPainted(false);
 		add(btnSalvavidas);
 		btnSalvavidas.setToolTipText("Salvavidas: Revela la respuesta correcta");
+		javax.swing.ToolTipManager.sharedInstance().registerComponent(btnSalvavidas);
+
 		btnSalvavidas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!salvavidasUsado) {
@@ -344,8 +350,8 @@ public class JPanelPregunta extends JPanel {
 			}
 			lblDinero.setText("Saldo: " + partida.getDinero() + " €");
 			JPanelFondo p = (JPanelFondo) getParent();
-			switch(partida.getRonda()) {
-			case 4,9,12:
+			switch (partida.getRonda()) {
+			case 4, 9, 12:
 				p.getpEntreRondas().plantarse();
 				break;
 			case 14:
@@ -355,8 +361,7 @@ public class JPanelPregunta extends JPanel {
 				p.getpEntreRondas().acierto();
 				break;
 			}
-			
-			
+
 			p.setComponentZOrder(p.getpEntreRondas(), 0);
 			p.revalidate();
 			p.repaint();
@@ -405,6 +410,10 @@ public class JPanelPregunta extends JPanel {
 	}
 
 	public void recargarPanelPreguntas() {
+		btnSalvavidas.setEnabled(true);
+		btnMago.setEnabled(true);
+		btnPublico.setEnabled(true);
+		btnCambiarPregunta.setEnabled(true);
 
 		preguntaActual = preguntas.remove(0);
 		estiloBoton(btnOpcionA);
@@ -429,6 +438,9 @@ public class JPanelPregunta extends JPanel {
 		btnOpcionD.setText("D: " + opciones.get(3));
 		btnOpcionD.setEnabled(true);
 		btnOpcionD.setVisible(true);
+		btnVolverMenu.setEnabled(true);
+		repaint();
+		revalidate();
 	}
 
 	public Partida getPartida() {
@@ -438,32 +450,36 @@ public class JPanelPregunta extends JPanel {
 	public void setPartida(Partida partida) {
 		this.partida = partida;
 	}
-	
-	
-	
+
 	public void deshabilitarBotones() {
+
 		btnSalvavidas.setEnabled(false);
-		btnCambiarPregunta.setEnabled(false);	
-		btnMago.setEnabled(false);	
-		btnPublico.setEnabled(false);	
-		btnOpcionA.setEnabled(false);	
-		btnOpcionB.setEnabled(false);	
-		btnOpcionC.setEnabled(false);	
-		btnOpcionD.setEnabled(false);	
+		btnCambiarPregunta.setEnabled(false);
+		btnMago.setEnabled(false);
+		btnPublico.setEnabled(false);
+
+		btnOpcionA.setEnabled(false);
+		btnOpcionB.setEnabled(false);
+		btnOpcionC.setEnabled(false);
+		btnOpcionD.setEnabled(false);
 		btnVolverMenu.setEnabled(false);
 
 	}
-	
+
 	public void habilitarBotones() {
 		btnSalvavidas.setEnabled(true);
-		btnCambiarPregunta.setEnabled(true);	
-		btnMago.setEnabled(true);	
-		btnPublico.setEnabled(true);	
-		btnOpcionA.setEnabled(true);	
-		btnOpcionB.setEnabled(true);	
-		btnOpcionC.setEnabled(true);	
-		btnOpcionD.setEnabled(true);	
+		btnCambiarPregunta.setEnabled(true);
+		btnMago.setEnabled(true);
+		btnPublico.setEnabled(true);
+		btnOpcionA.setEnabled(true);
+		btnOpcionB.setEnabled(true);
+		btnOpcionC.setEnabled(true);
+		btnOpcionD.setEnabled(true);
 		btnVolverMenu.setEnabled(true);
 
 	}
+	
+	
+
+
 }

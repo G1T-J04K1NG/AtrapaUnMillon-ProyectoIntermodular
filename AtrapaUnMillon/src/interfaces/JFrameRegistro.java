@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import model.Partida;
 import model.Usuario;
 import mongo.MongoDBColecciones;
+import java.awt.Toolkit;
 
 public class JFrameRegistro extends JFrame {
 
@@ -36,6 +37,7 @@ public class JFrameRegistro extends JFrame {
 	 * Create the frame.
 	 */
 	public JFrameRegistro(JframeInterfaz frame) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(JFrameRegistro.class.getResource("/resources/logo_atrapa_millon.png")));
 		setTitle("Atrapa Un Millón: Registro de Usuario");
 		setBounds(350, 200, 650, 400);
 		contentPane = new JPanel() {

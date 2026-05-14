@@ -22,6 +22,7 @@ import com.mongodb.client.model.Filters;
 import model.Partida;
 import model.Usuario;
 import mongo.MongoDBColecciones;
+import java.awt.Toolkit;
 
 public class JFrameLogIn extends JFrame {
 
@@ -40,6 +41,7 @@ public class JFrameLogIn extends JFrame {
 	 * Create the frame.
 	 */
 	public JFrameLogIn(JframeInterfaz frame) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(JFrameLogIn.class.getResource("/resources/logo_atrapa_millon.png")));
 		setTitle("Atrapa Un Millón: Inicio De Sesión");
 		setBounds(350, 200, 650, 400);
 		contentPane = new JPanel() {
