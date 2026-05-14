@@ -32,7 +32,7 @@ public class JPanelPregunta extends JPanel {
 	private JButton btnOpcionA, btnOpcionB, btnOpcionC, btnOpcionD;
 	private JLabel lblPregunta, lblDinero;
 	private Pregunta preguntaActual;
-	private JButton btnVolverMenu;
+	private JButton btnSalir;
 	private Partida partida;
 
 	private ArrayList<Pregunta> preguntas;
@@ -298,8 +298,10 @@ public class JPanelPregunta extends JPanel {
 		});
 
 		// --- BOTÓN VOLVER AL MENÚ PANTALLA GENERAL ---
-		btnVolverMenu = new JButton("Volver al Menú");
-		btnVolverMenu.addActionListener(new ActionListener() {
+		btnSalir = new JButton("Salir");
+		btnSalir.setBackground(new Color(192, 192, 192));
+		btnSalir.setForeground(new Color(0, 0, 0));
+		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					JPanelFondo p = (JPanelFondo) getParent();
@@ -314,8 +316,8 @@ public class JPanelPregunta extends JPanel {
 				}
 			}
 		});
-		btnVolverMenu.setBounds(940, 24, 250, 40);
-		add(btnVolverMenu);
+		btnSalir.setBounds(1053, 31, 100, 30);
+		add(btnSalir);
 
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
@@ -381,11 +383,11 @@ public class JPanelPregunta extends JPanel {
 
 	private void estiloBoton(JButton btn) {
 		btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-		btn.setBackground(new Color(220, 220, 220));
-		btn.setForeground(Color.BLACK);
+		btn.setBackground(new Color(0, 0, 0));
+		btn.setForeground(new Color(255, 255, 255));
 		btn.setOpaque(true);
 		btn.setContentAreaFilled(true);
-		btn.setBorder(new LineBorder(Color.WHITE, 2));
+		btn.setBorder(new LineBorder(new Color(0, 255, 255), 2));
 		btn.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btn.setFocusPainted(false);
 		btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -438,7 +440,7 @@ public class JPanelPregunta extends JPanel {
 		btnOpcionD.setText("D: " + opciones.get(3));
 		btnOpcionD.setEnabled(true);
 		btnOpcionD.setVisible(true);
-		btnVolverMenu.setEnabled(true);
+		btnSalir.setEnabled(true);
 		repaint();
 		revalidate();
 	}
@@ -462,7 +464,7 @@ public class JPanelPregunta extends JPanel {
 		btnOpcionB.setEnabled(false);
 		btnOpcionC.setEnabled(false);
 		btnOpcionD.setEnabled(false);
-		btnVolverMenu.setEnabled(false);
+		btnSalir.setEnabled(false);
 
 	}
 
@@ -475,7 +477,7 @@ public class JPanelPregunta extends JPanel {
 		btnOpcionB.setEnabled(true);
 		btnOpcionC.setEnabled(true);
 		btnOpcionD.setEnabled(true);
-		btnVolverMenu.setEnabled(true);
+		btnSalir.setEnabled(true);
 
 	}
 	
