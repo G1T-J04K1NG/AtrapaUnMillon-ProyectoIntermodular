@@ -43,7 +43,7 @@ public class JPanelInformacionUsuario extends JPanel {
 		});
 
 		btnInformacion
-				.setIcon(new ImageIcon(JPanelInformacionUsuario.class.getResource("/resources/Proyecto nuevo.png")));
+				.setIcon(new ImageIcon(JPanelInformacionUsuario.class.getResource("/resources/LogoInfo.png")));
 		btnInformacion.setBounds(1101, 0, 99, 30);
 		btnInformacion.setBorderPainted(false);
 		btnInformacion.setContentAreaFilled(false);

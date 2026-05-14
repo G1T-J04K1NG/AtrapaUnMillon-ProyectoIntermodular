@@ -30,8 +30,8 @@ public class JPanelModoJuego extends JPanel {
 		setLayout(null);
 		setBounds(300, 200, 600, 400);
 
-		JPanel panelFondo = new JPanel() {
-			 private Image imagenFondo = new ImageIcon(getClass().getResource("/resources/modoJuego.png")).getImage();
+		JPanel panelImagen = new JPanel() {
+			 Image imagenFondo = new ImageIcon(getClass().getResource("/resources/modoJuego.png")).getImage();
 			
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -42,11 +42,10 @@ public class JPanelModoJuego extends JPanel {
 			}
 		};
 		
-		panelFondo.setBounds(0, 0, 600, 400); 
-		add(panelFondo);
+		panelImagen.setBounds(0, 0, 600, 400); 
+		add(panelImagen);
 		
-		setComponentZOrder(panelFondo, getComponentCount() - 1);
-		panelFondo.setLayout(null);
+		panelImagen.setLayout(null);
 		
 		btnModoNormal = new JButton("Normal");
 		btnModoNormal.setBounds(100, 208, 151, 58);
@@ -58,7 +57,7 @@ public class JPanelModoJuego extends JPanel {
 		btnModoNormal.setBorder(new LineBorder(Color.WHITE, 3)); 
 		btnModoNormal.setForeground(Color.WHITE); 
 		
-		panelFondo.add(btnModoNormal);
+		panelImagen.add(btnModoNormal);
 				
 						btnModoNormal.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
@@ -82,14 +81,14 @@ public class JPanelModoJuego extends JPanel {
 								btnModoAleatorio.setBorder(new LineBorder(Color.WHITE, 3)); 
 								btnModoAleatorio.setForeground(Color.WHITE); 
 								
-								panelFondo.add(btnModoAleatorio);
+								panelImagen.add(btnModoAleatorio);
 								btnModoAleatorio.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										JPanelFondo p = (JPanelFondo) getParent();
 										p.reproducirSonido("/resources/nochedecasino.wav");
 										p.getpMenu().getBtnEmpezarPartida().setEnabled(true);
 										p.getpMenu().getBtnRanking().setEnabled(true);
-										p.iniciarPartida(true);
+										p.iniciarPartida(false);
 
 									}
 								});
@@ -97,7 +96,7 @@ public class JPanelModoJuego extends JPanel {
 								
 										btnVolver = new JButton("Volver");
 										btnVolver.setBounds(240, 290, 120, 40);
-										panelFondo.add(btnVolver);
+										panelImagen.add(btnVolver);
 										btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 20));
 										btnVolver.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {

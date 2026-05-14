@@ -47,6 +47,7 @@ public class JPanelEntreRondas extends JPanel {
 				p.getpPregunta().getPartida().setRonda(p.getpPregunta().getPartida().getRonda() + 1);
 				p.getpPregunta().getLblRonda().setText("Ronda : " + (p.getpPregunta().getPartida().getRonda() +1));
 				p.getpPregunta().recargarPanelPreguntas();
+				p.getpPregunta().getLblDificultad().setText("Dificultad: " + p.getpPregunta().getPreguntaActual().getDificultad());
 
 			}
 		});
@@ -110,7 +111,7 @@ public class JPanelEntreRondas extends JPanel {
 
 		ArrayList<String> frases = new ArrayList<>(
 				List.of("Qué malo", "¿En serio?", "Ni de coña", "Lamentable", "Era fácil", "Menudo nivel", "De chiste",
-						"Casi, pero no", "Paquete", "Espabila", "No das pie con bola", "Qué desastre"));
+						"Casi, pero no", "Paquete", "Espabila", "Qué desastre"));
 		JLabel lblFallasteLaPregunta = new JLabel(frases.get((int) (Math.random() * frases.size())));
 		lblFallasteLaPregunta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFallasteLaPregunta.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
@@ -146,6 +147,7 @@ public class JPanelEntreRondas extends JPanel {
 				p.getpPregunta().getPartida().setRonda(p.getpPregunta().getPartida().getRonda() + 1);
 				p.getpPregunta().getLblRonda().setText("Ronda : " + (p.getpPregunta().getPartida().getRonda() +1));
 				p.getpPregunta().recargarPanelPreguntas();
+				p.getpPregunta().getLblDificultad().setText("Dificultad: " + p.getpPregunta().getPreguntaActual().getDificultad());
 
 			}
 		});
