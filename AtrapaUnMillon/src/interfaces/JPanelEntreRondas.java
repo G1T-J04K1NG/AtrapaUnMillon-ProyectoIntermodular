@@ -19,7 +19,7 @@ import mongo.MongoDBColecciones;
 public class JPanelEntreRondas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private javax.sound.sampled.Clip clipActual;
+	
 
 	public JPanelEntreRondas() {
 		setLayout(null);
@@ -35,9 +35,9 @@ public class JPanelEntreRondas extends JPanel {
 		int aleatorio = (int) (0 + Math.random() * 2);
 
 		if (aleatorio == 1) {
-			reproducirSonido("/resources/adhimahadi-aww-8277.wav");
+			p.reproducirSonido("/resources/success.wav");
 		} else {
-			reproducirSonido("/resources/8-bit-win-sound.wav");
+			p.reproducirSonido("/resources/8-bit-win-sound.wav");
 		}
 
 		btnSiguiente.addActionListener(new ActionListener() {
@@ -86,10 +86,10 @@ public class JPanelEntreRondas extends JPanel {
 		int aleatorio = (int) (0 + Math.random() * 2);
 
 		if (aleatorio == 1) {
-			reproducirSonido("/resources/sad-trumpet-audio.wav");
+			p.reproducirSonido("/resources/sad-trumpet-audio.wav");
 		} else {
 
-			reproducirSonido("/resources/metal-pipe-clang.wav");
+			p.reproducirSonido("/resources/metal-pipe-clang.wav");
 		}
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
@@ -137,7 +137,7 @@ public class JPanelEntreRondas extends JPanel {
 		removeAll();
 
 		JPanelFondo p = (JPanelFondo) getParent();
-		reproducirSonido("/resources/dun_dun_dun.wav.wav");
+		p.reproducirSonido("/resources/dun_dun_dun.wav");
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -210,9 +210,9 @@ public class JPanelEntreRondas extends JPanel {
 
 	public void ganaste() {
 		removeAll();
-
+		JPanelFondo p = (JPanelFondo) getParent();
 		JButton btnRetirarse = new JButton("Retirarse");
-		reproducirSonido("/resources/ff7_victory_QyN4ZfS.wav");
+		p.reproducirSonido("/resources/ff7_victory_QyN4ZfS.wav");
 		btnRetirarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
@@ -261,18 +261,5 @@ public class JPanelEntreRondas extends JPanel {
 
 	}
 
-	private void reproducirSonido(String ruta) {
-		try {
-			if (clipActual != null && clipActual.isRunning()) {
-				clipActual.stop();
-			}
-			java.net.URL url = getClass().getResource(ruta);
-			javax.sound.sampled.AudioInputStream audio = javax.sound.sampled.AudioSystem.getAudioInputStream(url);
-			clipActual = javax.sound.sampled.AudioSystem.getClip();
-			clipActual.open(audio);
-			clipActual.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 }

@@ -21,6 +21,7 @@ public class JPanelFondo extends JPanel {
 	private JPanelModoJuego pModo;
 	private JPanelEntreRondas pEntreRondas;
 	private Usuario usuario;
+	private javax.sound.sampled.Clip clipActual;
 
 	public JPanelFondo(Usuario usuario) {
 		this.usuario = usuario;
@@ -124,6 +125,22 @@ public class JPanelFondo extends JPanel {
 
 	public void setpEntreRondas(JPanelEntreRondas pEntreRondas) {
 		this.pEntreRondas = pEntreRondas;
+	}
+	
+	
+	public void reproducirSonido(String ruta) {
+		try {
+			if (clipActual != null && clipActual.isRunning()) {
+				clipActual.stop();
+			}
+			java.net.URL url = getClass().getResource(ruta);
+			javax.sound.sampled.AudioInputStream audio = javax.sound.sampled.AudioSystem.getAudioInputStream(url);
+			clipActual = javax.sound.sampled.AudioSystem.getClip();
+			clipActual.open(audio);
+			clipActual.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	

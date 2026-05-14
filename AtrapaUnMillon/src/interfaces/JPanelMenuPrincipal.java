@@ -37,6 +37,7 @@ public class JPanelMenuPrincipal extends JPanel {
 		btnEmpezarPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
+				
 				p.getpModo().setVisible(true);
 				p.setComponentZOrder(p.getpModo(), 0);
 				p.repaint();
@@ -62,7 +63,7 @@ public class JPanelMenuPrincipal extends JPanel {
 			}
 		});
 		btnRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnRanking.setBounds(43, 55, 168, 70);
+		btnRanking.setBounds(40, 40, 168, 70);
 		add(btnRanking);
 
 		JLabel labelimagen = new JLabel("");
