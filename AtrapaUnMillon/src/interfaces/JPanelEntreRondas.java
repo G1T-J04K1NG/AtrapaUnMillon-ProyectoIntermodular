@@ -1,5 +1,6 @@
 package interfaces;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -27,16 +28,11 @@ public class JPanelEntreRondas extends JPanel {
 
 	public void acierto() {
 		removeAll();
-		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelAvanzar.png"))
-                .getImage()
-                .getScaledInstance(500, 320, Image.SCALE_SMOOTH);
-		JLabel lblFondo = new JLabel(new ImageIcon(img));
-		lblFondo.setBounds(0, 0, 500, 320); //poner a tamaño de panel
-		add(lblFondo);
+		JPanelFondo p = (JPanelFondo) getParent();
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanelFondo p = (JPanelFondo) getParent();
+				
 
 				setVisible(false);
 				p.getpPregunta().getPartida().setRonda(p.getpPregunta().getPartida().getRonda() + 1);
@@ -45,32 +41,58 @@ public class JPanelEntreRondas extends JPanel {
 			}
 		});
 		btnSiguiente.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnSiguiente.setBounds(175, 200, 150, 40);
+		btnSiguiente.setBounds(200, 260, 100, 27);
 		add(btnSiguiente);
 
-		ArrayList<String> frases = new ArrayList<>(List.of("Eres la cabra", "¡Acertaste!", "Le sabes",
-				"Simplemente cine", "Basado", "Directo al ángulo", "Imposible fallar contigo",
-				"Totalmente de acuerdo, genio", "¡Pura magia!", "Lo has clavado", "Demasiado nivel para este programa",
-				"¡Vaya lectura de juego!", "Eres el elegido", "Eres demasiado bueno"));
+		ArrayList<String> frases = new ArrayList<>(List.of(
+			    "GOAT",
+			    "¡Exacto!",
+			    "Factorazos",
+			    "Cine",
+			    "Prime",
+			    "Clasificado",
+			    "En el ángulo",
+			    "Imposible",
+			    "Genio",
+			    "Magia",
+			    "Clavado",
+			    "Nivel Dios",
+			    "Lectura",
+			    "El Elegido",
+			    "Diferente"
+			));
 		JLabel lblHacertasteLaPregunta = new JLabel(frases.get((int) (Math.random() * frases.size())));
 		lblHacertasteLaPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHacertasteLaPregunta.setFont(new Font("Franklin Gothic Book", Font.BOLD, 20));
-		lblHacertasteLaPregunta.setBounds(21, 22, 469, 153);
+		lblHacertasteLaPregunta.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
+		lblHacertasteLaPregunta.setForeground(Color.WHITE);
+		lblHacertasteLaPregunta.setBounds(21, 60, 469, 153);
 		add(lblHacertasteLaPregunta);
+		
+		JLabel lblHasAcertado = new JLabel("Has superado la ronda " + (p.getpPregunta().getPartida().getRonda() + 1));
+		lblHasAcertado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHasAcertado.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblHasAcertado.setForeground(Color.WHITE);
+		lblHasAcertado.setBounds(21, 100, 469, 153);
+		add(lblHasAcertado);
+		
+		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelAvanzar.png"))
+                .getImage()
+                .getScaledInstance(500, 320, Image.SCALE_SMOOTH);
+		JLabel lblFondo = new JLabel(new ImageIcon(img));
+		lblFondo.setBounds(0, 0, 500, 320); 
+		add(lblFondo);
 
 	}
 
 	public void fallo() {
 		removeAll();
-		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelFallo.png"))
-                .getImage()
-                .getScaledInstance(500, 320, Image.SCALE_SMOOTH);
-		JLabel lblFondo = new JLabel(new ImageIcon(img));
+		JPanelFondo p = (JPanelFondo) getParent();
+		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				JPanelFondo p = (JPanelFondo) getParent();
+				
 				setVisible(false);
 				p.getpPregunta().setVisible(false);
 				p.getpMenu().setVisible(true);
@@ -82,27 +104,53 @@ public class JPanelEntreRondas extends JPanel {
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnSalir.setBounds(175, 200, 150, 40);
+		btnSalir.setBounds(200, 260, 100, 27);
 		add(btnSalir);
 
-		ArrayList<String> frases = new ArrayList<>(List.of("Anda que no eres malo eh", "¿En serio no has acertado eso?",
-				"Hasta un reloj parado acierta dos veces al día", "No me lo creo, eres peor que Vinicius",
-				"Tampoco era para tanto la pregunta", "Vaya, te has lucido campeón", "Eso lo sabe hasta mi abuela",
-				"Buf, por los pelos ¿no?", "Menudo crack de pacotilla", "Hasta tú puedes con esto"));
+		ArrayList<String> frases = new ArrayList<>(List.of(
+			    "Qué malo",
+			    "¿En serio?",
+			    "Ni de coña",
+			    "Lamentable",
+			    "Era fácil",
+			    "Menudo nivel",
+			    "De chiste",
+			    "Casi, pero no",
+			    "Paquete",
+			    "Espabila",
+			    "No das pie con bola",
+			    "Qué desastre"
+			));
 		JLabel lblFallasteLaPregunta = new JLabel(frases.get((int) (Math.random() * frases.size())));
 		lblFallasteLaPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFallasteLaPregunta.setFont(new Font("Franklin Gothic Book", Font.BOLD, 20));
-		lblFallasteLaPregunta.setBounds(21, 22, 469, 153);
+		lblFallasteLaPregunta.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
+		lblFallasteLaPregunta.setForeground(Color.WHITE);
+		lblFallasteLaPregunta.setBounds(21, 60, 469, 153);
 		add(lblFallasteLaPregunta);
+		
+		JLabel lblHasFallado = new JLabel("Has fallado en la ronda " + (p.getpPregunta().getPartida().getRonda() + 1));
+		lblHasFallado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHasFallado.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblHasFallado.setForeground(Color.WHITE);
+		lblHasFallado.setBounds(21, 100, 469, 153);
+		add(lblHasFallado);
+		
+		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelFallo.png"))
+                .getImage()
+                .getScaledInstance(500, 320, Image.SCALE_SMOOTH);
+		JLabel lblFondo = new JLabel(new ImageIcon(img));
+		lblFondo.setBounds(0, 0, 500, 320); 
+		add(lblFondo);
 
 	}
 
 	public void plantarse() {
 		removeAll();
+		JPanelFondo p = (JPanelFondo) getParent();
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanelFondo p = (JPanelFondo) getParent();
+				
 
 				setVisible(false);
 				p.getpPregunta().getPartida().setRonda(p.getpPregunta().getPartida().getRonda() + 1);
@@ -111,17 +159,31 @@ public class JPanelEntreRondas extends JPanel {
 			}
 		});
 		btnSiguiente.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnSiguiente.setBounds(75, 200, 150, 40);
+		btnSiguiente.setBounds(200, 260, 100, 27);
 		add(btnSiguiente);
 
-		ArrayList<String> frases = new ArrayList<>(List.of("Eres la cabra", "¡Acertaste!", "Le sabes",
-				"Simplemente cine", "Basado", "Directo al ángulo", "Imposible fallar contigo",
-				"Totalmente de acuerdo, genio", "¡Pura magia!", "Lo has clavado", "Demasiado nivel para este programa",
-				"¡Vaya lectura de juego!", "Eres el elegido", "Eres demasiado bueno"));
+		ArrayList<String> frases = new ArrayList<>(List.of(
+			    "GOAT",
+			    "¡Exacto!",
+			    "Factorazos",
+			    "Cine",
+			    "Prime",
+			    "Clasificado",
+			    "En el ángulo",
+			    "Imposible",
+			    "Genio",
+			    "Magia",
+			    "Clavado",
+			    "Nivel Dios",
+			    "Lectura",
+			    "El Elegido",
+			    "Diferente"
+			));
 		JLabel lblHacertasteLaPregunta = new JLabel(frases.get((int) (Math.random() * frases.size())));
 		lblHacertasteLaPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHacertasteLaPregunta.setFont(new Font("Franklin Gothic Book", Font.BOLD, 20));
-		lblHacertasteLaPregunta.setBounds(21, 22, 469, 153);
+		lblHacertasteLaPregunta.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
+		lblHacertasteLaPregunta.setForeground(Color.WHITE);
+		lblHacertasteLaPregunta.setBounds(21, 60, 469, 153);
 		add(lblHacertasteLaPregunta);
 		
 		
@@ -142,18 +204,30 @@ public class JPanelEntreRondas extends JPanel {
 				MongoDBColecciones.getInstance().cambiarDineroUsuario(p.getUsuario());
 				System.out.println(p.getUsuario().getDineroUsuario());
 				if (p.getpPregunta().getPartida().getDinero() > p.getUsuario().getDineroMejorPartida()) {
+				p.getUsuario().setDineroMejorPartida(p.getpPregunta().getPartida().getDinero());
 				MongoDBColecciones.getInstance().cambiarDineroMejorPartida(p.getUsuario(), p.getpPregunta().getPartida().getDinero());
 			}
 				p.getpInformacion().setUsuario(p.getUsuario());
 				p.getpInformacion().setearEtiquetas();
 			}
 		});
-		btnPlantarse.setBounds(275, 200, 150, 40);
+		btnPlantarse.setBounds(370, 30, 100, 27);
 		btnPlantarse.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnPlantarse.setBounds(275, 200, 150, 40);
 		add(btnPlantarse);
 		
+		JLabel lblSuelo = new JLabel("Has llegado al suelo de la ronda " + (p.getpPregunta().getPartida().getRonda() + 1));
+		lblSuelo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSuelo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblSuelo.setForeground(Color.WHITE);
+		lblSuelo.setBounds(21, 100, 469, 153);
+		add(lblSuelo);
 		
+		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelAvanzar.png"))
+                .getImage()
+                .getScaledInstance(500, 320, Image.SCALE_SMOOTH);
+		JLabel lblFondo = new JLabel(new ImageIcon(img));
+		lblFondo.setBounds(0, 0, 500, 320); 
+		add(lblFondo);
 		
 	}
 	
@@ -161,34 +235,10 @@ public class JPanelEntreRondas extends JPanel {
 	public void ganaste() {
 		removeAll();
 		
-		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelFinal.png"))
-                .getImage()
-                .getScaledInstance(500, 320, Image.SCALE_SMOOTH);
-		JLabel lblFondo = new JLabel(new ImageIcon(img));
-		lblFondo.setBounds(0, 0, 500, 320); //poner a tamaño de panel
-		add(lblFondo);
 		
-		JButton btnVolver = new JButton("Salir");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				JPanelFondo p = (JPanelFondo) getParent();
-				setVisible(false);
-				p.getpPregunta().setVisible(false);
-				p.getpMenu().setVisible(true);
-				p.setComponentZOrder(p.getpMenu(), 0);
-				p.revalidate();
-				p.repaint();
-				
-				
-			}
-		});
-		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnVolver.setBounds(175, 200, 150, 40);
-		add(btnVolver);;
 		
-		JButton btnPlantarse = new JButton("Plantarse");
-		btnPlantarse.addActionListener(new ActionListener() {
+		JButton btnRetirar = new JButton("Plantarse");
+		btnRetirar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
 				
@@ -204,18 +254,24 @@ public class JPanelEntreRondas extends JPanel {
 				MongoDBColecciones.getInstance().cambiarDineroUsuario(p.getUsuario());
 				System.out.println(p.getUsuario().getDineroUsuario());
 				if (p.getpPregunta().getPartida().getDinero() > p.getUsuario().getDineroMejorPartida()) {
+				p.getUsuario().setDineroMejorPartida(p.getpPregunta().getPartida().getDinero());
 				MongoDBColecciones.getInstance().cambiarDineroMejorPartida(p.getUsuario(), p.getpPregunta().getPartida().getDinero());
 			}
 				p.getpInformacion().setUsuario(p.getUsuario());
 				p.getpInformacion().setearEtiquetas();
 			}
 		});
-		btnPlantarse.setBounds(275, 200, 150, 40);
-		btnPlantarse.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnPlantarse.setBounds(275, 200, 150, 40);
-		add(btnPlantarse);
+		btnRetirar.setBounds(200, 260, 100, 27);
+		btnRetirar.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnRetirar.setBounds(275, 200, 150, 40);
+		add(btnRetirar);
 		
-		
+		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelFinal.png"))
+                .getImage()
+                .getScaledInstance(500, 320, Image.SCALE_SMOOTH);
+		JLabel lblFondo = new JLabel(new ImageIcon(img));
+		lblFondo.setBounds(0, 0, 500, 320); //poner a tamaño de panel
+		add(lblFondo);
 		
 	}
 	

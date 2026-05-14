@@ -56,7 +56,7 @@ public class JPanelInformacionUsuario extends JPanel {
 		lblDinero.setBounds(157, 0, 113, 30);
 		add(lblDinero);
 
-		lblMejorPartida = new JLabel("Mejor partida : " + this.usuario .getDineroMejorPartida());
+		lblMejorPartida = new JLabel("Mejor partida : " + this.usuario.getDineroMejorPartida() + " $$");
 		lblMejorPartida.setBounds(289, 0, 211, 30);
 		add(lblMejorPartida);
 
@@ -64,7 +64,7 @@ public class JPanelInformacionUsuario extends JPanel {
 	
 	public void setearEtiquetas() {
 		lblDinero.setText("Dinero : " + usuario.getDineroUsuario() + " $$");
-		lblMejorPartida.setText("Mejor partida : " + usuario.getDineroMejorPartida());
+		lblMejorPartida.setText("Mejor partida : " + usuario.getDineroMejorPartida() + " $$");
 	}
 	
 	public void setUsuario(Usuario usuario) {
