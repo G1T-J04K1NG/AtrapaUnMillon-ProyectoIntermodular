@@ -45,6 +45,8 @@ public class JPanelPregunta extends JPanel {
 	private JButtonRedondo btnCambiarPregunta;
 	private JButtonRedondo btnSalvavidas;
 	private ArrayList<String> opciones;
+	private JLabel lblRonda;
+	private JLabel lblDificultad;
 
 	public JPanelPregunta(Partida partida) {
 		salvavidasUsado = false;
@@ -318,6 +320,15 @@ public class JPanelPregunta extends JPanel {
 		});
 		btnSalir.setBounds(1053, 31, 100, 30);
 		add(btnSalir);
+		
+		lblRonda = new JLabel("Ronda : " + (partida.getRonda() +1));
+		lblRonda.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblRonda.setForeground(new Color(255, 255, 0));
+		lblRonda.setBounds(30, 620, 222, 50);
+		add(lblRonda);
+		
+		
+		
 
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
@@ -480,8 +491,16 @@ public class JPanelPregunta extends JPanel {
 		btnSalir.setEnabled(true);
 
 	}
+
+	public JLabel getLblRonda() {
+		return lblRonda;
+	}
+
+	public void setLblRonda(JLabel lblRonda) {
+		this.lblRonda = lblRonda;
+	}
 	
 	
-
-
+	
+	
 }

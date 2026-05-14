@@ -45,6 +45,7 @@ public class JPanelEntreRondas extends JPanel {
 
 				setVisible(false);
 				p.getpPregunta().getPartida().setRonda(p.getpPregunta().getPartida().getRonda() + 1);
+				p.getpPregunta().getLblRonda().setText("Ronda : " + (p.getpPregunta().getPartida().getRonda() +1));
 				p.getpPregunta().recargarPanelPreguntas();
 
 			}
@@ -143,6 +144,7 @@ public class JPanelEntreRondas extends JPanel {
 
 				setVisible(false);
 				p.getpPregunta().getPartida().setRonda(p.getpPregunta().getPartida().getRonda() + 1);
+				p.getpPregunta().getLblRonda().setText("Ronda : " + (p.getpPregunta().getPartida().getRonda() +1));
 				p.getpPregunta().recargarPanelPreguntas();
 
 			}
@@ -209,9 +211,9 @@ public class JPanelEntreRondas extends JPanel {
 	public void ganaste() {
 		removeAll();
 
-		JButton btnSalir = new JButton("Salir");
+		JButton btnRetirarse = new JButton("Retirarse");
 		reproducirSonido("/resources/ff7_victory_QyN4ZfS.wav");
-		btnSalir.addActionListener(new ActionListener() {
+		btnRetirarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanelFondo p = (JPanelFondo) getParent();
 
@@ -235,10 +237,10 @@ public class JPanelEntreRondas extends JPanel {
 				p.getpInformacion().setearEtiquetas();
 			}
 		});
-		btnSalir.setBounds(200, 260, 100, 27);
-		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnSalir.setBounds(275, 200, 150, 40);
-		add(btnSalir);
+		btnRetirarse.setBounds(200, 260, 100, 27);
+		btnRetirarse.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnRetirarse.setBounds(200, 260, 100, 27);
+		add(btnRetirarse);
 
 		Image img = new ImageIcon(getClass().getResource("/resources/ImagenPanelFinal.png")).getImage()
 				.getScaledInstance(500, 320, Image.SCALE_SMOOTH);
